@@ -14,15 +14,15 @@ class ChannelService {
         return channels;
     }
 
-    async createChannel(name, description, id_workspace) {
-        if (!name || !description || !id_workspace) {
+    async createChannel(name, description, workspace_id) {
+        if (!name || !description || !workspace_id) {
             throw new ServerError("Missing required fields: name, description and id_workspace are required.", 400);
         }
-        const workspacefound = await workspaceRepository.getById(id_workspace);
+        const workspacefound = await workspaceRepository.getById(workspace_id);
         if (!workspacefound) {
             throw new ServerError("Workspace not found.", 404);
         }
-        const channel = await channelRepository.create(name, description, id_workspace);
+        const channel = await channelRepository.create(name, description, workspace_id);
         return channel;
     }
 
