@@ -2,7 +2,7 @@
   "name": "clase_10_node",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/main.js",
@@ -24,7 +24,6 @@
     "uuid": "^14.0.2"
   },
   "devDependencies": {
-    "cowsay": "^1.6.0",
     "nodemon": "^3.1.14"
   },
   "allowScripts": {
