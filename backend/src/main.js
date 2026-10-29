@@ -11,12 +11,15 @@ import ENVIRONMENT from "./config/environment.config.js";
 import memberRouter from "./routes/member.router.js";
 import authMiddleware from "./middlewares/auth.middleware.js";
 import cors from 'cors';
+import connectMongoDBMiddleware from "./middlewares/connectMongoDB.middleware.js";
 // 1. Connect to the database
+connectMongoDB();
 
-await connectMongoDB();
+
 
 const PORT = ENVIRONMENT.PORT;
 const app = express();
+app.use(connectMongoDBMiddleware)
 app.use(cors());
 app.use(express.json());
 
