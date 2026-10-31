@@ -23,7 +23,7 @@ class AuthService {
         if (userEmailExist) {
             throw new ServerError("User with this email already exists.", 409);
         }
-        const userNameExist = await userRepository.getByOneSearchTerm(userName);
+        const userNameExist = await userRepository.getByUserName(userName);
         if (userNameExist) {
             throw new ServerError("User with this userName already exists.", 409);
         }
