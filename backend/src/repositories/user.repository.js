@@ -36,6 +36,12 @@ class UserRepository extends BaseRepository {
         return userResult;
     }
 
+    async getByUserName(userName) {
+        const userResult = await this.model.findOne({
+            userName: userName
+        });
+        return userResult;
+    }
     async softDeleteById(userId) {
         await this.model.findByIdAndUpdate(
             userId,
