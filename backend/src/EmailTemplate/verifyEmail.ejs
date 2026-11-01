@@ -264,7 +264,7 @@
                                 <div class="token-label">¿El botón no funciona? Copia y pega este enlace en tu
                                     navegador:</div>
                                 <div class="token-value">
-                                    <%= url_backend %>/api/auth/verify-email/<%= token %>
+                                    <%= url_base %>/auth/verify-email/<%= token %>
                                 </div>
                             </div>
 
@@ -283,19 +283,7 @@
                         </div>
 
                         <!-- FOOTER -->
-                        <div class="footer">
-                            <p class="footer-text">
-                                <%= new Date().getFullYear() %> Slack. Todos los derechos reservados.<br>
-                                    Este correo fue enviado a <strong>
-                                        <%= email %>
-                                    </strong>
-                            </p>
-                            <p class="footer-text">
-                                <a href="<%= url_backend %>" class="footer-link">Visitar sitio</a> ·
-                                <a href="<%= url_backend %>/soporte" class="footer-link">Soporte</a> ·
-                                <a href="<%= url_backend %>/privacidad" class="footer-link">Privacidad</a>
-                            </p>
-                        </div>
+                        <%- include('./partials/footer.ejs') %>
 
                     </div>
                 </td>
