@@ -7,8 +7,8 @@ const ENVIRONMENT = {
     TOKEN_JWT_KEY: process.env.TOKEN_JWT_KEY,
     EMAIL_USER: process.env.EMAIL_USER,
     EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
-    URL_BACKEND: process.env.URL_BACKEND
-
+    URL_BACKEND: process.env.URL_BACKEND,
+    URL_FRONTEND: process.env.URL_FRONTEND
 }
 
 export default ENVIRONMENT;

@@ -5,6 +5,7 @@ import { isValidEmail } from "../helpers/emailHelpers/emailvalidation.helper.js"
 import tokenHelper from "../helpers/authHelpers/token.helper.js";
 import emailFormater from "../helpers/emailHelpers/emailFormater.helper.js";
 import mailer_transporter from "../config/mailer.config.js";
+import ENVIRONMENT from "../config/environment.config.js"
 
 class AuthService {
     async registerUser(userName, email, password) {
@@ -41,7 +42,8 @@ class AuthService {
             user.email,
             verify_email_token,
             "Confirmación de Registro en Slak",
-            "verifyEmail"
+            "verifyEmail",
+
         );
         await mailer_transporter.sendMail(verifyEmail);
         return user;
@@ -124,7 +126,8 @@ class AuthService {
             user.email,
             resetPasswordToken,
             "Reinicio de Contraseña en Slak",
-            "resetpasswordEmail"
+            "resetpasswordEmail",
+
         );
         await mailer_transporter.sendMail(resetPasswordEmail);
         return;

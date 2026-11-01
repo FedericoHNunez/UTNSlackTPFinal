@@ -12,7 +12,7 @@ async function emailFormater(userName, email, token, subject, emailType, extraDa
         userName,
         email,
         token,
-        url_backend: ENVIRONMENT.URL_BACKEND,
+        url_base: ENVIRONMENT.URL_FRONTEND,
         ...extraData
     });
     return {

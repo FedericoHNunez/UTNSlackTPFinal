@@ -1,0 +1,31 @@
+{
+  // Reactiva las sugerencias en gris de la IA
+  "editor.inlineSuggest.enabled": true,
+
+  // BLOQUEA que la IA rompa palabras a la mitad o desplace texto existente
+  "editor.inlineSuggest.edits.allowCodeShifting": false,
+
+  // Da un respiro de 150ms al tipear rápido para que no colisionen sugerencias viejas a mitad de palabra
+  "editor.inlineSuggest.minShowDelay": 150,
+
+  // Al presionar Tab, inserta limpio sin borrar texto que tengas a la derecha
+  "editor.suggest.insertMode": "insert",
+
+  // Evita que la ventanita emergente tape o choque con la sugerencia de la IA
+  "editor.inlineSuggest.suppressSuggestions": true,
+
+  // Manda snippets molestos al fondo
+  "editor.snippetSuggestions": "bottom",
+
+  // Evita que símbolos acepten sugerencias por accidente
+  "editor.acceptSuggestionOnCommitCharacter": false,
+
+  // Usa LF (\n) para evitar desfasaje de caracteres en las sugerencias inline en Windows
+  "files.eol": "\n",
+
+  // Asociaciones correctas de sintaxis
+  "files.associations": {
+    "*.js": "javascript",
+    "*.jsx": "javascriptreact"
+  }
+}

@@ -254,15 +254,18 @@
 
                             <!-- BOTÓN DE CONFIRMACIÓN -->
                             <div class="button-wrapper">
-                                <a href="<%= url_backend %>/api/auth/verify-email/<%= token %>" class="confirm-button">
+                                <a href="<%= url_base %>/auth/verify-email/<%= token %>" class="confirm-button">
                                     ✨ Confirmar mi cuenta
                                 </a>
                             </div>
 
                             <!-- ENLACE ALTERNATIVO PARA COPIAR -->
                             <div class="token-box">
-                                <div class="token-label">¿El botón no funciona? Copia y pega este enlace en tu navegador:</div>
-                                <div class="token-value"><%= url_backend %>/api/auth/verify-email/<%= token %></div>
+                                <div class="token-label">¿El botón no funciona? Copia y pega este enlace en tu
+                                    navegador:</div>
+                                <div class="token-value">
+                                    <%= url_backend %>/api/auth/verify-email/<%= token %>
+                                </div>
                             </div>
 
                             <!-- AVISO INFORMATIVO -->
