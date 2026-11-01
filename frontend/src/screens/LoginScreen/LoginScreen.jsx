@@ -1,80 +1,98 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import useForm from '../../hooks/useForm'
 import { login } from '../../services/authService'
+import useRequest from '../../hooks/UseRequest'
+import { Link, useNavigate } from 'react-router'
+import { UserContext } from '../../Context/UserContext'
+
+/* 
+Siguiendo las practicas implementadas la conectar el formulario de login con nuesta API REST
+Desarrollar la implementacion del formulario de registro y la consulta a la API REST
+*/
 
 function LoginScreen() {
-    
-    const initial_state = {email: '', password: ''}
-    const {formState, handleChangeInput} = useForm(initial_state)
 
-    /* Cuando consultemos tendremos este estado que estara guardando como se hace esa consulta (En que estado esta) */
-    const [apiResponse, setApiResponse] = useState({response: null, error: null, loading: false})
+    const { setUserToken } = useContext(UserContext)
 
-    async function handleSubmit (event){
+
+    const initial_state = { email: '', password: '' }
+    const { formState, handleChangeInput } = useForm(initial_state)
+    const { loading, response, error, sendRequest } = useRequest()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (response) {
+            setUserToken(response.data.auth_token)
+            navigate('/workspace')
+        }
+    }, [response])
+
+    async function handleSubmit(event) {
         event.preventDefault()
-        console.log('Usuario intenta iniciar sesion', formState)
-        try{
-            setApiResponse({loading: true, error: null, response: null})
-            const response = await login(formState.email, formState.password)
-            setApiResponse({loading: false, error: null, response: response})
-        }
-        catch (error){
-            //Si hubo fallo guardamos en el estado el mensaje de fallo
-            setApiResponse({loading: false, error: error.message, response: null})
-        }
-        
-
+        await sendRequest(
+            () => login(formState.email, formState.password)
+        )
     }
 
-    console.log('[Estado de la consulta de login]:',apiResponse)
 
-    
-    
+
+
+
     return (
-        <div>
+        <>
             <h1>Inciar sesion</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="email">Email:</label>
-                    <input 
-                        name='email' 
-                        id='email' 
-                        type='email' 
-                        value={formState.email} 
-                        onChange={handleChangeInput} 
+                    <input
+                        name='email'
+                        id='email'
+                        type='email'
+                        value={formState.email}
+                        onChange={handleChangeInput}
                     />
                 </div>
                 <div>
                     <label htmlFor="password">Password:</label>
-                    <input 
-                        name='password' 
-                        id='password' 
-                        type='password' 
-                        value={formState.password} 
-                        onChange={handleChangeInput} 
+                    <input
+                        name='password'
+                        id='password'
+                        type='password'
+                        value={formState.password}
+                        onChange={handleChangeInput}
                     />
                 </div>
                 {
-                    apiResponse.error 
-                    && 
-                    !apiResponse.loading 
-                    && 
-                    <span style={{color: 'red'}}>{apiResponse.error}</span>
+                    error
+                    &&
+                    !loading
+                    &&
+                    <span style={{ color: 'red' }}>{error}</span>
                 }
 
                 {
-                    apiResponse.loading
-                    ? <button type='submit' disabled={true} >Cargando...</button>
-                    : <button type='submit'>Iniciar sesion</button>
+                    loading
+                        ? <button type='submit' disabled={true} >Cargando...</button>
+                        : <button type='submit'>Iniciar sesion</button>
                 }
-                
+
 
                 {
-                    apiResponse.response && !apiResponse.loading && <span style={{color: 'greenyellow'}}>Inicio de sesion exitoso</span>
+                    response && !loading && <span style={{ color: 'greenyellow' }}>Inicio de sesion exitoso</span>
                 }
             </form>
-        </div>
+            <div>
+                <p>
+                    Si no tienes cuenta, podes registrarte aqui:
+                    <Link to='/register'>Registrarse</Link>
+                </p>
+                <p>
+                    Olvidaste tu contraseña? <Link to='/forgot-password'>Recuperar contraseña</Link>
+                </p>
+            </div>
+        </>
     )
+
 }
 
 export default LoginScreen
