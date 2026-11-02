@@ -1,10 +1,10 @@
 
 
-import useRequest from '../../hooks/UseRequest'
+import useRequest from '../../hooks/useRequest'
 import useForm from '../../hooks/useForm'
 import { register } from '../../services/authService'
 
-function RegisterScreen() {
+export const RegisterScreen = () => {
 
   const initial_state = { email: '', password: '', userName: '' };
   const { formState, handleChangeInput } = useForm(initial_state);
@@ -76,13 +76,13 @@ function RegisterScreen() {
               <span>Enviar</span>
           }
         </button>
-         {
+        {
           error && !loading && <span style={{ color: 'red' }}>{error}</span>
         }
         {
           responce && !loading && <span style={{ color: 'greenyellow' }}>Registro exitoso</span>
         }
-     
+
 
 
       </form>

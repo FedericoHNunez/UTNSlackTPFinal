@@ -1,10 +1,10 @@
 import { useEffect } from "react"
 import { Link, useParams } from "react-router"
-import useRequest from "../../hooks/UseRequest"
+import useRequest from "../../hooks/useRequest"
 import { validateUser } from "../../services/authService.js"
 
 
-export default function UserValidationScreen() {
+export const UserValidationScreen = () => {
     const { token } = useParams()
     const { loading, error, response, sendRequest } = useRequest();
 

@@ -1,9 +1,9 @@
 import useForm from "../../hooks/useForm";
-import useRequest from "../../hooks/UseRequest";
+import useRequest from "../../hooks/useRequest";
 import { resetPassword } from "../../services/authService";
 
 
-export default function ForgotPasswordScreen() {
+export const ForgotPasswordScreen = () => {
 
     const initial_form = { email: "" }
     const { formState, handleChangeInput } = useForm(initial_form)
