@@ -1,25 +1,23 @@
-
 const url_backend = "https://utnslacktpfinal-backend.vercel.app"
 
-export async function getWorkspaceByUser(token) {
+
+export async function getWorkspaceByUser(userToken) {
     const response = await fetch(`${url_backend}/api/workspaces`,
         {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${userToken}`
             }
         }
     )
     return response.json()
 }
 
-export async function getChannelsByWorkspace(id, token) {
+export async function getChannelsByWorkspace(id, userToken) {
     const response_http = await fetch(`${url_backend}/api/workspaces/${id}`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${userToken}`
         }
     })
 

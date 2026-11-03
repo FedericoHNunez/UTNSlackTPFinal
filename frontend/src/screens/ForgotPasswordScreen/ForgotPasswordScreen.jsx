@@ -19,7 +19,7 @@ export const ForgotPasswordScreen = () => {
 
     return (
         <>
-            <h1>Recuerar contraseña</h1>
+            <h1>Recuperar contraseña</h1>
 
             <form onSubmit={onSubmit}>
                 <label htmlFor="email">Email</label>

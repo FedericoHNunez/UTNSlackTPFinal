@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router"
-import { useEffect, useContext } from "react"
+import { useContext, useEffect } from "react"
 import useRequest from "../../hooks/useRequest.js"
 import { getChannelsByWorkspace } from "../../services/workspaceService.js"
 import { UserContext } from "../../Context/UserContext.jsx"
@@ -8,6 +8,7 @@ export const ChannelScreen = () => {
 
     const { workspace_id } = useParams();
     const { userToken } = useContext(UserContext);
+
     const { response, error, loading, sendRequest } = useRequest();
 
     useEffect(() => {
