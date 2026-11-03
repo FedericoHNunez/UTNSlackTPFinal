@@ -22,8 +22,8 @@ class ChannelService {
     }
 
     async getMessagesByChannelId(channel_id) {
-        const messagesChannelFound = await channelMessageRepository.getMessagesByChannelId(channel_id);
-        return messagesChannelFound;
+        return await channelMessageRepository.getMessagesByChannelId(channel_id);
+        
     }
 }
 const channelService = new ChannelService();

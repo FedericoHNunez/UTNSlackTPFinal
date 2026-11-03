@@ -21,11 +21,6 @@ class MessagesChannelService {
         return newMessage;
     }
 
-    async getMessagesByChannelId(channel_id) {
-        const messages = await channelMessageRepository.getMessagesByChannelId(channel_id);
-        return messages;
-    }
-
     async updateMessageById(message_id, content, user_id) {
         if (!message_id || !content) {
             throw new ServerError(

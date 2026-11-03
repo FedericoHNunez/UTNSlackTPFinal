@@ -80,7 +80,18 @@ class WorkspaceService {
                 404
             );
         }
-        return await channelRepository.getChannelsByWorkspaceId(workspace_id);
+        const channelsFound= await channelRepository.getChannelsByWorkspaceId(workspace_id);
+        const channelsFormated = channelsFound.map(channel => {
+            return {
+                channel_id: channel._id,
+                channel_name: channel.name,
+                channel_description: channel.description,
+                channel_creation_date: channel.createdAt,
+                channel_updated_date: channel.updatedAt,
+                workspace_id: channel.id_workspace,
+            }
+        })
+        return channelsFormated
     }
 
     async updateWorkspaceById(workspace_id, name, description) {

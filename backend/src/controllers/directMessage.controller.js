@@ -7,18 +7,18 @@ class DirectMessageController {
         const id_receiver = req.params.user_id;
         const { message } = req.body;
         const newDirectMessage = await directMessageService.createDirectMessage(id_sender, id_receiver, message);
-        return successResponse(res, "Direct message created successfully", { message: newDirectMessage });
+        return successResponse(res, "Direct message created successfully", { newDirectMessage });
     }
 
     async getConversationsByUserId(req, res) {
         const { id } = req.user;
         const foundMessages = await directMessageService.getConversationsByUserId(id);
-        return successResponse(res, "Messages retrieved successfully", { messages: foundMessages });
+        return successResponse(res, "Messages retrieved successfully", { foundMessages });
     }
     async editMessageContent(req, res) {
         const { message_id, content } = req.body;
         const editedMessage = await directMessageService.editMessageContent(message_id, content);
-        return successResponse(res, "Message edited successfully", { message: editedMessage });
+        return successResponse(res, "Message edited successfully", { editedMessage });
     }
 
     async getMessagesByReceiverId(req, res) {

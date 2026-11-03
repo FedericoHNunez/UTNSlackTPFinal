@@ -12,12 +12,6 @@ class MessagesChannelController {
         return successResponse(res, "Message created successfully.", { message }, 201);
     }
 
-    async getMessagesByChannelId(req, res) {
-        const channel_id = req.channel_selected._id;
-        const messages = await messagesChannelService.getMessagesByChannelId(channel_id);
-        return successResponse(res, "Messages fetched successfully.", { messages }, 200);
-    }
-
     async updateMessageById(req, res) {
         const { message_id } = req.params;
         const user_id = req.user.id;

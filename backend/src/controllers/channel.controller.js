@@ -7,13 +7,13 @@ class ChannelControler {
         const workspace_id = req.workspace_selected._id;
         const { name, description } = req.body;
         const channel = await channelService.createChannel(name, description, workspace_id);
-        return successResponse(res, "Channel created successfully.", channel, 201);
+        return successResponse(res, "Channel created successfully.", { channel }, 201);
     }
 
     async getMessagesByChannelId(req, res) {
         const channel_id = req.channel_selected._id;
         const messagesChannel = await channelService.getMessagesByChannelId(channel_id);
-        return successResponse(res, "Messages fetched successfully.", messagesChannel, 200);
+        return successResponse(res, "Messages fetched successfully.", { messagesChannel }, 200);
     }
 }
 

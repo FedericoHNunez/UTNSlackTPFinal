@@ -13,7 +13,9 @@ class MemberService {
     }
 
     async getMembersByWorkspaceId(workspace_id) {
-        return await memberRepository.getMenbersByWorkspaceId(workspace_id);
+
+       return await memberRepository.getMenbersByWorkspaceId(workspace_id);
+        
     }
 
     async getMemberById(member_id) {
