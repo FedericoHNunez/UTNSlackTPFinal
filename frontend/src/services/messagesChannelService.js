@@ -1,4 +1,5 @@
-const url_backend = "https://utnslacktpfinal-backend.vercel.app"
+import ENVIRONMENT from "../config/envConfig.js";
+const url_backend = ENVIRONMENT.URL_BACKEND
 
 export const getMessagesByChannelID = async (workspace_id, channel_id, userToken) => {
     const response_http = await fetch(`${url_backend}/api/workspaces/${workspace_id}/channels/${channel_id}`, {

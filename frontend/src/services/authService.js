@@ -1,7 +1,9 @@
+import ENVIRONMENT from "../config/envConfig.js";
+const url_backend = ENVIRONMENT.URL_BACKEND
+
 /* 
 Interaccion con la API
 */
-const url_backend = "https://utnslacktpfinal-backend.vercel.app"
 
 
 export async function login(email, password) {

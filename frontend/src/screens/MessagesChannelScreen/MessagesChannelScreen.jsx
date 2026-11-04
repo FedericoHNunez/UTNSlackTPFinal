@@ -14,7 +14,6 @@ export const MessagesChannelScreen = () => {
             getMessagesByChannelID(workspace_id, channel_id, userToken),
         );
     }, []);
-    console.log(response);
     return (
         <>
             <div>
@@ -25,7 +24,7 @@ export const MessagesChannelScreen = () => {
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
             {response &&
-                response.data.map((message) => (
+                response.data.messagesChannel.map((message) => (
                     <div key={message._id}>
                         <p>{message.content}</p>
                     </div>

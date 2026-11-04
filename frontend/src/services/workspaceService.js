@@ -1,5 +1,6 @@
-const url_backend = "https://utnslacktpfinal-backend.vercel.app"
+import ENVIRONMENT from "../config/envConfig.js"
 
+const url_backend = ENVIRONMENT.URL_BACKEND
 
 export async function getWorkspaceByUser(userToken) {
     const response = await fetch(`${url_backend}/api/workspaces`,
