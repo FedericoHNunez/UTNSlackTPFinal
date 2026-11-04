@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
-import useRequest from "../../hooks/useRequest";
-import { getWorkspaceByUser } from "../../services/workspaceService";
-import { UserContext } from "../../Context/UserContext";
+import useRequest from "../../hooks/useRequest.js";
+import { getWorkspaceByUser } from "../../services/workspaceService.js";
+import { UserContext } from "../../Context/UserContext.jsx";
 import { Link } from "react-router";
 
 export const WorkspaceScreen = () => {
