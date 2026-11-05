@@ -64,14 +64,18 @@ class AuthService {
         const user = await userRepository.getByEmail(email);
 
         if (!user) {
-            throw new ServerError("Invalid credentials", 401);
-        }
-        if (!user.emailVerified) {
-            throw new ServerError("User not verified. Please verify your email to login.", 403);
+            throw new ServerError("Invalid credentials", 401, "INVALID_CREDENTIALS");
         }
         const userPasswordMatch = await compareHash(password, user.password);
         if (!userPasswordMatch) {
-            throw new ServerError("Invalid credentials", 401);
+            throw new ServerError("Invalid credentials", 401, "INVALID_CREDENTIALS");
+        }
+        if (!user.emailVerified) {
+            throw new ServerError(
+                "User not verified. Please verify your email to login.",
+                403,
+                "EMAIL_NOT_VERIFIED"
+            );
         }
         const auth_token = tokenHelper.createLoginToken(
             {
@@ -101,6 +105,32 @@ class AuthService {
             { emailVerified: true }
         );
         return userVerified.userName;
+    }
+
+    async resendVerificationEmail(email) {
+        if (!email || !isValidEmail(email)) {
+            throw new ServerError("Invalid email format.", 400, "INVALID_EMAIL");
+        }
+        const user = await userRepository.getByEmail(email);
+        if (!user) {
+            throw new ServerError("User not found.", 404, "USER_NOT_FOUND");
+        }
+        if (user.emailVerified) {
+            throw new ServerError("User already verified.", 400, "ALREADY_VERIFIED");
+        }
+        const verify_email_token = tokenHelper.createVerifyEmailToken(
+            { email: user.email },
+            "1d"
+        );
+        const verifyEmail = await emailFormater(
+            user.userName,
+            user.email,
+            verify_email_token,
+            "Confirmación de Registro en Slak",
+            "verifyEmail"
+        );
+        await mailer_transporter.sendMail(verifyEmail);
+        return;
     }
 
     async resetPassword(email) {

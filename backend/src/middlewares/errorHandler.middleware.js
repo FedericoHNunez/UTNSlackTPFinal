@@ -4,6 +4,7 @@ function errorHandler(error, req, res, next) {
         return res.status(error.status).json({
             ok: false,
             status: error.status,
+            code: error.code || null,
             message: error.message,
         });
     }
@@ -12,6 +13,7 @@ function errorHandler(error, req, res, next) {
         return res.status(401).json({
             ok: false,
             status: 401,
+            code: "TOKEN_EXPIRED",
             message: "Token has expired",
         });
     }
@@ -21,6 +23,7 @@ function errorHandler(error, req, res, next) {
         return res.status(401).json({
             ok: false,
             status: 401,
+            code: "INVALID_TOKEN",
             message: "Invalid token",
         });
     }
@@ -30,6 +33,7 @@ function errorHandler(error, req, res, next) {
         return res.status(400).json({
             ok: false,
             status: 400,
+            code: "INVALID_ID",
             message: `Identificador inválido: '${error.value}' para el campo '${error.path}'`,
         });
     }
@@ -40,6 +44,7 @@ function errorHandler(error, req, res, next) {
         return res.status(400).json({
             ok: false,
             status: 400,
+            code: "VALIDATION_ERROR",
             message: "Error de validación",
             errors: messages,
         });
@@ -50,6 +55,7 @@ function errorHandler(error, req, res, next) {
     return res.status(500).json({
         ok: false,
         status: 500,
+        code: "INTERNAL_SERVER_ERROR",
         message: "internal server error",
     });
 };

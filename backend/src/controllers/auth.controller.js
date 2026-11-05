@@ -9,7 +9,6 @@ class AuthController {
 
         const user = await authService.registerUser(userName, email, password);
 
-
         return successResponse(res, "User created successfully.", user, 201);
     }
 
@@ -30,12 +29,17 @@ class AuthController {
         return successResponse(res, "User verified successfully. You can now login.");
     }
 
+    async resendVerificationEmail(req, res) {
+        const { email } = req.body;
+        await authService.resendVerificationEmail(email);
+        return successResponse(res, "Verification email sent successfully.");
+    }
+
     async resetPassword(req, res) {
         const { email } = req.body;
         await authService.resetPassword(email);
         return successResponse(res, "If the email exists in our system, you will receive an email to reset your password.");
     }
-
 
     async changePassword(req, res) {
         const { newPassword, confirmNewPassword, token } = req.body;
@@ -43,7 +47,6 @@ class AuthController {
         await authService.changePassword(email, userName, newPassword, confirmNewPassword);
         return successResponse(res, "Password changed successfully.");
     }
-
 }
 
 const authController = new AuthController();
