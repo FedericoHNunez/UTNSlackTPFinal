@@ -17,29 +17,20 @@ const App = () => {
   return (
     <UserProvider>
       <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/login" element={<LoginScreen />} />
-        <Route path="/register" element={<RegisterScreen />} />
-        <Route path="/auth/reset-password" element={<ResetPasswordScreen />} />
-        <Route
-          path="/auth/verify-email/:token"
-          element={<UserValidationScreen />}
-        />
-        <Route element={<AuthMiddleware />}>
-          <Route path="/workspaces" element={<WorkspaceScreen />} />
-          <Route
-            path="/workspaces/:workspace_id/channels"
-            element={<ChannelLayout />}
-          >
-            <Route index element={<MessagesChannelDefaultScreen />} />
-            <Route
-              path=":channel_id/messages"
-              element={<MessagesChannelScreen />}
-            />
-          </Route>
-        </Route>
-        {/* Redirección por defecto si la ruta no existe */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/login" element={<LoginScreen />} />
+            <Route path="/register" element={<RegisterScreen />} />
+            <Route path="/auth/reset-password" element={<ResetPasswordScreen />} />
+            <Route path="/auth/verify-email/:token" element={<UserValidationScreen />}/>
+            <Route element={<AuthMiddleware />}>
+                <Route path="/workspaces" element={<WorkspaceScreen />} />
+                <Route path="/workspaces/:workspace_id/channels" element={<ChannelLayout />}>
+                      <Route index element={<MessagesChannelDefaultScreen />} />
+                      <Route path=":channel_id/messages" element={<MessagesChannelScreen />}/>
+                </Route>
+              </Route>
+            {/* Redirección por defecto si la ruta no existe */}
+            <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </UserProvider>
   );

@@ -1,0 +1,14 @@
+{
+  "editor.formatOnSave": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.inlineSuggest.edits.allowCodeShifting": false,
+  "editor.inlineSuggest.minShowDelay": 150,
+  "editor.suggest.insertMode": "insert",
+  "editor.inlineSuggest.suppressSuggestions": true,
+  "editor.snippetSuggestions": "bottom",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "files.associations": {
+    "*.js": "javascript",
+    "*.jsx": "javascriptreact"
+  }
+}

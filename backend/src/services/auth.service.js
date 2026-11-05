@@ -120,7 +120,7 @@ class AuthService {
         }
         const verify_email_token = tokenHelper.createVerifyEmailToken(
             { email: user.email },
-            "1d"
+            "7d"
         );
         const verifyEmail = await emailFormater(
             user.userName,
