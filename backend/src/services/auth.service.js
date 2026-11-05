@@ -22,11 +22,11 @@ class AuthService {
 
         const userEmailExist = await userRepository.getByEmail(email);
         if (userEmailExist) {
-            throw new ServerError("User with this email already exists.", 409);
+            throw new ServerError("UserName or email already exists.", 409, "ALREADY_EXISTS");
         }
         const userNameExist = await userRepository.getByUserName(userName);
         if (userNameExist) {
-            throw new ServerError("User with this userName already exists.", 409);
+            throw new ServerError("UserName or email already exists.", 409, "ALREADY_EXISTS");
         }
 
         const hashedPassword = await hashPassword(password);
