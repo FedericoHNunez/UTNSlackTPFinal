@@ -15,13 +15,15 @@ export const UserValidationScreen = () => {
 
     return (
         <>
-            {loading ? (
+            {loading && 
                 <p>Validando Usuario...</p>
-            ) : error ? (
+            }               
+            { error && 
                 <p>{error}</p>
-            ) : (
+            }
+            {response &&
                 <h1>Tu usuario ha sido validado correctamente</h1>
-            )}
+            }
             <Link to="/login">Iniciar Sesión</Link>
         </>
     );

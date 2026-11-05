@@ -12,6 +12,8 @@ export const ChannelScreen = () => {
 
     useEffect(() => {
         sendRequest(() => getChannelsByWorkspace(workspace_id, userToken));
+        sendRequest(() => getMembersOfWorkspace(workspace_id, userToken));
+
     }, []);
     return (
         <>
