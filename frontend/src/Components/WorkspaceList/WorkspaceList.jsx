@@ -1,22 +1,19 @@
 import { useContext, useEffect } from "react";
 import { Link } from "react-router";
-import { UserContext } from "../../Context/UserContext.jsx";
-import useRequest from "../../hooks/useRequest.js";
-import { getWorkspaceByUser } from "../../services/workspaceService.js";
+import { useWorkspaceList } from "../../hooks/useWorkspaceList";
 
 export const WorkspaceList = () => {
-    const { userToken } = useContext(UserContext);
-    const { loading, error, response, sendRequest } = useRequest();
-
-    useEffect(() => {
-        sendRequest(() => getWorkspaceByUser(userToken));
-    }, []);
+   
+const {
+    workspace_loading,
+    wokspace_error,
+    wokspace_response} = useWorkspaceList();
 
     return (
         <>
             <ul>
-                {response &&
-                    response.data.workspaces.map((workspace) => (
+                {wokspace_response &&
+                    wokspace_response.data.workspaces.map((workspace) => (
                         <li key={workspace.workspace_id}>
                             <Link
                                 to={`/workspaces/${workspace.workspace_id}/channels`}
@@ -28,14 +25,14 @@ export const WorkspaceList = () => {
                     ))}
             </ul>
 
-            {loading && <p>Loading...</p>}
-            {response &&
-                (response.data.workspaces.length === 0 ? (
+            {workspace_loading && <p>Loading...</p>}
+            {wokspace_response &&
+                (wokspace_response.data.workspaces.length === 0 ? (
                     <button>crea tu primer workspace</button>
                 ) : (
                     <button>crea otro workspace</button>
                 ))}
-            {error && <p>{error}</p>}
+            {wokspace_error && <p>{wokspace_error}</p>}
         </>
     );
 };

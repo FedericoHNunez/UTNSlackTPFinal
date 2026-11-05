@@ -1,11 +1,12 @@
 import useRequest from "../../hooks/useRequest.js";
 import useForm from "../../hooks/useForm.js";
 import { register } from "../../services/authService.js";
+import { Link } from "react-router";
 
 export const RegisterScreen = () => {
   const initial_state = { email: "", password: "", userName: "" };
   const { formState, handleChangeInput } = useForm(initial_state);
-  const { loading, responce, error, sendRequest } = useRequest();
+  const { loading, responce, error, errorCode, sendRequest } = useRequest();
 
   const HandleSubmit = (e) => {
     e.preventDefault();
@@ -51,11 +52,16 @@ export const RegisterScreen = () => {
           />
         </div>
         <button type="submit">
-          {loading ? <span>Enviando...</span> : <span>Enviar</span>}
+          {loading
+            ? <span>Enviando...</span> 
+            : <span>Enviar</span>}
         </button>
-        {error && !loading && <span style={{ color: "red" }}>{error}</span>}
-        {responce && !loading && (
-          <span style={{ color: "greenyellow" }}>Registro exitoso</span>
+        {error && !loading && 
+          <span style={{ color: "red" }}>{error}</span>}
+        {responce && !loading && 
+          <span style={{ color: "greenyellow" }}>Registro exitoso</span>}
+        {errorCode === "ALREADY_EXISTS" && (
+          <span style={{ color: "red" }}> Usuario ya registrado  <Link to="/login">Logueate</Link></span>
         )}
       </form>
     </>

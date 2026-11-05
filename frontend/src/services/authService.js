@@ -51,8 +51,10 @@ export async function register(email, password, userName) {
 
     const response_body = await response_http.json()
     if (!response_body.ok) {
-        throw new Error(response_body.message)
-    }
+        const error = new Error(response_body.message)
+        error.code = response_body.code || null
+        throw error
+    }   
     return response_body
 
 

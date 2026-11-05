@@ -12,11 +12,15 @@ import { MessagesChannelScreen } from "./screens/MessagesChannelScreen/MessagesC
 import { Navigate } from "react-router";
 import { MessagesChannelDefaultScreen } from "./screens/MessagesChannelDefault/MessagesChannelDefault";
 import { AuthMiddleware } from "./middleware/authMiddleware";
+import { WorkspaceProvider } from "./Context/WorkspaceProvider";
+import { ChannelProvider } from "./Context/ChannelProvider";
 
 const App = () => {
   return (
     <UserProvider>
-      <Routes>
+      <WorkspaceProvider>
+        <ChannelProvider>
+          <Routes>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/login" element={<LoginScreen />} />
             <Route path="/register" element={<RegisterScreen />} />
@@ -25,13 +29,15 @@ const App = () => {
             <Route element={<AuthMiddleware />}>
                 <Route path="/workspaces" element={<WorkspaceScreen />} />
                 <Route path="/workspaces/:workspace_id/channels" element={<ChannelLayout />}>
-                      <Route index element={<MessagesChannelDefaultScreen />} />
-                      <Route path=":channel_id/messages" element={<MessagesChannelScreen />}/>
+                    <Route index element={<MessagesChannelDefaultScreen />} />
+                    <Route path=":channel_id/messages" element={<MessagesChannelScreen />}/>
                 </Route>
-              </Route>
+            </Route>
             {/* Redirección por defecto si la ruta no existe */}
             <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          </Routes>
+        </ChannelProvider>
+      </WorkspaceProvider>
     </UserProvider>
   );
 };
