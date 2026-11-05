@@ -31,7 +31,7 @@ export const LoginScreen = () => {
             setUserToken(response.data.auth_token);
             navigate("/workspaces");
         }
-    }, []);
+    }, [response]);
 
     async function handleSubmit(event) {
         event.preventDefault();
