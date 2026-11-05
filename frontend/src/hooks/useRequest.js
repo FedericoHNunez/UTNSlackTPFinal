@@ -7,17 +7,19 @@ function useRequest() {
     const [loading, setLoading] = useState(false)
     const [response, setResponse] = useState(null)
     const [error, setError] = useState(null)
-
+    const [errorCode, setErrorCode] = useState(null)
     async function sendRequest(requestFn) {
         try {
             setLoading(true)
             const response = await requestFn()
             setResponse(response)
             setError(null)
+            setErrorCode(null)
         }
         catch (error) {
             setResponse(null)
             setError(error.message)
+            setErrorCode(error.code || null)
         }
         finally {
             setLoading(false)
@@ -27,6 +29,7 @@ function useRequest() {
         loading,
         response,
         error,
+        errorCode,
         sendRequest
     }
 }

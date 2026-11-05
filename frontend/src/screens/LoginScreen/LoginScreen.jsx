@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useForm from "../../hooks/useForm.js";
-import { login } from "../../services/authService.js";
+import { login, resendVerification } from "../../services/authService.js";
 import useRequest from "../../hooks/useRequest.js";
 import { Link, useNavigate } from "react-router";
 import { UserContext } from "../../Context/UserContext";
+import { ForgotPasswordModal } from "../../modal/ForgotPasswordModal.jsx";
 import "./LoginScreen.css";
 
 /* 
@@ -12,19 +13,25 @@ Desarrollar la implementacion del formulario de registro y la consulta a la API 
 */
 
 export const LoginScreen = () => {
-    const { setUserToken } = useContext(UserContext);
-
-    const initial_state = { email: "", password: "" };
-    const { formState, handleChangeInput } = useForm(initial_state);
-    const { loading, response, error, sendRequest } = useRequest();
     const navigate = useNavigate();
 
+    const { setUserToken } = useContext(UserContext);
+    const [showForgotModal, setShowForgotModal] = useState(false);
+    const initial_state = { email: "", password: "" };
+    const { formState, handleChangeInput } = useForm(initial_state);
+    const { loading, response, error, errorCode, sendRequest } = useRequest();
+    const {
+        loading: resendLoading,
+        response: resendResponse,
+        error: resendError,
+        sendRequest: sendResendRequest,
+    } = useRequest();
     useEffect(() => {
         if (response) {
             setUserToken(response.data.auth_token);
             navigate("/workspaces");
         }
-    }, [response]);
+    }, []);
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -82,7 +89,44 @@ export const LoginScreen = () => {
 
                     {error && !loading && (
                         <div className="login-alert login-alert-error">
-                            {error}
+                            <p>{error}</p>
+                            {errorCode === "EMAIL_NOT_VERIFIED" && (
+                                <div className="login-resend-box">
+                                    <p>
+                                        ¿Deseas enviar un nuevo mail de
+                                        verificación?
+                                    </p>
+                                    <button
+                                        type="button"
+                                        className="login-link login-link-btn"
+                                        disabled={resendLoading}
+                                        onClick={() =>
+                                            sendResendRequest(() =>
+                                                resendVerification(
+                                                    formState.email,
+                                                ),
+                                            )
+                                        }
+                                    >
+                                        {resendLoading
+                                            ? "Reenviando..."
+                                            : "Reenviar correo de verificación"}
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {resendError && !resendLoading && (
+                        <div className="login-alert login-alert-error">
+                            {resendError}
+                        </div>
+                    )}
+
+                    {resendResponse && !resendLoading && (
+                        <div className="login-alert login-alert-success">
+                            {resendResponse.message ||
+                                "Nuevo correo de verificación enviado."}
                         </div>
                     )}
 
@@ -116,12 +160,22 @@ export const LoginScreen = () => {
                     </p>
                     <p>
                         ¿Olvidaste tu contraseña?
-                        <Link to="/forgot-password" className="login-link">
+                        <button
+                            type="button"
+                            className="login-link login-link-btn"
+                            onClick={() => setShowForgotModal(true)}
+                        >
                             Recuperar contraseña
-                        </Link>
+                        </button>
                     </p>
                 </div>
             </main>
+
+            {showForgotModal && (
+                <ForgotPasswordModal
+                    onClose={() => setShowForgotModal(false)}
+                />
+            )}
         </div>
     );
 };

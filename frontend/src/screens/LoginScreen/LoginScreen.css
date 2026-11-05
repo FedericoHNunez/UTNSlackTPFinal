@@ -151,6 +151,24 @@
   color: #b01243;
 }
 
+.login-alert-error p {
+  margin: 0;
+}
+
+.login-resend-box {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(224, 30, 90, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.login-resend-box .login-link-btn {
+  margin-left: 0;
+}
+
 .login-alert-success {
   background-color: #edf9f3;
   border: 1px solid #2eb67d;
@@ -181,4 +199,100 @@
 .login-link:hover {
   text-decoration: underline;
 }
+
+.login-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Modal Recuperar Contraseña */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-card {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.modal-header h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #1d1c1d;
+  margin: 0;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: #616061;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.modal-close-btn:hover {
+  background-color: #f4f4f4;
+  color: #1d1c1d;
+}
+
+.modal-subtitle {
+  font-size: 0.92rem;
+  color: #454245;
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.modal-actions .login-submit-btn {
+  width: auto;
+  margin-top: 0;
+  padding: 10px 20px;
+}
+
+.modal-cancel-btn {
+  padding: 10px 16px;
+  background-color: #ffffff;
+  color: #1d1c1d;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 1px solid rgba(29, 28, 29, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-cancel-btn:hover {
+  background-color: #f8f8f8;
+}
+
 
