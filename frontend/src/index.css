@@ -1,0 +1,60 @@
+:root {
+  /* Paleta Principal (Slack Aubergine / Morado) */
+  --color-primary: #541554;
+  --color-primary-btn: #611f69;
+  --color-primary-btn-hover: #4a154b;
+  --color-sidebar-bg: #3f0e40;
+  --color-header-bg: #350d36;
+
+  /* Colores de Acento del Logo (4 puntos) */
+  --color-accent-blue: #36c5f0;
+  --color-accent-green: #2eb67d;
+  --color-accent-yellow: #ecb22e;
+  --color-accent-red: #e01e5a;
+
+  /* Enlaces e Interacción */
+  --color-link: #1264a3;
+  --color-channel-active: #1164a3;
+  --color-focus-ring: rgba(18, 100, 163, 0.25);
+
+  /* Superficies y Fondos */
+  --color-white: #ffffff;
+  --color-cream: #f4ede4;
+  --color-dark-surface: #1a1d21;
+  --color-disabled-bg: #dddddd;
+  --color-hover-light: #f4f4f4;
+  --color-hover-subtle: #f8f8f8;
+  --color-overlay: rgba(0, 0, 0, 0.55);
+
+  /* Textos y Bordes */
+  --color-text-main: #1d1c1d;
+  --color-text-secondary: #454245;
+  --color-text-muted: #616061;
+  --color-text-placeholder: #868686;
+  --color-border-light: #ebebeb;
+  --color-border-input: rgba(29, 28, 29, 0.3);
+
+  /* Estados (Alertas Éxito / Error) */
+  --color-error-bg: #fdf2f4;
+  --color-error-border: #e01e5a;
+  --color-error-text: #b01243;
+  --color-success-bg: #edf9f3;
+  --color-success-border: #2eb67d;
+  --color-success-text: #1c7c50;
+
+  /* Tipografía */
+  --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-text-main);
+  background-color: var(--color-white);
+}
+

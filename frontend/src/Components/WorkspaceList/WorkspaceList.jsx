@@ -1,19 +1,16 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link } from "react-router";
-import { useWorkspaceList } from "../../hooks/useWorkspaceList";
+import { WorkspaceContext } from "../../Context/WorkspaceContext.jsx";
 
 export const WorkspaceList = () => {
-   
-const {
-    workspace_loading,
-    wokspace_error,
-    wokspace_response} = useWorkspaceList();
+    const { wokspace_error, currentWorkspaceList } = useContext(WorkspaceContext);
 
     return (
         <>
+
             <ul>
-                {wokspace_response &&
-                    wokspace_response.data.workspaces.map((workspace) => (
+                {currentWorkspaceList &&
+                    currentWorkspaceList.map((workspace) => (
                         <li key={workspace.workspace_id}>
                             <Link
                                 to={`/workspaces/${workspace.workspace_id}/channels`}
@@ -24,10 +21,8 @@ const {
                         </li>
                     ))}
             </ul>
-
-            {workspace_loading && <p>Loading...</p>}
-            {wokspace_response &&
-                (wokspace_response.data.workspaces.length === 0 ? (
+            {currentWorkspaceList &&
+                (currentWorkspaceList.length === 0 ? (
                     <button>crea tu primer workspace</button>
                 ) : (
                     <button>crea otro workspace</button>

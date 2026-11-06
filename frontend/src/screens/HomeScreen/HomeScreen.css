@@ -1,14 +1,8 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 .home-container {
   min-height: 100vh;
-  background-color: #541554;
-  color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-family: var(--font-main);
   display: flex;
   flex-direction: column;
 }
@@ -31,7 +25,7 @@
   font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: -0.5px;
-  color: #ffffff;
+  color: var(--color-white);
   text-decoration: none;
 }
 
@@ -47,10 +41,10 @@
   border-radius: 50%;
 }
 
-.dot-blue { background-color: #36c5f0; }
-.dot-green { background-color: #2eb67d; }
-.dot-yellow { background-color: #ecb22e; }
-.dot-red { background-color: #e01e5a; }
+.dot-blue { background-color: var(--color-accent-blue); }
+.dot-green { background-color: var(--color-accent-green); }
+.dot-yellow { background-color: var(--color-accent-yellow); }
+.dot-red { background-color: var(--color-accent-red); }
 
 .home-nav-actions {
   display: flex;
@@ -59,7 +53,7 @@
 }
 
 .btn-nav-login {
-  color: #ffffff;
+  color: var(--color-white);
   text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem;
@@ -73,8 +67,8 @@
 }
 
 .btn-nav-register {
-  background-color: #ffffff;
-  color: #541554;
+  background-color: var(--color-white);
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: 700;
   font-size: 0.9rem;
@@ -112,13 +106,13 @@
 }
 
 .home-hero-highlight {
-  color: #ecb22e;
+  color: var(--color-accent-yellow);
 }
 
 .home-hero-content p {
   font-size: 1.2rem;
   line-height: 1.5;
-  color: #f4ede4;
+  color: var(--color-cream);
   margin-bottom: 32px;
   max-width: 520px;
 }
@@ -130,8 +124,8 @@
 }
 
 .btn-primary {
-  background-color: #ffffff;
-  color: #541554;
+  background-color: var(--color-white);
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: 700;
   font-size: 0.95rem;
@@ -139,18 +133,18 @@
   letter-spacing: 0.8px;
   padding: 18px 32px;
   border-radius: 4px;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--color-white);
   transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
-  background-color: #f4ede4;
-  border-color: #f4ede4;
+  background-color: var(--color-cream);
+  border-color: var(--color-cream);
 }
 
 .btn-secondary {
   background-color: transparent;
-  color: #ffffff;
+  color: var(--color-white);
   text-decoration: none;
   font-weight: 700;
   font-size: 0.95rem;
@@ -163,13 +157,13 @@
 }
 
 .btn-secondary:hover {
-  border-color: #ffffff;
+  border-color: var(--color-white);
   background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Mockup Preview Card */
 .home-mockup {
-  background-color: #1a1d21;
+  background-color: var(--color-dark-surface);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
@@ -177,7 +171,7 @@
 }
 
 .mockup-header {
-  background-color: #350d36;
+  background-color: var(--color-header-bg);
   padding: 12px 16px;
   display: flex;
   align-items: center;
@@ -198,7 +192,7 @@
 }
 
 .mockup-sidebar {
-  background-color: #3f0e40;
+  background-color: var(--color-sidebar-bg);
   padding: 16px 12px;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -220,14 +214,14 @@
 }
 
 .mockup-channel.active {
-  background-color: #1164a3;
-  color: #ffffff;
+  background-color: var(--color-channel-active);
+  color: var(--color-white);
   font-weight: 600;
 }
 
 .mockup-chat {
-  background-color: #ffffff;
-  color: #1d1c1d;
+  background-color: var(--color-white);
+  color: var(--color-text-main);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -247,7 +241,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: var(--color-white);
   font-weight: 700;
   font-size: 0.9rem;
   flex-shrink: 0;
@@ -261,7 +255,7 @@
 
 .mockup-msg-text span {
   font-size: 0.88rem;
-  color: #454245;
+  color: var(--color-text-secondary);
 }
 
 /* Responsive */
@@ -289,4 +283,3 @@
     text-align: left;
   }
 }
-

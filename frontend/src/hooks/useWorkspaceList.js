@@ -1,21 +1,20 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import useRequest from "../hooks/useRequest.js";
 import { getWorkspaceByUser } from "../services/workspaceService.js";
-import { UserContext } from "../Context/UserContext.jsx";
 
-export const useWorkspaceList = () => {
-     const { userToken } = useContext(UserContext);
+
+export const useWorkspaceList = (userToken) => {
     const { loading, error, response, sendRequest } = useRequest();
 
     useEffect(() => {
-        sendRequest(() => getWorkspaceByUser(userToken));
-    }, []); 
+        if (userToken) {
+            sendRequest(() => getWorkspaceByUser(userToken));
+        }
+    }, [userToken]);
 
-    return { 
-    workspace_loading: loading, 
-    wokspace_error: error, 
-    wokspace_response: response };
-
-
-
-}
+    return {
+        workspace_loading: loading,
+        wokspace_error: error,
+        wokspace_response: response
+    };
+};
