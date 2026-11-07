@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router";
 import { useContext, useEffect } from "react";
-import { ChannelContext } from "../../Context/ChannelContext.jsx";
-import { WorkspaceContext } from "../../Context/WorkspaceContext.jsx";
+import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
+import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
 
 export const ChannelList = () => {
     const { workspace_id } = useParams();

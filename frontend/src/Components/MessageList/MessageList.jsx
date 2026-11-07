@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router";
-import { MessagesContext } from "../../Context/MessagesContext.jsx";
-import { ChannelContext } from "../../Context/ChannelContext.jsx";
+import { MessagesContext } from "../../Context/MessagesContext/MessagesContext.jsx";
+import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
 
 export const MessageList = () => {
     const { channel_id } = useParams();

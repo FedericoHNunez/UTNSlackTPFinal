@@ -3,9 +3,10 @@ import useForm from "../../hooks/useForm.js";
 import { login, resendVerification } from "../../services/authService.js";
 import useRequest from "../../hooks/useRequest.js";
 import { Link, useNavigate } from "react-router";
-import { UserContext } from "../../Context/UserContext";
+import { UserContext } from "../../Context/UserContext/UserContext";
 import { ForgotPasswordModal } from "../../modal/ForgotPasswordModal.jsx";
 import "./LoginScreen.css";
+import { SlackLogo } from "../../Components/Ui/SlackLogo"
 
 /* 
 Siguiendo las practicas implementadas la conectar el formulario de login con nuesta API REST
@@ -42,15 +43,11 @@ export const LoginScreen = () => {
         <div className="login-page">
             <header className="login-header">
                 <Link to="/" className="login-logo">
-                    <div className="login-logo-icon">
-                        <span className="login-dot login-dot-blue"></span>
-                        <span className="login-dot login-dot-green"></span>
-                        <span className="login-dot login-dot-red"></span>
-                        <span className="login-dot login-dot-yellow"></span>
+                    <div >
+                        <SlackLogo />
                     </div>
-                    <span>slack</span>
                 </Link>
-                <h1>Iniciar sesión en Slack</h1>
+                <h1>Primero, escribe tu correo</h1>
                 <p className="login-subtitle">
                     Te sugerimos que uses la{" "}
                     <strong>

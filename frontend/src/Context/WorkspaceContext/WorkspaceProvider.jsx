@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { WorkspaceContext } from "./WorkspaceContext.jsx";
-import { useWorkspaceList } from "../hooks/useWorkspaceList.js";
-import { UserContext } from "./UserContext.jsx";
+import { useWorkspaceList } from "../../hooks/useWorkspaceList.js";
+import { UserContext } from "../UserContext/UserContext.jsx";
 
 export const WorkspaceProvider = ({ children }) => {
 
@@ -34,3 +34,4 @@ export const WorkspaceProvider = ({ children }) => {
         </WorkspaceContext.Provider>
     );
 };
+

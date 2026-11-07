@@ -1,12 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import { MessagesContext } from "./MessagesContext.jsx";
-import { WorkspaceContext } from "./WorkspaceContext.jsx";
-import { ChannelContext } from "./ChannelContext.jsx";
-import { UserContext } from "./UserContext.jsx";
-import { useMessageList } from "../hooks/useMessageList.js";
+import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext.jsx";
+import { ChannelContext } from "../ChannelContext/ChannelContext.jsx";
+import { UserContext } from "../UserContext/UserContext.jsx";
+import { useMessageList } from "../../hooks/useMessageList.js";
 
 export const MessagesProvider = ({ children }) => {
-    const [currentMessagesList, setCurrentMessagesList] = useState(null);
+    const [currentMessagesList, setCurrentMessagesList] = useState([]);
     const { currentWorkspace_id } = useContext(WorkspaceContext);
     const { currentchannel_id } = useContext(ChannelContext);
     const { userToken } = useContext(UserContext);
@@ -38,3 +38,4 @@ export const MessagesProvider = ({ children }) => {
         </MessagesContext.Provider>
     );
 };
+

@@ -1,6 +1,6 @@
 import { ChannelList } from "../../Components/ChannelList/ChannelList.jsx"
 import { useContext } from "react"
-import { ChannelContext } from "../../Context/ChannelContext.jsx"
+import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx"
 import { SpinnerLoading } from "../../Components/SpinnerLoading/SpinnerLoading.jsx";
 
 export const ChannelScreen = () => {

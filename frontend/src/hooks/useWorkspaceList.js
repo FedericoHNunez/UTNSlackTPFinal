@@ -7,9 +7,9 @@ export const useWorkspaceList = (userToken) => {
     const { loading, error, response, sendRequest } = useRequest();
 
     useEffect(() => {
-        if (userToken) {
-            sendRequest(() => getWorkspaceByUser(userToken));
-        }
+
+        sendRequest(() => getWorkspaceByUser(userToken));
+
     }, [userToken]);
 
     return {

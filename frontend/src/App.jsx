@@ -4,7 +4,7 @@ import { HomeScreen } from "./screens/HomeScreen/HomeScreen";
 import { LoginScreen } from "./screens/LoginScreen/LoginScreen";
 import { RegisterScreen } from "./screens/RegisterScreen/RegisterScreen";
 import { ResetPasswordScreen } from "./screens/ResetPasswordScreen/ResetPasswordScreen";
-import { UserProvider } from "./Context/UserProvider";
+import { UserProvider } from "./Context/UserContext/UserProvider";
 import { WorkspaceScreen } from "./screens/WorkspaceScreen/WorkspaceScreen";
 import { UserValidationScreen } from "./screens/UserValidationScreen/UserValidationScreen";
 import { ChannelLayout } from "./Layout/ChannelLayout";
@@ -12,34 +12,37 @@ import { MessagesChannelScreen } from "./screens/MessagesChannelScreen/MessagesC
 import { Navigate } from "react-router";
 import { MessagesChannelDefaultScreen } from "./screens/MessagesChannelDefault/MessagesChannelDefault";
 import { AuthMiddleware } from "./middleware/authMiddleware";
-import { WorkspaceProvider } from "./Context/WorkspaceProvider";
-import { ChannelProvider } from "./Context/ChannelProvider";
-import { MessagesProvider } from "./Context/MessagesProvider";
+import { WorkspaceProvider } from "./Context/WorkspaceContext/WorkspaceProvider";
+import { ChannelProvider } from "./Context/ChannelContext/ChannelProvider";
+import { MessagesProvider } from "./Context/MessagesContext/MessagesProvider";
+import { MembersProvider } from "./Context/MembersContext/MembersProvider";
 
 const App = () => {
   return (
     <UserProvider>
       <WorkspaceProvider>
-        <ChannelProvider>
-          <MessagesProvider>
-            <Routes>
-              <Route path="/" element={<HomeScreen />} />
-              <Route path="/login" element={<LoginScreen />} />
-              <Route path="/register" element={<RegisterScreen />} />
-              <Route path="/auth/reset-password" element={<ResetPasswordScreen />} />
-              <Route path="/auth/verify-email/:token" element={<UserValidationScreen />}/>
-              <Route element={<AuthMiddleware />}>
+        <MembersProvider>
+          <ChannelProvider>
+            <MessagesProvider>
+              <Routes>
+                <Route path="/" element={<HomeScreen />} />
+                <Route path="/login" element={<LoginScreen />} />
+                <Route path="/register" element={<RegisterScreen />} />
+                <Route path="/auth/reset-password" element={<ResetPasswordScreen />} />
+                <Route path="/auth/verify-email/:token" element={<UserValidationScreen />} />
+                <Route element={<AuthMiddleware />}>
                   <Route path="/workspaces" element={<WorkspaceScreen />} />
                   <Route path="/workspaces/:workspace_id/channels" element={<ChannelLayout />}>
-                      <Route index element={<MessagesChannelDefaultScreen />} />
-                      <Route path=":channel_id/messages" element={<MessagesChannelScreen />}/>
+                    <Route index element={<MessagesChannelDefaultScreen />} />
+                    <Route path=":channel_id/messages" element={<MessagesChannelScreen />} />
                   </Route>
-              </Route>
-              {/* Redirección por defecto si la ruta no existe */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </MessagesProvider>
-        </ChannelProvider>
+                </Route>
+                {/* Redirección por defecto si la ruta no existe */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </MessagesProvider>
+          </ChannelProvider>
+        </MembersProvider>
       </WorkspaceProvider>
     </UserProvider>
   );

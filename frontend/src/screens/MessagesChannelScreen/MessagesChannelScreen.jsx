@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MessagesContext } from "../../Context/MessagesContext.jsx";
+import { MessagesContext } from "../../Context/MessagesContext/MessagesContext.jsx";
 import { SpinnerLoading } from "../../Components/SpinnerLoading/SpinnerLoading.jsx";
 import { MessageList } from "../../Components/MessageList/MessageList.jsx";
 export const MessagesChannelScreen = () => {

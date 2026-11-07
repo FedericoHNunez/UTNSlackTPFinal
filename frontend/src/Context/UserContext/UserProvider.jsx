@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { UserContext } from "./UserContext";
+import { UserContext } from "./UserContext.jsx";
 
 export const UserProvider = ({ children }) => {
 
     const [userToken, setUserToken] = useState(
         () => localStorage.getItem("auth_token") || null
     )
+
+
+
 
     useEffect(() => {
         if (userToken) {
@@ -20,7 +23,9 @@ export const UserProvider = ({ children }) => {
         setUserToken,
     }
     return (
-    <UserContext.Provider value={values}>
-        {children}
-    </UserContext.Provider>
-)}
+        <UserContext.Provider value={values}>
+            {children}
+        </UserContext.Provider>
+    )
+}
+

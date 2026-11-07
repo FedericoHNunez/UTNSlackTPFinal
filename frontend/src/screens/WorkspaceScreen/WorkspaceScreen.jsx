@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { WorkspaceList } from "../../Components/WorkspaceList/WorkspaceList";
 import SpinnerLoading from "../../Components/SpinnerLoading/SpinnerLoading";
-import { WorkspaceContext } from "../../Context/WorkspaceContext";
-
+import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext";
+import { SlackLogo } from "../../Components/Ui/SlackLogo"
 export const WorkspaceScreen = () => {
     const { workspace_loading } = useContext(WorkspaceContext);
 
@@ -12,8 +12,9 @@ export const WorkspaceScreen = () => {
                 <SpinnerLoading fullScreen={true} text="Cargando espacios de trabajo..." />
             ) : (
                 <>
-                    <h1>Bienvenido/a a UTN Slack</h1>
-                    <h2>Tus Workspaces</h2>
+                    <SlackLogo />
+                    <h1>¡Hola de nuevo!</h1>
+                    <p>Puedes crear un espacio de trabajo nuevo o elegir uno existente</p>
                     <WorkspaceList />
                 </>
             )}

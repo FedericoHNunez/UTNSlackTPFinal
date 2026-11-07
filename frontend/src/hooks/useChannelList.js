@@ -16,6 +16,5 @@ export const useChannelList = (workspace_id, userToken) => {
         channel_response: response,
         channel_error: error,
         channel_loading: loading,
-        channel_sendRequest: sendRequest
     };
 };

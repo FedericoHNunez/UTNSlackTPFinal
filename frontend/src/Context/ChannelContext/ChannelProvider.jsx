@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import { ChannelContext } from "./ChannelContext.jsx";
-import { WorkspaceContext } from "./WorkspaceContext.jsx";
-import { UserContext } from "./UserContext.jsx";
-import { useChannelList } from "../hooks/useChannelList.js";
+import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext.jsx";
+import { UserContext } from "../UserContext/UserContext.jsx";
+import { useChannelList } from "../../hooks/useChannelList.js";
 
 export const ChannelProvider = ({ children }) => {
     const [currentchannelList, setCurrentChannelList] = useState(null);
@@ -31,3 +31,4 @@ export const ChannelProvider = ({ children }) => {
         </ChannelContext.Provider>
     );
 };
+
