@@ -13,17 +13,17 @@ class ChannelService {
         return channels;
     }
 
-    async createChannel(name, description, workspace_id) {
-        if (!name || !description || !workspace_id) {
+    async createChannel(name, description, id_workspace) {
+        if (!name || !description || !id_workspace) {
             throw new ServerError("Missing required fields: name, description and id_workspace are required.", 400);
         }
-        const channel = await channelRepository.create(name, description, workspace_id);
+        const channel = await channelRepository.create({ name, description, id_workspace });
         return channel;
     }
 
     async getMessagesByChannelId(channel_id) {
         return await channelMessageRepository.getMessagesByChannelId(channel_id);
-        
+
     }
 }
 const channelService = new ChannelService();

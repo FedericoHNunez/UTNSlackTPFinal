@@ -34,7 +34,8 @@ class WorkspaceService {
                 workspace_name: member.id_workspace.name,
                 workspace_description: member.id_workspace.description,
                 workspace_role: member.role,
-                workspace_creation_date: member.createdAt
+                workspace_creation_date: member.createdAt,
+                workspace_members_count: member.membersCount
             }
         })
         return memberFormated;
@@ -47,7 +48,7 @@ class WorkspaceService {
                 400
             );
         }
-        return await workspaceRepository.create(name, description);
+        return await workspaceRepository.create({ name, description });
     }
 
     async deleteWorkspaceById(workspace_id) {
@@ -80,7 +81,7 @@ class WorkspaceService {
                 404
             );
         }
-        const channelsFound= await channelRepository.getChannelsByWorkspaceId(workspace_id);
+        const channelsFound = await channelRepository.getChannelsByWorkspaceId(workspace_id);
         const channelsFormated = channelsFound.map(channel => {
             return {
                 channel_id: channel._id,
@@ -108,7 +109,12 @@ class WorkspaceService {
                 404
             );
         }
-        return await workspaceRepository.updateWorkspaceById(workspace_id, name, description);
+        return await workspaceRepository.updateById(workspace_id,
+            {
+                name,
+                description
+            }
+        );
     }
 }
 

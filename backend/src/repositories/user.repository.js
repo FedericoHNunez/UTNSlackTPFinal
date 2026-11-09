@@ -6,14 +6,6 @@ class UserRepository extends BaseRepository {
         super(userModel, 'userName');
     }
 
-    async create(userName, email, password) {
-        const user = await this.model.create({
-            userName: userName,
-            email: email,
-            password: password,
-        });
-        return user;
-    }
 
     async getGreaterDate(max_date, min_date) {
         const usersFound = await this.model.find(

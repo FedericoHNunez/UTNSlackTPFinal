@@ -4,20 +4,20 @@ import ServerError from "../helpers/error.helper.js";
 
 class MessagesChannelService {
 
-    async createMessage(content, channel_id, user_id) {
-        if (!content || !user_id) {
+    async createMessage(content, id_channel, id_user) {
+        if (!content || !id_user) {
             throw new ServerError(
-                "Missing required fields: content and user_id are required.",
+                "Missing required fields: content and id_user are required.",
                 400
             );
         }
 
-        const userFound = await userRepository.getById(user_id);
+        const userFound = await userRepository.getById(id_user);
         if (!userFound) {
             throw new ServerError("User not found.", 404);
         }
 
-        const newMessage = await channelMessageRepository.create(content, channel_id, user_id);
+        const newMessage = await channelMessageRepository.create({ content, id_channel, id_user });
         return newMessage;
     }
 

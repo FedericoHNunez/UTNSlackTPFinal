@@ -6,13 +6,6 @@ class InvitationRepository extends BaseRepository {
         super(invitationModel)
     }
 
-    async create(id_invitedUser, id_workspace, role) {
-        return this.model.create({
-            id_invitedUser,
-            id_workspace,
-            role
-        })
-    }
 
     async findActiveInvitation(emailInvitedUser, workspace_id) {
         const invitation = await this.model.findOne({

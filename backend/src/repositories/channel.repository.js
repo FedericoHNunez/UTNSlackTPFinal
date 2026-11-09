@@ -6,15 +6,6 @@ class ChannelRepository extends BaseRepository {
     super(channelModel, 'name');
   }
 
-  async create(name, description, id_workspace) {
-    const channel = await this.model.create({
-      name: name,
-      description: description,
-      id_workspace: id_workspace,
-    });
-    return channel;
-  }
-
   async getAllChannelsByWorkspaceId(workspaceId) {
     const channels = await this.model
       .find({ id_workspace: workspaceId })

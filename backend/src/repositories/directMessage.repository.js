@@ -7,15 +7,6 @@ class DirectMessageRepository extends BaseRepository {
         super(directMessageModel, ['content']);
     }
 
-    async create(content, id_sender, id_receiver) {
-        const message = await this.model
-            .create({
-                content,
-                id_receiver,
-                id_sender
-            });
-        return message;
-    }
 
     async getConversationsByUserId(id_user) {
         const userObjectId = new mongoose.Types.ObjectId(id_user);
@@ -100,15 +91,6 @@ class DirectMessageRepository extends BaseRepository {
             .populate('id_sender', 'userName');
     }
 
-    async editMessageContent(messageId, newMessageContent) {
-        return await this.model.findByIdAndUpdate(
-            messageId,
-            {
-                content: newMessageContent
-            },
-            { returnDocument: 'after' }
-        );
-    }
 }
 
 

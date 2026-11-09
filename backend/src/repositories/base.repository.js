@@ -4,6 +4,12 @@ class BaseRepository {
         this.searchTerm = searchTerm;
     }
 
+
+    async create(data) {
+        return await this.model.create(data);
+    }
+
+
     async getAll() {
         return await this.model.find();
     }

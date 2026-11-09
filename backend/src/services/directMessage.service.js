@@ -3,8 +3,8 @@ import ServerError from "../helpers/error.helper.js";
 import userRepository from "../repositories/user.repository.js";
 
 class DirectMessageService {
-    async createDirectMessage(id_emisor, id_receptor, message) {
-        if (!id_emisor || !id_receptor || !message) {
+    async createDirectMessage(id_sender, id_receiver, content) {
+        if (!id_emisor || !id_receptor || !content) {
             throw new ServerError("Sender ID, receiver ID, and message are required", 400);
         }
         const exitUser = await userRepository.getById(id_receptor);
@@ -15,7 +15,7 @@ class DirectMessageService {
         if (!exitUser2) {
             throw new ServerError("User not found", 404);
         }
-        const directMessage = await directMessageRepository.create(message, id_emisor, id_receptor);
+        const directMessage = await directMessageRepository.create({ content, id_sender, id_receiver });
         return directMessage;
     }
 
@@ -35,7 +35,7 @@ class DirectMessageService {
         if (!messageId || !newMessageContent) {
             throw new ServerError("Message ID and new message content are required", 400);
         }
-        const directMessage = await directMessageRepository.editMessageContent(messageId, newMessageContent);
+        const directMessage = await directMessageRepository.updateById(messageId, { content: newMessageContent });
         if (!directMessage) {
             throw new ServerError("Message not found", 404);
         }

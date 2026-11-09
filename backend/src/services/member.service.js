@@ -8,14 +8,14 @@ import invitationRepository from "../repositories/invitation.repository.js";
 
 class MemberService {
     async createMember(id_user, id_workspace, role = 'user') {
-        const member = await memberRepository.create(id_user, id_workspace, role);
+        const member = await memberRepository.create({ id_user, id_workspace, role });
         return member;
     }
 
     async getMembersByWorkspaceId(workspace_id) {
 
-       return await memberRepository.getMenbersByWorkspaceId(workspace_id);
-        
+        return await memberRepository.getMenbersByWorkspaceId(workspace_id);
+
     }
 
     async getMemberById(member_id) {
@@ -51,7 +51,7 @@ class MemberService {
             throw new ServerError("You cannot invite an owner", 400);
         }
 
-        const invitation = await invitationRepository.create(userInvetedFound._id, workspace_id, role);
+        const invitation = await invitationRepository.create({ id_invitedUser: userInvetedFound._id, id_workspace: workspace_id, role: role });
 
         const token = await tokenHelper.createVerifyEmailToken(
             {

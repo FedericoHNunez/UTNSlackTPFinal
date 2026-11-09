@@ -6,15 +6,6 @@ class ChannelMessageRepository extends BaseRepository {
         super(channelMessagesModel);
     }
 
-    async create(content, id_channel, id_user) {
-        const message = await this.model
-            .create({
-                content,
-                id_channel,
-                id_user
-            });
-        return message;
-    }
 
     async getMessagesByChannelId(channelId) {
         return await this.model

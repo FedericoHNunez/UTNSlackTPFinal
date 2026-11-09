@@ -14,6 +14,11 @@ const newInvitationSchema = new mongoose.Schema(
             required: true,
             ref: WORKSPACE_COLLECTION_NAME
         },
+        role: {
+            type: String,
+            enum: ["admin", "user"],
+            default: "user"
+        },
         active: {
             type: Boolean,
             default: true

@@ -30,7 +30,7 @@ class AuthService {
         }
 
         const hashedPassword = await hashPassword(password);
-        const user = await userRepository.create(userName, email, hashedPassword);
+        const user = await userRepository.create({ userName, email, password: hashedPassword });
         const verify_email_token = tokenHelper.createVerifyEmailToken(
             {
                 email: user.email

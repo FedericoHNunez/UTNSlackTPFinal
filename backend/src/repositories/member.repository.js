@@ -6,22 +6,28 @@ class MemberRepository extends BaseRepository {
         super(memberModel);
     }
 
-    async create(id_user, id_workspace, rol) {
-        const member = await this.model.create({
-            id_user: id_user,
-            id_workspace: id_workspace,
-            role: rol
-        });
-        return member;
-    }
 
     // traer todas las membresias de un usuario
     async getWorkspacesByUserId(userId) {
         const members = await this.model
             .find({ id_user: userId })
             .select('id_workspace role updated_at createdAt')
-            .populate('id_workspace', 'name description');
-        return members;
+            .populate('id_workspace', 'name description')
+            .lean();
+
+        const membersWithCount = await Promise.all(
+            members.map(async (member) => {
+                const membersCount = await this.model.countDocuments({
+                    id_workspace: member.id_workspace._id
+                });
+                return {
+                    ...member,
+                    membersCount
+                };
+            })
+        );
+
+        return membersWithCount;
     }
 
     // traer todo los miembros de un espacio de trabajo 
