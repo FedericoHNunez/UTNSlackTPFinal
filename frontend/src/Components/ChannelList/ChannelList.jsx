@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router";
 import { useContext, useEffect } from "react";
 import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
+import { CreateChannelModal } from "../modal/CreateChannelModal.jsx";
 
 export const ChannelList = () => {
     const { workspace_id } = useParams();
@@ -23,14 +24,17 @@ export const ChannelList = () => {
             {currentchannelList && (
                 <ul>
                     {currentchannelList.map((channel) => (
-                        <li key={channel.channel_id || channel._id}>
+                        <li key={channel.channel_id}>
                             <Link
-                                to={`/workspaces/${currentWorkspace_id}/channels/${channel.channel_id || channel._id}/messages`}
+                                to={`/workspaces/${currentWorkspace_id}/channels/${channel.channel_id}/messages`}
                             >
-                                <h2>{channel.channel_name || channel.name}</h2>
+                                <p>#{channel.channel_name}</p>
                             </Link>
                         </li>
                     ))}
+                    <li>
+                        <CreateChannelModal />
+                    </li>
                 </ul>
             )}
         </>

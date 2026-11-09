@@ -2,7 +2,7 @@ import { MembersContext } from "./MembersContext";
 import { UserContext } from "../UserContext/UserContext";
 import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext";
 import { useState, useContext, useEffect } from "react";
-import { useMembersList } from "../../hooks/useMembersList";
+import { useMembersList } from "../../hooks/useMembers";
 
 
 export const MembersProvider = ({ children }) => {

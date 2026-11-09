@@ -1,70 +1,39 @@
-import useRequest from "../../hooks/useRequest.js";
-import useForm from "../../hooks/useForm.js";
-import { register } from "../../services/authService.js";
 import { Link } from "react-router";
+import { SlackLogo } from "../../Components/Ui/SlackLogo.jsx";
+import { RegisterForm } from "../../Components/Forms/RegisterForm/RegisterForm.jsx";
+import "./RegisterScreen.css";
 
 export const RegisterScreen = () => {
-  const initial_state = { email: "", password: "", userName: "" };
-  const { formState, handleChangeInput } = useForm(initial_state);
-  const { loading, responce, error, errorCode, sendRequest } = useRequest();
-
-  const HandleSubmit = (e) => {
-    e.preventDefault();
-    sendRequest(() =>
-      register(formState.email, formState.password, formState.userName),
-    );
-  };
-
   return (
-    <>
-      <div>RegisterScreen</div>
 
-      <form onSubmit={HandleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            name="email"
-            id="email"
-            type="email"
-            value={formState.email}
-            onChange={handleChangeInput}
-          />
+    <div className="register-page">
+      <header className="register-header">
+        <Link to="/" className="register-logo">
+          <SlackLogo color="black" />
+        </Link>
+        <h1>Crea tu cuenta en Slack</h1>
+        <p className="register-subtitle">
+          Te sugerimos que uses la{" "}
+          <strong>
+            dirección de correo electrónico que usas en el trabajo
+          </strong>
+          .
+        </p>
+      </header>
+
+      <main className="register-card">
+        <RegisterForm />
+
+        <div className="register-footer">
+          <p>
+            ¿Ya usas Slack?
+            <Link to="/login" className="register-footer-link">
+              Iniciar sesión
+            </Link>
+          </p>
         </div>
-        <div>
-          <label htmlFor="userName">User Name</label>
-          <input
-            name="userName"
-            id="userName"
-            type="text"
-            maxLength={50}
-            value={formState.userName}
-            onChange={handleChangeInput}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            name="password"
-            id="password"
-            type="password"
-            value={formState.password}
-            onChange={handleChangeInput}
-          />
-        </div>
-        <button type="submit">
-          {loading
-            ? <span>Enviando...</span> 
-            : <span>Enviar</span>}
-        </button>
-        {error && !loading && 
-          <span style={{ color: "red" }}>{error}</span>}
-        {responce && !loading && 
-          <span style={{ color: "greenyellow" }}>Registro exitoso</span>}
-        {errorCode === "ALREADY_EXISTS" && (
-          <span style={{ color: "red" }}> Usuario ya registrado  <Link to="/login">Logueate</Link></span>
-        )}
-      </form>
-    </>
+      </main>
+    </div>
   );
 };
 

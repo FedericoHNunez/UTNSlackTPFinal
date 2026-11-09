@@ -1,5 +1,6 @@
 import React from "react";
 import "./SpinnerLoading.css";
+import { SlackLogo } from "../Ui/SlackLogo";
 
 export const SpinnerLoading = ({ text = "Cargando...", fullScreen = false }) => {
     return (
@@ -8,6 +9,9 @@ export const SpinnerLoading = ({ text = "Cargando...", fullScreen = false }) => 
             role="status"
             aria-live="polite"
         >
+            <div>
+                <SlackLogo color="black" />
+            </div>
             <div className="spinner-ring-container">
                 <div className="spinner-ring" />
                 <div className="spinner-dots">

@@ -1,19 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router'
 import './HomeScreen.css'
+import { SlackLogo } from '../../Components/Ui/SlackLogo.jsx'
+
 
 export const HomeScreen = () => {
   return (
     <div className="home-container">
       <header className="home-navbar">
         <Link to="/" className="home-logo">
-          <div className="home-logo-icon">
-            <span className="dot dot-blue"></span>
-            <span className="dot dot-green"></span>
-            <span className="dot dot-red"></span>
-            <span className="dot dot-yellow"></span>
-          </div>
-          <span>slack</span>
+          <SlackLogo color="white" />
         </Link>
 
         <nav className="home-nav-actions">

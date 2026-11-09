@@ -1,0 +1,103 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: var(--color-overlay, rgba(0, 0, 0, 0.55));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modal-card {
+    background-color: var(--color-white, #ffffff);
+    width: 100%;
+    max-width: 420px;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.modal-header h2 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-text-main, #1d1c1d);
+    margin: 0;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--color-text-muted, #616061);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-left: auto;
+}
+
+.modal-close-btn:hover {
+    background-color: var(--color-hover-light, #f8f8f8);
+    color: var(--color-text-main, #1d1c1d);
+}
+
+.modal-subtitle {
+    font-size: 0.92rem;
+    color: var(--color-text-secondary, #454245);
+    margin-bottom: 18px;
+    line-height: 1.4;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+.modal-actions .login-submit-btn {
+    width: auto;
+    margin-top: 0;
+    padding: 10px 20px;
+}
+
+.modal-cancel-btn {
+    padding: 10px 16px;
+    background-color: var(--color-white, #ffffff);
+    color: var(--color-text-main, #1d1c1d);
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: 1px solid var(--color-border-input, #868686);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-cancel-btn:hover {
+    background-color: var(--color-hover-subtle, #f8f8f8);
+}
+
+.modal-body .login-field select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    color: var(--color-text-main, #1d1c1d);
+    background-color: var(--color-white, #ffffff);
+    border: 1px solid var(--color-border-input, #868686);
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.modal-body .login-field select:focus {
+    border-color: var(--color-link, #1264a3);
+    box-shadow: 0 0 0 3px var(--color-focus-ring, rgba(18, 100, 163, 0.25));
+}
+
