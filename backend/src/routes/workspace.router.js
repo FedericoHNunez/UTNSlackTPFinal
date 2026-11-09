@@ -43,7 +43,12 @@ workspaceRouter.get('/:workspace_id',
     workSpaceMiddleware(['owner', 'admin', 'user']),
     workspaceController.getChannelsByWorkspaceId);
 
-//solo member y admin puede invitar a un usuario
+//invitar a nuevos usuarios
+
+workspaceRouter.post('/invite-new-user',
+    authMiddleware,
+    workspaceController.inviteNewUser);
+
 
 
 

@@ -3,6 +3,9 @@ import ServerError from "../helpers/error.helper.js";
 import userRepository from "../repositories/user.repository.js";
 import memberRepository from "../repositories/member.repository.js";
 import channelRepository from "../repositories/channel.repository.js";
+import { isValidEmail } from "../helpers/emailHelpers/emailvalidation.helper.js";
+import emailFormater from "../helpers/emailHelpers/emailFormater.helper.js";
+import mailer_transporter from "../config/mailer.config.js";
 
 class WorkspaceService {
     async getWorkspaces(filter = null) {
@@ -115,6 +118,41 @@ class WorkspaceService {
                 description
             }
         );
+    }
+
+    async inviteNewUser(email, userName, userEmail) {
+        if (!email) {
+            throw new ServerError(
+                "Missing required fields: email is required.",
+                400
+            );
+        }
+        if (!isValidEmail(email)) {
+            throw new ServerError(
+                "Email is not valid.",
+                400
+            );
+        }
+        const userExist = await userRepository.getByEmail(email);
+        if (userExist) {
+            throw new ServerError(
+                "User already exists in the Slack, invite him to the workspace",
+                400
+            );
+        }
+
+        const emailFormated = await emailFormater(
+            null,
+            email,
+            null,
+            "Invitacion a Unirte a Slack",
+            "inviteNewUser",
+            {
+                userName,
+                userEmail
+            })
+        await mailer_transporter.sendMail(emailFormated);
+        return true;
     }
 }
 

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>¡Te invitaron a unirte a Slack!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f5f7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .email-wrapper {
+            width: 100%;
+            background-color: #f4f5f7;
+            padding: 40px 0;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, #611f69 0%, #4a154b 100%);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+
+        .logo span {
+            color: #e0a9ff;
+        }
+
+        .header-tag {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: rgba(255, 255, 255, 0.18);
+            color: #f3d9fa;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            padding: 4px 14px;
+            border-radius: 20px;
+        }
+
+        .email-body {
+            padding: 40px 35px;
+            color: #1d1c1d;
+        }
+
+        .greeting {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            color: #1d1c1d;
+        }
+
+        .message {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #4a4a4a;
+            margin: 0 0 20px 0;
+        }
+
+        .inviter-card {
+            background: linear-gradient(180deg, #faf5fc 0%, #f4ebfa 100%);
+            border: 1px solid #e7cef7;
+            border-radius: 10px;
+            padding: 24px 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .inviter-badge-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .inviter-label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #611f69;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .inviter-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #4a154b;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .inviter-email {
+            font-size: 14px;
+            color: #6a6a6a;
+            margin: 0 0 14px 0;
+        }
+
+        .inviter-email strong {
+            color: #611f69;
+        }
+
+        .role-pill {
+            display: inline-block;
+            background-color: #611f69;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+        }
+
+        .highlight {
+            background-color: #f8f3fc;
+            border-left: 4px solid #611f69;
+            padding: 16px 20px;
+            border-radius: 6px;
+            margin: 25px 0;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #4a4a4a;
+        }
+
+        .button-wrapper {
+            text-align: center;
+            margin: 32px 0;
+        }
+
+        .confirm-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #611f69 0%, #4a154b 100%);
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 14px 40px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 12px rgba(97, 31, 105, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .confirm-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(97, 31, 105, 0.4);
+        }
+
+        .token-box {
+            background-color: #f6f8fa;
+            border: 1px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .token-label {
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .token-value {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #611f69;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 30px 0;
+        }
+
+        .security-note {
+            font-size: 13px;
+            color: #6b7280;
+            font-style: italic;
+            margin: 20px 0 0 0;
+            line-height: 1.5;
+        }
+
+        .footer {
+            background-color: #fafafa;
+            padding: 25px 35px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 0 0 8px 0;
+            line-height: 1.5;
+        }
+
+        .footer-text:last-child {
+            margin-bottom: 0;
+        }
+
+        .footer-link {
+            color: #611f69;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .email-wrapper {
+                padding: 20px 10px;
+            }
+
+            .email-header {
+                padding: 30px 20px;
+            }
+
+            .email-body {
+                padding: 30px 20px;
+            }
+
+            .footer {
+                padding: 20px;
+            }
+
+            .greeting {
+                font-size: 20px;
+            }
+
+            .message {
+                font-size: 15px;
+            }
+
+            .inviter-title {
+                font-size: 20px;
+            }
+
+            .confirm-button {
+                padding: 12px 30px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <% const senderName=(typeof userName !=='undefined' && userName) ? userName : 'Un usuario de Slack' ; const
+        senderMail=(typeof userEmail !=='undefined' && userEmail) ? userEmail : null; %>
+        <div class="email-wrapper">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td align="center">
+                        <div class="email-container">
+
+                            <!-- HEADER -->
+                            <div class="email-header">
+                                <h1 class="logo">slac<span>k</span></h1>
+                                <div class="header-tag">Invitación a Slack</div>
+                            </div>
+
+                            <!-- BODY -->
+                            <div class="email-body">
+                                <h2 class="greeting">¡Hola! 👋</h2>
+                                <p class="message">
+                                    ¡Buenas noticias! <strong>
+                                        <%= senderName %>
+                                    </strong>
+                                    <% if (senderMail) { %> (<%= senderMail %>)<% } %> te ha invitado a crear una cuenta
+                                                y unirte a <strong>Slack</strong> para colaborar y mantenerte en
+                                                contacto con tu equipo.
+                                </p>
+
+                                <!-- TARJETA DE INVITACIÓN -->
+                                <div class="inviter-card">
+                                    <div class="inviter-badge-icon">✨</div>
+                                    <span class="inviter-label">Invitación enviada por</span>
+                                    <h3 class="inviter-title">
+                                        <%= senderName %>
+                                    </h3>
+                                    <% if (senderMail) { %>
+                                        <p class="inviter-email">Correo de contacto: <strong>
+                                                <%= senderMail %>
+                                            </strong></p>
+                                        <% } %>
+                                            <span class="role-pill">Nuevo Usuario en Slack</span>
+                                </div>
+
+                                <p class="message">
+                                    En <strong>Slack</strong> podrás unirte a espacios de trabajo, comunicarte en
+                                    canales temáticos, enviar mensajes directos y colaborar con tus compañeros en tiempo
+                                    real.
+                                </p>
+
+                                <!-- BOTÓN DE ACCIÓN -->
+                                <div class="button-wrapper">
+                                    <a href="<%= url_base %>/register" class="confirm-button">
+                                        🚀 Crear mi cuenta en Slack
+                                    </a>
+                                </div>
+
+                                <!-- ENLACE ALTERNATIVO PARA COPIAR -->
+                                <div class="token-box">
+                                    <div class="token-label">¿El botón no funciona? Copia y pega este enlace en tu
+                                        navegador:</div>
+                                    <div class="token-value">
+                                        <%= url_base %>/register
+                                    </div>
+                                </div>
+
+                                <!-- INFORMACIÓN ADICIONAL -->
+                                <div class="highlight">
+                                    💡 <strong>¿Cómo empezar?</strong> Haz clic en el botón para registrarte en
+                                    <strong>Slack</strong> utilizando este correo electrónico (<strong>
+                                        <%= email %>
+                                    </strong>) y comenzar a colaborar de inmediato.
+                                </div>
+
+                                <div class="divider"></div>
+
+                                <p class="security-note">
+                                    Si no conoces a <%= senderName %> o crees que se trata de un error, puedes ignorar
+                                        este correo de forma segura.
+                                </p>
+                            </div>
+
+                            <!-- FOOTER -->
+                            <%- include('./partials/footer.ejs') %>
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+</body>
+
+</html>

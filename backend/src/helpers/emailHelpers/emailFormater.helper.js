@@ -6,7 +6,7 @@ import ejs from "ejs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-async function emailFormater(userName, email, token, subject, emailType, extraData = {}) {
+async function emailFormater(userName = null, email, token = null, subject, emailType, extraData = {}) {
     const templatePath = path.join(__dirname, "../../EmailTemplate", `${emailType}.ejs`);
     const emailContent = await ejs.renderFile(templatePath, {
         userName,

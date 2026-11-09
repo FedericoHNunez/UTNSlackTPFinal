@@ -7,7 +7,7 @@ class MemberRepository extends BaseRepository {
     }
 
 
-    // traer todas las membresias de un usuario
+    // traer todoslos espacios de trabajo de un usuario con la cantidad de miembros
     async getWorkspacesByUserId(userId) {
         const members = await this.model
             .find({ id_user: userId })
@@ -31,6 +31,7 @@ class MemberRepository extends BaseRepository {
     }
 
     // traer todo los miembros de un espacio de trabajo 
+
     async getAllUsersByWorkspaceId(workspaceId) {
         const members = await this.model
             .find({ id_workspace: workspaceId })

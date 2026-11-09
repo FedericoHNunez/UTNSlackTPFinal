@@ -35,6 +35,15 @@ class WorkspaceController {
         return successResponse(res, "Workspace updated successfully.", { workspace });
     }
 
+    async inviteNewUser(req, res) {
+        const { email } = req.body;
+        const userName = req.user.userName;
+        const userEmail = req.user.email;
+        await workspaceService.inviteNewUser(email, userName, userEmail);
+        return successResponse(res, "Invite sent successfully.");
+    }
+
+
 }
 const workspaceController = new WorkspaceController();
 export default workspaceController;
