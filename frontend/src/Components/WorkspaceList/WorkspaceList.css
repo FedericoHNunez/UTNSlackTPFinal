@@ -1,0 +1,232 @@
+.workspace-card {
+    background-color: var(--color-white);
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--color-border-light);
+    overflow: hidden;
+    width: 100%;
+}
+
+.workspace-card-tabs {
+    padding: 16px 24px 0;
+    border-bottom: 1px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+}
+
+.workspace-tab-active {
+    display: inline-block;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    padding-bottom: 12px;
+    border-bottom: 2.5px solid var(--color-primary-btn);
+}
+
+.workspace-card-body {
+    padding: 20px 24px 12px;
+}
+
+.workspace-ready-label {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 16px;
+}
+
+.workspace-error-alert {
+    margin-bottom: 16px;
+}
+
+.workspace-empty-text {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    padding: 12px 0 16px;
+}
+
+.workspace-items-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.workspace-item {
+    border-bottom: 1px solid rgba(235, 235, 235, 0.6);
+}
+
+.workspace-item:last-child {
+    border-bottom: none;
+}
+
+.workspace-item-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 8px;
+    text-decoration: none;
+    color: var(--color-text-main);
+    border-radius: 8px;
+    transition: background-color 0.15s ease;
+}
+
+.workspace-item-link:hover {
+    background-color: var(--color-hover-subtle);
+}
+
+/* Ícono / Avatar del Workspace estilo Slack */
+.workspace-item-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-white);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.workspace-avatar-theme-1 {
+    background: linear-gradient(135deg, #e01e5a 0%, #e01e5a 50%, #ecb22e 50%, #ecb22e 100%);
+}
+
+.workspace-avatar-theme-2 {
+    background: linear-gradient(180deg, #e01e5a 0%, #e01e5a 55%, #ecb22e 55%, #ecb22e 100%);
+}
+
+.workspace-avatar-theme-3 {
+    background: linear-gradient(180deg, #2eb67d 0%, #2eb67d 55%, #36c5f0 55%, #36c5f0 100%);
+}
+
+.workspace-item-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.workspace-item-info h2 {
+    font-family: var(--font-main);
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.workspace-item-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.workspace-member-pills {
+    display: flex;
+    align-items: center;
+}
+
+.member-pill {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-white);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pill-teal {
+    background-color: #1264a3;
+}
+
+.workspace-item-meta p {
+    font-size: 0.84rem;
+    color: var(--color-text-muted);
+}
+
+.workspace-item-arrow {
+    font-size: 1.35rem;
+    color: var(--color-text-main);
+    padding: 0 6px;
+    transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.workspace-item-link:hover .workspace-item-arrow {
+    transform: translateX(4px);
+    color: var(--color-link);
+}
+
+/* Pie de la tarjeta */
+.workspace-card-footer {
+    padding: 18px 24px 22px;
+    border-top: 1px solid var(--color-border-light);
+    background-color: #fcfcfc;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.workspace-create-link-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-main);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-link);
+    cursor: pointer;
+    text-align: left;
+}
+
+.workspace-create-link-btn:hover {
+    text-decoration: underline;
+}
+
+.workspace-footer-help {
+    font-size: 0.9rem;
+    color: var(--color-text-main);
+    line-height: 1.4;
+}
+
+.workspace-footer-help .form-link {
+    margin-left: 2px;
+}
+
+/* Responsive hasta 320px */
+@media (max-width: 480px) {
+    .workspace-card-tabs {
+        padding: 14px 16px 0;
+    }
+
+    .workspace-card-body {
+        padding: 16px 14px 10px;
+    }
+
+    .workspace-item-link {
+        gap: 12px;
+        padding: 12px 4px;
+    }
+
+    .workspace-item-avatar {
+        width: 44px;
+        height: 44px;
+        font-size: 1.15rem;
+    }
+
+    .workspace-item-info h2 {
+        font-size: 0.96rem;
+    }
+
+    .workspace-card-footer {
+        padding: 16px 14px 18px;
+    }
+}
+

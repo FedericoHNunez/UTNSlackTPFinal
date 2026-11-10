@@ -63,6 +63,7 @@
     margin-top: 4px;
 }
 
+.modal-actions .form-submit-btn,
 .modal-actions .login-submit-btn {
     width: auto;
     margin-top: 0;
@@ -70,34 +71,46 @@
 }
 
 .modal-cancel-btn {
-    padding: 10px 16px;
+    height: 44px;
+    padding: 0 18px;
     background-color: var(--color-white, #ffffff);
     color: var(--color-text-main, #1d1c1d);
-    font-size: 0.95rem;
-    font-weight: 600;
-    border: 1px solid var(--color-border-input, #868686);
-    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: var(--border-input-stylized, 1px solid rgba(29, 28, 29, 0.3));
+    border-radius: var(--radius-input, 12px);
     cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .modal-cancel-btn:hover {
     background-color: var(--color-hover-subtle, #f8f8f8);
+    border-color: var(--border-input-hover, rgba(97, 31, 105, 0.6));
 }
 
-.modal-body .login-field select {
-    width: 100%;
-    padding: 12px 14px;
-    font-size: 1rem;
-    color: var(--color-text-main, #1d1c1d);
-    background-color: var(--color-white, #ffffff);
-    border: 1px solid var(--color-border-input, #868686);
-    border-radius: 4px;
-    outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+@media (max-width: 480px) {
+    .modal-overlay {
+        padding: 12px;
+    }
+
+    .modal-card {
+        padding: 20px 16px;
+    }
+
+    .modal-header h2 {
+        font-size: 1.15rem;
+    }
+
+    .modal-actions {
+        flex-direction: column-reverse;
+        gap: 8px;
+    }
+
+    .modal-actions .form-submit-btn,
+    .modal-actions .login-submit-btn,
+    .modal-cancel-btn {
+        width: 100%;
+    }
 }
 
-.modal-body .login-field select:focus {
-    border-color: var(--color-link, #1264a3);
-    box-shadow: 0 0 0 3px var(--color-focus-ring, rgba(18, 100, 163, 0.25));
-}
 

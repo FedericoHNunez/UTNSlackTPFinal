@@ -1,0 +1,123 @@
+.home-mockup {
+  background-color: var(--color-dark-surface);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(29, 28, 29, 0.25);
+  border: 1px solid rgba(29, 28, 29, 0.12);
+}
+
+.mockup-header {
+  background-color: var(--color-header-bg);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mockup-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot-blue { background-color: var(--color-accent-blue); }
+.dot-green { background-color: var(--color-accent-green); }
+.dot-yellow { background-color: var(--color-accent-yellow); }
+.dot-red { background-color: var(--color-accent-red); }
+
+.mockup-body {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  min-height: 280px;
+}
+
+.mockup-sidebar {
+  background-color: var(--color-sidebar-bg);
+  padding: 16px 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mockup-workspace-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.mockup-channel {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 6px 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.mockup-channel.active {
+  background-color: var(--color-channel-active);
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.mockup-chat {
+  background-color: var(--color-white);
+  color: var(--color-text-main);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mockup-msg {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.mockup-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.mockup-msg-text strong {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+
+.mockup-msg-text span {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 900px) {
+  .mockup-body {
+    text-align: left;
+  }
+}
+
+@media (max-width: 540px) {
+  .mockup-body {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .mockup-sidebar {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mockup-chat {
+    padding: 16px 12px;
+  }
+}
+

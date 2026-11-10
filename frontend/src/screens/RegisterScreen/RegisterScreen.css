@@ -11,37 +11,39 @@
 
 .register-header {
     width: 100%;
-    max-width: 440px;
+    max-width: 700px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
 }
 
 .register-logo {
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    margin-bottom: 32px;
+    margin-bottom: 36px;
 }
 
 .register-header h1 {
-    font-size: 2.35rem;
-    font-weight: 800;
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 5.5vw, 3rem);
+    font-weight: 700;
     letter-spacing: -0.75px;
     line-height: 1.15;
     color: var(--color-text-main);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .register-subtitle {
-    font-size: 1.05rem;
+    font-size: clamp(0.95rem, 2.5vw, 1.125rem);
+    line-height: 1.5;
     color: var(--color-text-secondary);
 }
 
 .register-subtitle strong {
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .register-card {
@@ -71,5 +73,19 @@
 
 .register-footer-link:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .register-page {
+        padding: 24px 16px;
+    }
+
+    .register-logo {
+        margin-bottom: 24px;
+    }
+
+    .register-header {
+        margin-bottom: 24px;
+    }
 }
 

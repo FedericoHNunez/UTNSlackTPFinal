@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
+
 :root {
   /* Paleta Principal (Slack Aubergine / Morado) */
-  --color-primary: #541554;
+  --color-primary: rgb(73, 26, 84);
   --color-primary-btn: #611f69;
-  --color-primary-btn-hover: #4a154b;
+  --color-primary-btn-hover: rgb(73, 26, 84);
   --color-sidebar-bg: #3f0e40;
   --color-header-bg: #350d36;
 
@@ -15,7 +17,7 @@
   /* Enlaces e Interacción */
   --color-link: #1264a3;
   --color-channel-active: #1164a3;
-  --color-focus-ring: rgba(18, 100, 163, 0.25);
+  --color-focus-ring: rgba(29, 155, 209, 0.3);
 
   /* Superficies y Fondos */
   --color-white: #ffffff;
@@ -30,7 +32,7 @@
   --color-text-main: #1d1c1d;
   --color-text-secondary: #454245;
   --color-text-muted: #616061;
-  --color-text-placeholder: #868686;
+  --color-text-placeholder: #616061;
   --color-border-light: #ebebeb;
   --color-border-input: rgba(29, 28, 29, 0.3);
 
@@ -42,8 +44,15 @@
   --color-success-border: #2eb67d;
   --color-success-text: #1c7c50;
 
+  /* Bordes y Sombras de Formularios (Estilo Slack) */
+  --radius-input: 12px;
+  --border-input-stylized: 1px solid var(--color-border-input);
+  --border-input-hover: rgba(29, 28, 29, 0.55);
+  --shadow-input-focus: 0 0 0 1px var(--color-link), 0 0 0 5px var(--color-focus-ring);
+
   /* Tipografía */
-  --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-main: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: "Plus Jakarta Sans", "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 * {
@@ -56,5 +65,241 @@ body {
   font-family: var(--font-main);
   color: var(--color-text-main);
   background-color: var(--color-white);
+  min-width: 320px;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+}
+
+/* =========================================================
+   Estilos Globales Reutilizables para Formularios
+   ========================================================= */
+
+.form-card,
+.login-card,
+.register-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form,
+.login-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.form-field,
+.login-field,
+.register-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field label,
+.login-field label,
+.register-field label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea,
+.login-field input,
+.login-field select,
+.login-field textarea,
+.register-field input,
+.register-field select,
+.register-field textarea {
+  width: 100%;
+  height: 44px;
+  padding: 10px 14px;
+  font-size: 1.125rem;
+  line-height: 1.33333333;
+  font-family: var(--font-main);
+  color: var(--color-text-main);
+  background-color: var(--color-white);
+  border: var(--border-input-stylized);
+  border-radius: var(--radius-input);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-field textarea,
+.login-field textarea,
+.register-field textarea {
+  height: auto;
+  min-height: 88px;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder,
+.login-field input::placeholder,
+.login-field textarea::placeholder,
+.register-field input::placeholder,
+.register-field textarea::placeholder {
+  color: var(--color-text-placeholder);
+  font-weight: 400;
+}
+
+.form-field input:hover:not(:disabled):not(:focus),
+.form-field select:hover:not(:disabled):not(:focus),
+.form-field textarea:hover:not(:disabled):not(:focus),
+.login-field input:hover:not(:disabled):not(:focus),
+.login-field select:hover:not(:disabled):not(:focus),
+.login-field textarea:hover:not(:disabled):not(:focus),
+.register-field input:hover:not(:disabled):not(:focus),
+.register-field select:hover:not(:disabled):not(:focus),
+.register-field textarea:hover:not(:disabled):not(:focus) {
+  border-color: var(--border-input-hover);
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus,
+.login-field input:focus,
+.login-field select:focus,
+.login-field textarea:focus,
+.register-field input:focus,
+.register-field select:focus,
+.register-field textarea:focus {
+  border-color: var(--color-link);
+  box-shadow: var(--shadow-input-focus);
+}
+
+.form-submit-btn,
+.login-submit-btn,
+.register-submit-btn {
+  width: 100%;
+  height: 44px;
+  padding: 0 18px;
+  margin-top: 4px;
+  background-color: var(--color-primary-btn);
+  color: var(--color-white);
+  font-family: var(--font-main);
+  font-size: 1.125rem;
+  font-weight: 700;
+  border: 1px solid rgba(73, 26, 84, 0.35);
+  border-radius: var(--radius-input);
+  box-shadow: 0 2px 6px rgba(73, 26, 84, 0.18);
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.form-submit-btn:hover:not(:disabled),
+.login-submit-btn:hover:not(:disabled),
+.register-submit-btn:hover:not(:disabled) {
+  background-color: var(--color-primary-btn-hover);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.form-submit-btn:disabled,
+.login-submit-btn:disabled,
+.register-submit-btn:disabled {
+  background-color: var(--color-disabled-bg);
+  color: var(--color-text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.form-alert,
+.login-alert,
+.register-alert {
+  padding: 11px 14px;
+  border-radius: var(--radius-input);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.form-alert-error,
+.login-alert-error,
+.register-alert-error {
+  background-color: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  color: var(--color-error-text);
+}
+
+.form-alert-error p,
+.login-alert-error p,
+.register-alert-error p {
+  margin: 0;
+}
+
+.form-alert-success,
+.login-alert-success,
+.register-alert-success {
+  background-color: var(--color-success-bg);
+  border: 1px solid var(--color-success-border);
+  color: var(--color-success-text);
+}
+
+.form-link,
+.login-link,
+.register-link,
+.register-footer-link {
+  color: var(--color-link);
+  text-decoration: none;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+.form-link:hover,
+.login-link:hover,
+.register-link:hover,
+.register-footer-link:hover {
+  text-decoration: underline;
+}
+
+.form-link-btn,
+.login-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Responsive Global para Formularios (hasta 320px) */
+@media (max-width: 480px) {
+  .form-field input,
+  .form-field select,
+  .form-field textarea,
+  .login-field input,
+  .login-field select,
+  .login-field textarea,
+  .register-field input,
+  .register-field select,
+  .register-field textarea {
+    height: 42px;
+    padding: 8px 12px;
+    font-size: 1rem;
+  }
+
+  .form-submit-btn,
+  .login-submit-btn,
+  .register-submit-btn {
+    height: 42px;
+    padding: 0 14px;
+    font-size: 1rem;
+  }
+
+  .form-alert,
+  .login-alert,
+  .register-alert {
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    word-break: break-word;
+  }
+}
+
 

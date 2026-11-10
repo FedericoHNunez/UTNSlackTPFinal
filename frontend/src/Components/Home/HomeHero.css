@@ -1,0 +1,29 @@
+.home-hero {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 60px 32px 80px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 48px;
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 40px 24px 60px;
+  }
+}
+
+@media (max-width: 540px) {
+  .home-hero {
+    padding: 24px 16px 40px;
+    gap: 32px;
+  }
+}
+
