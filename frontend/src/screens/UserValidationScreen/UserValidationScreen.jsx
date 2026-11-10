@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useRequest from "../../hooks/useRequest.js";
 import { validateUser } from "../../services/authService.js";
 import { SlackLogo } from "../../Components/Ui/SlackLogo.jsx";
@@ -8,6 +8,7 @@ import "./UserValidationScreen.css";
 
 export const UserValidationScreen = () => {
     const { token } = useParams();
+    const navigate = useNavigate();
     const { loading, error, response, sendRequest } = useRequest();
 
     useEffect(() => {
@@ -15,6 +16,16 @@ export const UserValidationScreen = () => {
             sendRequest(() => validateUser(token));
         }
     }, []);
+
+    useEffect(() => {
+        if (response) {
+            const timer = setTimeout(() => {
+                navigate("/login");
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [response, navigate]);
 
     return (
         <div className="validation-page">
@@ -53,17 +64,10 @@ export const UserValidationScreen = () => {
 
                         <h1>Tu usuario ha sido validado correctamente</h1>
                         <p className="validation-subtitle">
-                            Tu correo electrónico fue confirmado con éxito. Ya
-                            puedes acceder a tu cuenta y comenzar a trabajar con
-                            tu equipo.
+                            Tu correo electrónico fue confirmado con éxito.
+                            Serás redirigido al inicio de sesión en 3
+                            segundos...
                         </p>
-
-                        <Link
-                            to="/login"
-                            className="form-submit-btn validation-btn"
-                        >
-                            Iniciar sesión
-                        </Link>
                     </div>
                 )}
 
