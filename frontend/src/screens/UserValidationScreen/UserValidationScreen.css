@@ -1,0 +1,110 @@
+.validation-page {
+    min-height: 100vh;
+    background-color: var(--color-white);
+    color: var(--color-text-main);
+    font-family: var(--font-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.validation-header {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 36px;
+}
+
+.validation-logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.validation-card {
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+}
+
+.validation-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.validation-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.validation-icon-success {
+    background-color: var(--color-success-bg);
+    color: var(--color-accent-green);
+    border: 2px solid rgba(46, 182, 125, 0.3);
+}
+
+.validation-icon-error {
+    background-color: var(--color-error-bg);
+    color: var(--color-accent-red);
+    border: 2px solid rgba(224, 30, 90, 0.3);
+}
+
+.validation-state h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.65rem, 4.5vw, 2.35rem);
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    line-height: 1.2;
+    color: var(--color-text-main);
+    margin-bottom: 12px;
+}
+
+.validation-subtitle {
+    font-size: clamp(0.95rem, 2.5vw, 1.08rem);
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    margin-bottom: 28px;
+}
+
+.validation-alert {
+    width: 100%;
+    margin: 8px 0 24px;
+    text-align: left;
+}
+
+.validation-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    max-width: 360px;
+}
+
+@media (max-width: 480px) {
+    .validation-page {
+        padding: 24px 16px;
+    }
+
+    .validation-header {
+        margin-bottom: 24px;
+    }
+
+    .validation-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 18px;
+    }
+
+    .validation-btn {
+        max-width: 100%;
+    }
+}
+
