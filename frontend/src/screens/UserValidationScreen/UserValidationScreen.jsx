@@ -9,7 +9,11 @@ import "./UserValidationScreen.css";
 export const UserValidationScreen = () => {
     const { token } = useParams();
     const navigate = useNavigate();
-    const { loading, error, response, sendRequest } = useRequest();
+    const { loading, error, errorCode, response, sendRequest } = useRequest();
+
+    const isAlreadyVerified =
+        errorCode === "ALREADY_VERIFIED" ||
+        error === "User already verified.";
 
     useEffect(() => {
         if (token) {
@@ -93,9 +97,17 @@ export const UserValidationScreen = () => {
                             </svg>
                         </div>
 
-                        <h1>No pudimos validar tu cuenta</h1>
+                        <h1>
+                            {isAlreadyVerified
+                                ? "Usuario ya verificado"
+                                : "No pudimos validar tu cuenta"}
+                        </h1>
                         <div className="form-alert form-alert-error validation-alert">
-                            <p>{error}</p>
+                            <p>
+                                {isAlreadyVerified
+                                    ? "Usuario ya verificado."
+                                    : error}
+                            </p>
                         </div>
 
                         <Link
