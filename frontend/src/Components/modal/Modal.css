@@ -49,6 +49,16 @@
     color: var(--color-text-main, #1d1c1d);
 }
 
+.modal-step-indicator {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-text-muted, #616061);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+}
+
 .modal-subtitle {
     font-size: 0.92rem;
     color: var(--color-text-secondary, #454245);

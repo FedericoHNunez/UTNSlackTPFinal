@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router";
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
+import { CreateWorkspaceModal } from "../modal/CreateWorkspaceModal.jsx";
 import "./WorkspaceList.css";
 
 const AVATAR_THEMES = [
@@ -11,6 +12,7 @@ const AVATAR_THEMES = [
 
 export const WorkspaceList = () => {
     const { wokspace_error, currentWorkspaceList } = useContext(WorkspaceContext);
+    const [showCreateWorkspaceModal, setShowCreateWorkspaceModal] = useState(false);
 
     return (
         <div className="workspace-card">
@@ -95,11 +97,19 @@ export const WorkspaceList = () => {
             <div className="workspace-card-footer">
                 {currentWorkspaceList &&
                     (currentWorkspaceList.length === 0 ? (
-                        <button type="button" className="workspace-create-link-btn">
+                        <button
+                            type="button"
+                            className="workspace-create-link-btn"
+                            onClick={() => setShowCreateWorkspaceModal(true)}
+                        >
                             Crea tu primer espacio de trabajo
                         </button>
                     ) : (
-                        <button type="button" className="workspace-create-link-btn">
+                        <button
+                            type="button"
+                            className="workspace-create-link-btn"
+                            onClick={() => setShowCreateWorkspaceModal(true)}
+                        >
                             Crea un nuevo espacio de trabajo
                         </button>
                     ))}
@@ -111,6 +121,11 @@ export const WorkspaceList = () => {
                     </Link>
                 </p>
             </div>
+
+            <CreateWorkspaceModal
+                isOpen={showCreateWorkspaceModal}
+                onClose={() => setShowCreateWorkspaceModal(false)}
+            />
         </div>
     );
 };

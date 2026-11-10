@@ -17,7 +17,7 @@
   /* Enlaces e Interacción */
   --color-link: #1264a3;
   --color-channel-active: #1164a3;
-  --color-focus-ring: rgba(29, 155, 209, 0.3);
+  --color-focus-ring: rgba(97, 31, 105, 0.12);
 
   /* Superficies y Fondos */
   --color-white: #ffffff;
@@ -47,8 +47,8 @@
   /* Bordes y Sombras de Formularios (Estilo Slack) */
   --radius-input: 12px;
   --border-input-stylized: 1px solid var(--color-border-input);
-  --border-input-hover: rgba(29, 28, 29, 0.55);
-  --shadow-input-focus: 0 0 0 1px var(--color-link), 0 0 0 5px var(--color-focus-ring);
+  --border-input-hover: rgba(29, 28, 29, 0.45);
+  --shadow-input-focus: 0 0 0 2px var(--color-focus-ring);
 
   /* Tipografía */
   --font-main: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -172,7 +172,7 @@ h1, h2, h3 {
 .register-field input:focus,
 .register-field select:focus,
 .register-field textarea:focus {
-  border-color: var(--color-link);
+  border-color: rgba(97, 31, 105, 0.55);
   box-shadow: var(--shadow-input-focus);
 }
 
@@ -267,6 +267,20 @@ h1, h2, h3 {
   font-size: inherit;
   font-family: inherit;
   cursor: pointer;
+}
+
+.login-resend-box {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(224, 30, 90, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.login-resend-box .login-link-btn {
+  margin-left: 0;
 }
 
 /* Responsive Global para Formularios (hasta 320px) */

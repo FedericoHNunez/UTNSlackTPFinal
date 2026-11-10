@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import useRequest from "./useRequest.js";
-import { getWorkspaceByUser, inviteNewUser as inviteNewUserService } from "../services/workspaceService.js";
+import {
+    getWorkspaceByUser,
+    createWorkspace as createWorkspaceService,
+    inviteNewUser as inviteNewUserService
+} from "../services/workspaceService.js";
 
 export const useWorkspaceList = (userToken) => {
     const { loading, error, response, sendRequest } = useRequest();
@@ -15,6 +19,21 @@ export const useWorkspaceList = (userToken) => {
         workspace_loading: loading,
         wokspace_error: error,
         wokspace_response: response
+    };
+};
+
+export const useCreateWorkspace = () => {
+    const { loading, error, response, sendRequest } = useRequest();
+
+    const createWorkspace = (name, description, userToken) => {
+        sendRequest(() => createWorkspaceService(name, description, userToken));
+    };
+
+    return {
+        create_workspace_loading: loading,
+        create_workspace_error: error,
+        create_workspace_response: response,
+        createWorkspace
     };
 };
 

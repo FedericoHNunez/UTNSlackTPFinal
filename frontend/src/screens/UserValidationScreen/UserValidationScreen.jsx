@@ -1,15 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import useRequest from "../../hooks/useRequest.js";
 import { validateUser } from "../../services/authService.js";
 import { SlackLogo } from "../../Components/Ui/SlackLogo.jsx";
 import SpinnerLoading from "../../Components/Ui/SpinnerLoading/SpinnerLoading.jsx";
+import { ResendVerificationModal } from "../../Components/modal/ResendVerificationModal.jsx";
 import "./UserValidationScreen.css";
 
 export const UserValidationScreen = () => {
     const { token } = useParams();
     const navigate = useNavigate();
     const { loading, error, errorCode, response, sendRequest } = useRequest();
+    const [showResendModal, setShowResendModal] = useState(false);
 
     const isAlreadyVerified =
         errorCode === "ALREADY_VERIFIED" ||
@@ -108,6 +110,21 @@ export const UserValidationScreen = () => {
                                     ? "Usuario ya verificado."
                                     : error}
                             </p>
+                            {!isAlreadyVerified && (
+                                <div className="login-resend-box">
+                                    <p>
+                                        ¿Deseas enviar un nuevo mail de
+                                        validación?
+                                    </p>
+                                    <button
+                                        type="button"
+                                        className="login-link login-link-btn"
+                                        onClick={() => setShowResendModal(true)}
+                                    >
+                                        Enviar mail de validación
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                         <Link
@@ -119,6 +136,12 @@ export const UserValidationScreen = () => {
                     </div>
                 )}
             </main>
+
+            {showResendModal && (
+                <ResendVerificationModal
+                    onClose={() => setShowResendModal(false)}
+                />
+            )}
         </div>
     );
 };
