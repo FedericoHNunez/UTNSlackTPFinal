@@ -30,7 +30,11 @@ export const WorkspaceList = () => {
                                     </div>
                                     <div>
                                         <h2>{workspace.workspace_name}</h2>
-                                        <p>`Mimebros ${workspace.workspace_members_count}`</p>
+                                        <p>{workspace.workspace_members_count}
+                                            {
+                                                workspace.workspace_members_count === 1 ? " Miembro" : " Miembros"
+                                            }
+                                        </p>
                                     </div>
 
                                 </Link>

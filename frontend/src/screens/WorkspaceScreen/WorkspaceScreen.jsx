@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { WorkspaceList } from "../../Components/WorkspaceList/WorkspaceList";
-import SpinnerLoading from "../../Components/SpinnerLoading/SpinnerLoading";
+import SpinnerLoading from "../../Components/Ui/SpinnerLoading/SpinnerLoading";
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext";
 import { SlackLogo } from "../../Components/Ui/SlackLogo"
 import InvitationModal from "../../Components/modal/InvitationModal";

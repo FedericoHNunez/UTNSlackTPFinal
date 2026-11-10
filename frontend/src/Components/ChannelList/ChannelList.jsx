@@ -17,26 +17,29 @@ export const ChannelList = () => {
 
     return (
         <>
-            <h1>Channel</h1>
-            <p>ID de workspace: {currentWorkspace_id}</p>
+            <section>
 
-            {channel_error && <p>Error: {channel_error}</p>}
-            {currentchannelList && (
-                <ul>
-                    {currentchannelList.map((channel) => (
-                        <li key={channel.channel_id}>
-                            <Link
-                                to={`/workspaces/${currentWorkspace_id}/channels/${channel.channel_id}/messages`}
-                            >
-                                <p>#{channel.channel_name}</p>
-                            </Link>
+                <h1>Channel</h1>
+                <p>ID de workspace: {currentWorkspace_id}</p>
+
+                {channel_error && <p>Error: {channel_error}</p>}
+                {currentchannelList && (
+                    <ul>
+                        {currentchannelList.map((channel) => (
+                            <li key={channel.channel_id}>
+                                <Link
+                                    to={`/workspaces/${currentWorkspace_id}/channels/${channel.channel_id}/messages`}
+                                >
+                                    <p>#{channel.channel_name}</p>
+                                </Link>
+                            </li>
+                        ))}
+                        <li>
+                            <CreateChannelModal />
                         </li>
-                    ))}
-                    <li>
-                        <CreateChannelModal />
-                    </li>
-                </ul>
-            )}
+                    </ul>
+                )}
+            </section>
         </>
     );
 };

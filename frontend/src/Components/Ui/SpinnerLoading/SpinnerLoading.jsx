@@ -1,6 +1,6 @@
 import React from "react";
 import "./SpinnerLoading.css";
-import { SlackLogo } from "../Ui/SlackLogo";
+import { SlackLogo } from "../SlackLogo";
 
 export const SpinnerLoading = ({ text = "Cargando...", fullScreen = false }) => {
     return (

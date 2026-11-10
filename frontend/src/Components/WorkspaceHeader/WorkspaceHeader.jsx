@@ -1,7 +1,7 @@
 export const WorkspaceHeader = () => {
     return (
         <>
-            <header>
+            <div>
                 <div>
                     <button>
                         <img alt="flecha" />
@@ -27,7 +27,7 @@ export const WorkspaceHeader = () => {
                         <img alt="?" />
                     </button>
                 </div>
-            </header>
+            </div>
 
 
         </>
