@@ -30,7 +30,7 @@ export const WorkspaceList = () => {
                                     </div>
                                     <div>
                                         <h2>{workspace.workspace_name}</h2>
-                                        <p>Mimebros</p>
+                                        <p>`Mimebros ${workspace.workspace_members_count}`</p>
                                     </div>
 
                                 </Link>
