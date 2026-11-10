@@ -13,7 +13,7 @@ class UserService {
     async getUserById(user_id) {
         const user = await userRepository.getById(user_id);
         if (!user) {
-            throw new ServerError(`User with ID ${user_id} not found`, 404);
+            throw new ServerError("Usuario no encontrado.", 404);
         }
         return user;
     }
@@ -22,7 +22,7 @@ class UserService {
         const user = await userRepository.getById(userId);
 
         if (!user) {
-            throw new ServerError(`User with ID ${userId} not found`, 404);
+            throw new ServerError("Usuario no encontrado.", 404);
         }
         return await userRepository.softDeleteById(userId);
     }

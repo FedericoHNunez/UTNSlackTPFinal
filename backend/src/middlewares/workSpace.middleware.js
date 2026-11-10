@@ -10,14 +10,14 @@ function workSpaceMiddleware(valid_roles = []) {
 
         if (!workspace_selected) {
             throw new ServerError(
-                'Workspace not found.',
+                'Espacio de trabajo no encontrado.',
                 404
             );
         }
 
         if (!req.user) {
             throw new ServerError(
-                'Authentication required.',
+                'No autorizado. Debes iniciar sesión para continuar.',
                 401
             );
         }
@@ -26,14 +26,14 @@ function workSpaceMiddleware(valid_roles = []) {
 
         if (!membership) {
             throw new ServerError(
-                'You do not have sufficient permissions to access this workspace.',
+                'No tienes permisos para acceder a este espacio de trabajo.',
                 403
             );
         }
 
         if (valid_roles.length > 0 && !valid_roles.includes(membership.role)) {
             throw new ServerError(
-                'You do not have sufficient permissions to perform this operation.',
+                'No tienes permisos suficientes para realizar esta operación.',
                 403
             );
         }

@@ -9,7 +9,7 @@ class AuthController {
 
         const user = await authService.registerUser(userName, email, password);
 
-        return successResponse(res, "User created successfully.", user, 201);
+        return successResponse(res, "Usuario registrado con éxito. Revisa tu correo electrónico para verificar tu cuenta.", user, 201);
     }
 
     async loginUser(req, res) {
@@ -17,7 +17,7 @@ class AuthController {
         const auth_token = await authService.loginUser(email, password);
         return successResponse(
             res,
-            "User logged in successfully.",
+            "Inicio de sesión exitoso.",
             { auth_token }
         );
     }
@@ -26,26 +26,26 @@ class AuthController {
         const { token_email_verify } = req.params;
         const { email } = jwt.verify(token_email_verify, ENVIRONMENT.TOKEN_JWT_KEY);
         await authService.verifyEmail(email);
-        return successResponse(res, "User verified successfully. You can now login.");
+        return successResponse(res, "Correo verificado correctamente. Ya puedes iniciar sesión.");
     }
 
     async resendVerificationEmail(req, res) {
         const { email } = req.body;
         await authService.resendVerificationEmail(email);
-        return successResponse(res, "Verification email sent successfully.");
+        return successResponse(res, "Si el correo ingresado corresponde a una cuenta pendiente de verificación, recibirás un nuevo enlace.");
     }
 
     async resetPassword(req, res) {
         const { email } = req.body;
         await authService.resetPassword(email);
-        return successResponse(res, "If the email exists in our system, you will receive an email to reset your password.");
+        return successResponse(res, "Si el correo existe en nuestro sistema, recibirás un enlace para restablecer tu contraseña.");
     }
 
     async changePassword(req, res) {
         const { newPassword, confirmNewPassword, token } = req.body;
         const { email, userName } = jwt.verify(token, ENVIRONMENT.TOKEN_JWT_KEY);
         await authService.changePassword(email, userName, newPassword, confirmNewPassword);
-        return successResponse(res, "Password changed successfully.");
+        return successResponse(res, "Contraseña actualizada correctamente.");
     }
 }
 

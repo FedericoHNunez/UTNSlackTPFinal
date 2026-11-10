@@ -11,22 +11,22 @@ class AuthService {
     async registerUser(userName, email, password) {
         if (!userName || !email || !password) {
             throw new ServerError(
-                "Missing required fields: userName, email, and password are required.",
+                "Todos los campos son obligatorios.",
                 400
             );
         }
 
         if (!isValidEmail(email)) {
-            throw new ServerError("Invalid email format.", 400);
+            throw new ServerError("El formato del correo electrónico no es válido.", 400);
         }
 
         const userEmailExist = await userRepository.getByEmail(email);
         if (userEmailExist) {
-            throw new ServerError("UserName or email already exists.", 409, "ALREADY_EXISTS");
+            throw new ServerError("No fue posible completar el registro con los datos ingresados.", 409, "ALREADY_EXISTS");
         }
         const userNameExist = await userRepository.getByUserName(userName);
         if (userNameExist) {
-            throw new ServerError("UserName or email already exists.", 409, "ALREADY_EXISTS");
+            throw new ServerError("No fue posible completar el registro con los datos ingresados.", 409, "ALREADY_EXISTS");
         }
 
         const hashedPassword = await hashPassword(password);
@@ -52,27 +52,27 @@ class AuthService {
     async loginUser(email, password) {
         if (!email || !password) {
             throw new ServerError(
-                "Missing required fields: email and password are required.",
+                "Debes ingresar tus credenciales para iniciar sesión.",
                 400
             );
         }
 
         if (!isValidEmail(email)) {
-            throw new ServerError("Invalid email format.", 400);
+            throw new ServerError("Credenciales inválidas. Verifica tus datos e inténtalo nuevamente.", 401, "INVALID_CREDENTIALS");
         }
 
         const user = await userRepository.getByEmail(email);
 
         if (!user) {
-            throw new ServerError("Invalid credentials", 401, "INVALID_CREDENTIALS");
+            throw new ServerError("Credenciales inválidas. Verifica tus datos e inténtalo nuevamente.", 401, "INVALID_CREDENTIALS");
         }
         const userPasswordMatch = await compareHash(password, user.password);
-        if (!userPasswordMatch) {
-            throw new ServerError("Invalid credentials", 401, "INVALID_CREDENTIALS");
+        if (!userPasswordMatch || !user.active) {
+            throw new ServerError("Credenciales inválidas. Verifica tus datos e inténtalo nuevamente.", 401, "INVALID_CREDENTIALS");
         }
         if (!user.emailVerified) {
             throw new ServerError(
-                "User not verified. Please verify your email to login.",
+                "La cuenta aún no ha sido verificada. Revisa tu correo electrónico para activarla.",
                 403,
                 "EMAIL_NOT_VERIFIED"
             );
@@ -91,14 +91,11 @@ class AuthService {
     async verifyEmail(email) {
         const userFound = await userRepository.getByEmail(email);
 
-        if (!userFound) {
-            throw new ServerError("User not found.", 404);
-        }
-        if (!userFound.active) {
-            throw new ServerError("User is not active.", 403);
+        if (!userFound || !userFound.active) {
+            throw new ServerError("El enlace de verificación no es válido o ha expirado.", 400);
         }
         if (userFound.emailVerified) {
-            throw new ServerError("User already verified.", 400);
+            throw new ServerError("La cuenta ya se encuentra verificada.", 400, "ALREADY_VERIFIED");
         }
         const userVerified = await userRepository.updateById(
             userFound._id,
@@ -109,14 +106,14 @@ class AuthService {
 
     async resendVerificationEmail(email) {
         if (!email || !isValidEmail(email)) {
-            throw new ServerError("Invalid email format.", 400, "INVALID_EMAIL");
+            throw new ServerError("Debes ingresar un correo electrónico con formato válido.", 400, "INVALID_EMAIL");
         }
         const user = await userRepository.getByEmail(email);
-        if (!user) {
-            throw new ServerError("User not found.", 404, "USER_NOT_FOUND");
+        if (!user || !user.active) {
+            return;
         }
         if (user.emailVerified) {
-            throw new ServerError("User already verified.", 400, "ALREADY_VERIFIED");
+            throw new ServerError("La cuenta ya se encuentra verificada.", 400, "ALREADY_VERIFIED");
         }
         const verify_email_token = tokenHelper.createVerifyEmailToken(
             { email: user.email },
@@ -135,14 +132,11 @@ class AuthService {
 
     async resetPassword(email) {
 
-        if (!email) {
-            throw new ServerError("Invalid credentials", 400);
-        }
-        if (!isValidEmail(email)) {
-            throw new ServerError("Invalid email format.", 400);
+        if (!email || !isValidEmail(email)) {
+            throw new ServerError("Debes ingresar un correo electrónico con formato válido.", 400);
         }
         const user = await userRepository.getByEmail(email);
-        if (!user) return;
+        if (!user || !user.active) return;
 
         const resetPasswordToken = tokenHelper.createVerifyEmailToken(
             {
@@ -166,17 +160,17 @@ class AuthService {
 
     async changePassword(email, userName, newPassword, confirmNewPassword) {
         if (!email || !userName) {
-            throw new ServerError("Invalid token.", 401);
+            throw new ServerError("El enlace de recuperación no es válido o ha expirado.", 401, "INVALID_TOKEN");
         }
         if (!newPassword || !confirmNewPassword) {
-            throw new ServerError("Invalid credentials", 400);
+            throw new ServerError("Debes completar todos los campos de contraseña.", 400);
         }
         if (newPassword !== confirmNewPassword) {
-            throw new ServerError("Passwords do not match", 400);
+            throw new ServerError("Las contraseñas ingresadas no coinciden.", 400);
         }
         const userFound = await userRepository.getByEmail(email);
-        if (!userFound) {
-            throw new ServerError("User not found.", 404);
+        if (!userFound || !userFound.active) {
+            throw new ServerError("No se pudo procesar el cambio de contraseña. El enlace no es válido o ha expirado.", 400);
         }
         const hashedPassword = await hashPassword(newPassword);
         const userUpdated = await userRepository.updateById(

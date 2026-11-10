@@ -9,7 +9,7 @@ class MessagesChannelController {
         const { content } = req.body;
 
         const message = await messagesChannelService.createMessage(content, channel_id, user_id);
-        return successResponse(res, "Message created successfully.", { message }, 201);
+        return successResponse(res, "Mensaje enviado correctamente.", { message }, 201);
     }
 
     async updateMessageById(req, res) {
@@ -18,7 +18,7 @@ class MessagesChannelController {
         const { content } = req.body;
 
         const message = await messagesChannelService.updateMessageById(message_id, content, user_id);
-        return successResponse(res, "Message updated successfully.", { message }, 200);
+        return successResponse(res, "Mensaje actualizado correctamente.", { message }, 200);
     }
 
     async deleteMessageById(req, res) {
@@ -26,7 +26,7 @@ class MessagesChannelController {
         const user_id = req.user.id;
 
         const message = await messagesChannelService.deleteMessageById(message_id, user_id);
-        return successResponse(res, "Message deleted successfully.", { message }, 200);
+        return successResponse(res, "Mensaje eliminado correctamente.", { message }, 200);
     }
 }
 

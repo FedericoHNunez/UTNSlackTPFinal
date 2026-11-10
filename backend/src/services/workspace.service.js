@@ -18,14 +18,14 @@ class WorkspaceService {
     async getWorkspacesByUserId(user_id) {
         if (!user_id) {
             throw new ServerError(
-                "Missing required fields: user_id is required.",
+                "El identificador de usuario es obligatorio.",
                 400
             );
         }
         const userExist = await userRepository.getById(user_id);
         if (!userExist) {
             throw new ServerError(
-                "User not found.",
+                "Usuario no encontrado.",
                 404
             );
         }
@@ -47,7 +47,7 @@ class WorkspaceService {
     async createWorkspace(name, description) {
         if (!name || !description) {
             throw new ServerError(
-                "Missing required fields: name and description are required.",
+                "El nombre y la descripción del espacio de trabajo son obligatorios.",
                 400
             );
         }
@@ -73,14 +73,14 @@ class WorkspaceService {
     async getChannelsByWorkspaceId(workspace_id) {
         if (!workspace_id) {
             throw new ServerError(
-                "Missing required fields: workspace_id is required.",
+                "El identificador del espacio de trabajo es obligatorio.",
                 400
             );
         }
         const workspaceExist = await workspaceRepository.getById(workspace_id);
         if (!workspaceExist) {
             throw new ServerError(
-                "Workspace not found.",
+                "Espacio de trabajo no encontrado.",
                 404
             );
         }
@@ -101,14 +101,14 @@ class WorkspaceService {
     async updateWorkspaceById(workspace_id, name, description) {
         if (!workspace_id) {
             throw new ServerError(
-                "Missing required fields: workspace_id is required.",
+                "El identificador del espacio de trabajo es obligatorio.",
                 400
             );
         }
         const workspaceExist = await workspaceRepository.getById(workspace_id);
         if (!workspaceExist) {
             throw new ServerError(
-                "Workspace not found.",
+                "Espacio de trabajo no encontrado.",
                 404
             );
         }
@@ -123,20 +123,20 @@ class WorkspaceService {
     async inviteNewUser(email, userName, userEmail) {
         if (!email) {
             throw new ServerError(
-                "Missing required fields: email is required.",
+                "El correo electrónico es obligatorio.",
                 400
             );
         }
         if (!isValidEmail(email)) {
             throw new ServerError(
-                "Email is not valid.",
+                "El formato del correo electrónico no es válido.",
                 400
             );
         }
         const userExist = await userRepository.getByEmail(email);
         if (userExist) {
             throw new ServerError(
-                "User already exists in the Slack, invite him to the workspace",
+                "El usuario ya se encuentra registrado en la plataforma. Puedes invitarlo directamente al espacio de trabajo.",
                 400
             );
         }

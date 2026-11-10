@@ -21,16 +21,16 @@ class MemberService {
     async getMemberById(member_id) {
         const member = await memberRepository.getById(member_id);
         if (!member) {
-            throw new ServerError(`Member with ID ${member_id} not found`, 404);
+            throw new ServerError("Miembro no encontrado.", 404);
         }
         return member;
     }
     async deleteMemberById(member_selected, user_id) {
         if (member_selected.role === 'owner') {
-            throw new ServerError("Owner cannot be deleted", 403);
+            throw new ServerError("No se puede eliminar al propietario del espacio de trabajo.", 403);
         }
         if (member_selected.role === 'admin' && user_id !== member_selected.id_user) {
-            throw new ServerError("You cannot delete an admin", 403);
+            throw new ServerError("No tienes permisos para eliminar a un administrador.", 403);
         }
         return await memberRepository.deleteById(member_selected._id);
     }
@@ -39,16 +39,16 @@ class MemberService {
 
         const userInvetedFound = await userRepository.getByEmail(emailInvitedUser);
         if (!userInvetedFound) {
-            throw new ServerError("User not found", 404);
+            throw new ServerError("No se encontró un usuario registrado con ese correo electrónico.", 404);
         }
         const userExistingInWorkspace = await memberRepository.getWorkspaceMembershipByUserId(userInvetedFound._id, workspace_id);
 
         if (userExistingInWorkspace) {
-            throw new ServerError("User is already a member of this workspace", 400);
+            throw new ServerError("El usuario ya forma parte de este espacio de trabajo.", 400);
         }
 
         if (role === 'owner') {
-            throw new ServerError("You cannot invite an owner", 400);
+            throw new ServerError("No es posible asignar el rol de propietario en una invitación.", 400);
         }
 
         const invitation = await invitationRepository.create({ id_invitedUser: userInvetedFound._id, id_workspace: workspace_id, role: role });
@@ -77,16 +77,16 @@ class MemberService {
 
 
         const invitationFound = await invitationRepository.getById(invitation_id);
-        if (!invitationFound.active) {
-            throw new ServerError("Invitation not found or already used", 404);
+        if (!invitationFound || !invitationFound.active) {
+            throw new ServerError("La invitación no es válida, ha expirado o ya fue utilizada.", 404);
         }
         const userInvetedFound = await userRepository.getById(invitationFound.id_invitedUser);
         if (!userInvetedFound) {
-            throw new ServerError("Invited user not found", 404);
+            throw new ServerError("No se pudo procesar la invitación.", 404);
         }
         const userExistingInWorkspace = await memberRepository.getWorkspaceMembershipByUserId(invitationFound.id_invitedUser, invitationFound.id_workspace);
         if (userExistingInWorkspace) {
-            throw new ServerError("User is already a member of this workspace", 400);
+            throw new ServerError("Ya eres miembro de este espacio de trabajo.", 400);
         }
 
         const newMember = await memberRepository.create(

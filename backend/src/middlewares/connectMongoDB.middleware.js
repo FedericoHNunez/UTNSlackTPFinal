@@ -7,7 +7,9 @@ async function connectMongoDBMiddleware(req, res, next) {
     } catch (error) {
         console.error("Error conectando MongoDB:", error);
         res.status(503).json({
-            message: "No se pudo conectar a la base de datos"
+            ok: false,
+            status: 503,
+            message: "Servicio temporalmente no disponible. No se pudo conectar a la base de datos."
         });
 
     };

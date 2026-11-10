@@ -15,7 +15,7 @@ class ChannelService {
 
     async createChannel(name, description, id_workspace) {
         if (!name || !description || !id_workspace) {
-            throw new ServerError("Missing required fields: name, description and id_workspace are required.", 400);
+            throw new ServerError("El nombre, la descripción y el espacio de trabajo son obligatorios.", 400);
         }
         const channel = await channelRepository.create({ name, description, id_workspace });
         return channel;

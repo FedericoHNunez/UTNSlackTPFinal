@@ -6,7 +6,7 @@ const memberMiddleware = (roles) => {
         const member_id = req.params.member_id;
         const member_selected = await memberRepository.getById(member_id);
         if (!member_selected) {
-            throw new ServerError("You are not a member of this workspace", 404);
+            throw new ServerError("No se encontró la membresía en este espacio de trabajo.", 404);
         }
         req.member_selected = member_selected;
         next();

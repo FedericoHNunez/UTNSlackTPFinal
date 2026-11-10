@@ -7,12 +7,12 @@ const authMiddleware = (req, res, next) => {
         const header = req.headers.authorization;
         //verifico si hay header
         if (!header || !header.startsWith('Bearer ')) {
-            throw new ServerError("The authorization header is missing or not in the correct format.", 400);
+            throw new ServerError("No autorizado. Credenciales de autenticación inválidas o ausentes.", 401, "UNAUTHORIZED");
         }
         const auth_token = header.split(' ')[1]
         //verifico si hat token
         if (!auth_token) {
-            throw new ServerError("The token is missing.", 400);
+            throw new ServerError("No autorizado. Credenciales de autenticación inválidas o ausentes.", 401, "UNAUTHORIZED");
         }
         const { _id, userName, email } = jwt.verify(auth_token, ENVIRONMENT.TOKEN_JWT_KEY)
 

@@ -1,5 +1,5 @@
 function errorHandler(error, req, res, next) {
-    //error controlado
+    // Error controlado
     if (error.status) {
         return res.status(error.status).json({
             ok: false,
@@ -14,7 +14,7 @@ function errorHandler(error, req, res, next) {
             ok: false,
             status: 401,
             code: "TOKEN_EXPIRED",
-            message: "Token has expired",
+            message: "La sesión o el enlace ha expirado. Por favor, solicita uno nuevo o vuelve a iniciar sesión.",
         });
     }
 
@@ -24,7 +24,7 @@ function errorHandler(error, req, res, next) {
             ok: false,
             status: 401,
             code: "INVALID_TOKEN",
-            message: "Invalid token",
+            message: "No autorizado. Las credenciales o el enlace proporcionado no son válidos.",
         });
     }
 
@@ -34,7 +34,7 @@ function errorHandler(error, req, res, next) {
             ok: false,
             status: 400,
             code: "INVALID_ID",
-            message: `Identificador inválido: '${error.value}' para el campo '${error.path}'`,
+            message: "El identificador proporcionado no tiene un formato válido.",
         });
     }
 
@@ -45,7 +45,7 @@ function errorHandler(error, req, res, next) {
             ok: false,
             status: 400,
             code: "VALIDATION_ERROR",
-            message: "Error de validación",
+            message: "Los datos enviados no cumplen con el formato requerido.",
             errors: messages,
         });
     }
@@ -56,7 +56,7 @@ function errorHandler(error, req, res, next) {
         ok: false,
         status: 500,
         code: "INTERNAL_SERVER_ERROR",
-        message: "internal server error",
+        message: "Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.",
     });
 };
 
