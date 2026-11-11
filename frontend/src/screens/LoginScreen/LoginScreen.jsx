@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { SlackLogo } from "../../Components/Ui/SlackLogo.jsx";
 import { LoginForm } from "../../Components/Forms/LoginForm/LoginForm.jsx";
 import { ForgotPasswordModal } from "../../Components/modal/ForgotPasswordModal.jsx";
+import { Footer } from "../../Components/Footer/Footer.jsx";
 import "./LoginScreen.css";
 
 export const LoginScreen = () => {
@@ -46,6 +47,8 @@ export const LoginScreen = () => {
                     </p>
                 </div>
             </main>
+
+            <Footer />
 
             {showForgotModal && (
                 <ForgotPasswordModal

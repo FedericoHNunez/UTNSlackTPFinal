@@ -6,18 +6,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 24px 64px;
+    padding: 0 2.4rem 6.4rem;
     overflow: hidden;
 }
 
 /* Mismo fondo curvo centrado desde arriba que HomeScreen */
 .workspace-bg-arch {
     position: absolute;
-    top: -31px;
+    top: -3.1rem;
     left: 50%;
     transform: translateX(-50%);
     width: 148%;
-    height: 540px;
+    height: 54rem;
     background-color: var(--color-primary);
     border-radius: 0 0 50% 50% / 0 0 100% 100%;
     z-index: 0;
@@ -28,8 +28,8 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 1060px;
-    padding: 24px 0 12px;
+    max-width: 106rem;
+    padding: 2.4rem 0 1.2rem;
     display: flex;
     justify-content: center;
 }
@@ -45,16 +45,16 @@
     z-index: 1;
     text-align: center;
     color: var(--color-white);
-    margin: 12px 0 40px;
+    margin: 1.2rem 0 4rem;
 }
 
 .workspace-hero-header h1 {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(3.2rem, 5vw, 4.8rem);
     font-weight: 800;
-    letter-spacing: -0.75px;
+    letter-spacing: -0.075rem;
     line-height: 1.15;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 
 .workspace-wave {
@@ -63,7 +63,7 @@
 }
 
 .workspace-hero-header p {
-    font-size: clamp(0.95rem, 2.5vw, 1.08rem);
+    font-size: clamp(1.52rem, 2.5vw, 1.73rem);
     color: rgba(255, 255, 255, 0.9);
 }
 
@@ -71,28 +71,28 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 1060px;
+    max-width: 106rem;
     display: grid;
-    grid-template-columns: 1fr 310px;
-    gap: 32px;
+    grid-template-columns: 1fr 31rem;
+    gap: 3.2rem;
     align-items: start;
 }
 
 .workspace-section-label {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.8rem;
     color: var(--color-white);
-    font-size: 0.95rem;
+    font-size: 1.52rem;
     font-weight: 700;
-    margin-bottom: 12px;
-    padding-left: 2px;
+    margin-bottom: 1.2rem;
+    padding-left: 0.2rem;
 }
 
 .workspace-mini-badge {
-    width: 18px;
-    height: 18px;
-    border-radius: 4px;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 0.4rem;
     background: linear-gradient(90deg, #e01e5a 50%, #ecb22e 50%);
     display: inline-block;
     flex-shrink: 0;
@@ -101,46 +101,46 @@
 /* Tarjeta lateral de Invitación */
 .workspace-invite-card {
     background-color: var(--color-white);
-    border-radius: 12px;
-    padding: 24px 20px;
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.06);
-    border: 1px solid var(--color-border-light);
+    border-radius: 1.2rem;
+    padding: 2.4rem 2rem;
+    box-shadow: 0 0.8rem 2.8rem rgba(0, 0, 0, 0.1), 0 0.1rem 0.4rem rgba(0, 0, 0, 0.06);
+    border: 0.1rem solid var(--color-border-light);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 1.6rem;
 }
 
 .workspace-invite-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    gap: 0.6rem;
 }
 
 .workspace-invite-content h3 {
-    font-size: 0.98rem;
+    font-size: 1.57rem;
     font-weight: 800;
     color: var(--color-text-main);
     line-height: 1.3;
 }
 
 .workspace-invite-content p {
-    font-size: 0.88rem;
+    font-size: 1.4rem;
     color: var(--color-text-secondary);
     line-height: 1.4;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 
 .workspace-invite-btn {
     background-color: var(--color-white);
     color: var(--color-text-main);
     font-family: var(--font-main);
-    font-size: 0.88rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    padding: 8px 14px;
-    border-radius: 6px;
-    border: 1px solid var(--color-border-input);
+    padding: 0.8rem 1.4rem;
+    border-radius: 0.6rem;
+    border: 0.1rem solid var(--color-border-input);
     cursor: pointer;
     transition: background-color 0.15s ease, border-color 0.15s ease;
 }
@@ -151,8 +151,8 @@
 }
 
 .workspace-invite-icon {
-    width: 64px;
-    height: 64px;
+    width: 6.4rem;
+    height: 6.4rem;
     border-radius: 50%;
     background-color: #f6eef8;
     color: #b865e6;
@@ -166,14 +166,14 @@
 /* Responsive hasta 320px */
 @media (max-width: 900px) {
     .workspace-bg-arch {
-        top: -23px;
+        top: -2.3rem;
         width: 175%;
-        height: 480px;
+        height: 48rem;
     }
 
     .workspace-main-grid {
         grid-template-columns: 1fr;
-        max-width: 680px;
+        max-width: 68rem;
     }
 
     .workspace-invite-column .workspace-section-label {
@@ -183,20 +183,19 @@
 
 @media (max-width: 480px) {
     .workspace-screen-container {
-        padding: 0 14px 40px;
+        padding: 0 1.4rem 4rem;
     }
 
     .workspace-hero-header {
-        margin: 8px 0 28px;
+        margin: 0.8rem 0 2.8rem;
     }
 
     .workspace-invite-card {
-        padding: 18px 16px;
+        padding: 1.8rem 1.6rem;
     }
 
     .workspace-invite-icon {
-        width: 52px;
-        height: 52px;
+        width: 5.2rem;
+        height: 5.2rem;
     }
 }
-

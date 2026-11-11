@@ -5,28 +5,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 2rem;
     z-index: 1000;
 }
 
 .modal-card {
     background-color: var(--color-white, #ffffff);
     width: 100%;
-    max-width: 420px;
-    border-radius: 8px;
-    padding: 24px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    max-width: 42rem;
+    border-radius: 0.8rem;
+    padding: 2.4rem;
+    box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.2);
 }
 
 .modal-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 
 .modal-header h2 {
-    font-size: 1.35rem;
+    font-size: 2.16rem;
     font-weight: 800;
     color: var(--color-text-main, #1d1c1d);
     margin: 0;
@@ -35,12 +35,12 @@
 .modal-close-btn {
     background: none;
     border: none;
-    font-size: 1.6rem;
+    font-size: 2.56rem;
     line-height: 1;
     color: var(--color-text-muted, #616061);
     cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.4rem;
     margin-left: auto;
 }
 
@@ -51,44 +51,44 @@
 
 .modal-step-indicator {
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 1.28rem;
     font-weight: 700;
     color: var(--color-text-muted, #616061);
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    margin-bottom: 6px;
+    margin-bottom: 0.6rem;
 }
 
 .modal-subtitle {
-    font-size: 0.92rem;
+    font-size: 1.47rem;
     color: var(--color-text-secondary, #454245);
-    margin-bottom: 18px;
+    margin-bottom: 1.8rem;
     line-height: 1.4;
 }
 
 .modal-actions {
     display: flex;
-    gap: 10px;
+    gap: 1rem;
     justify-content: flex-end;
-    margin-top: 4px;
+    margin-top: 0.4rem;
 }
 
 .modal-actions .form-submit-btn,
 .modal-actions .login-submit-btn {
     width: auto;
     margin-top: 0;
-    padding: 10px 20px;
+    padding: 1rem 2rem;
 }
 
 .modal-cancel-btn {
-    height: 44px;
-    padding: 0 18px;
+    height: 4.4rem;
+    padding: 0 1.8rem;
     background-color: var(--color-white, #ffffff);
     color: var(--color-text-main, #1d1c1d);
-    font-size: 1rem;
+    font-size: 1.6rem;
     font-weight: 700;
-    border: var(--border-input-stylized, 1px solid rgba(29, 28, 29, 0.3));
-    border-radius: var(--radius-input, 12px);
+    border: var(--border-input-stylized, 0.1rem solid rgba(29, 28, 29, 0.3));
+    border-radius: var(--radius-input, 1.2rem);
     cursor: pointer;
     transition: background-color 0.15s ease, border-color 0.15s ease;
 }
@@ -100,20 +100,20 @@
 
 @media (max-width: 480px) {
     .modal-overlay {
-        padding: 12px;
+        padding: 1.2rem;
     }
 
     .modal-card {
-        padding: 20px 16px;
+        padding: 2rem 1.6rem;
     }
 
     .modal-header h2 {
-        font-size: 1.15rem;
+        font-size: 1.84rem;
     }
 
     .modal-actions {
         flex-direction: column-reverse;
-        gap: 8px;
+        gap: 0.8rem;
     }
 
     .modal-actions .form-submit-btn,
@@ -122,5 +122,3 @@
         width: 100%;
     }
 }
-
-

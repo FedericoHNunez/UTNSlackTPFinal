@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { SlackLogo } from "../../Components/Ui/SlackLogo.jsx";
 import { RegisterForm } from "../../Components/Forms/RegisterForm/RegisterForm.jsx";
+import { Footer } from "../../Components/Footer/Footer.jsx";
 import "./RegisterScreen.css";
 
 export const RegisterScreen = () => {
@@ -33,6 +34,8 @@ export const RegisterScreen = () => {
           </p>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 };

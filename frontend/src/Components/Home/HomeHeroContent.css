@@ -1,9 +1,9 @@
 .home-hero-content h1 {
-  font-size: 3.4rem;
+  font-size: 5.44rem;
   line-height: 1.1;
   font-weight: 800;
-  margin-bottom: 20px;
-  letter-spacing: -1px;
+  margin-bottom: 2rem;
+  letter-spacing: -0.1rem;
 }
 
 .home-hero-highlight {
@@ -11,17 +11,17 @@
 }
 
 .home-hero-content p {
-  font-size: 1.2rem;
+  font-size: 1.92rem;
   line-height: 1.5;
   color: var(--color-cream);
-  margin-bottom: 32px;
-  max-width: 520px;
+  margin-bottom: 3.2rem;
+  max-width: 52rem;
 }
 
 .home-cta-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 1.6rem;
 }
 
 .btn-primary {
@@ -29,20 +29,20 @@
   color: var(--color-primary);
   text-decoration: none;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1.52rem;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 18px 32px;
-  border-radius: 6px;
-  border: 1.5px solid rgba(73, 26, 84, 0.35);
-  box-shadow: 0 4px 14px rgba(73, 26, 84, 0.18);
+  letter-spacing: 0.08rem;
+  padding: 1.8rem 3.2rem;
+  border-radius: 0.6rem;
+  border: 0.15rem solid rgba(73, 26, 84, 0.35);
+  box-shadow: 0 0.4rem 1.4rem rgba(73, 26, 84, 0.18);
   transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
   background-color: var(--color-cream);
   border-color: var(--color-primary);
-  box-shadow: 0 6px 18px rgba(73, 26, 84, 0.26);
+  box-shadow: 0 0.6rem 1.8rem rgba(73, 26, 84, 0.26);
 }
 
 .btn-secondary {
@@ -50,31 +50,31 @@
   color: var(--color-white);
   text-decoration: none;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1.52rem;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 18px 32px;
-  border-radius: 6px;
-  border: 1.5px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 4px 14px rgba(73, 26, 84, 0.22);
+  letter-spacing: 0.08rem;
+  padding: 1.8rem 3.2rem;
+  border-radius: 0.6rem;
+  border: 0.15rem solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0.4rem 1.4rem rgba(73, 26, 84, 0.22);
   transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
   border-color: var(--color-white);
   background-color: var(--color-header-bg);
-  box-shadow: 0 6px 18px rgba(73, 26, 84, 0.32);
+  box-shadow: 0 0.6rem 1.8rem rgba(73, 26, 84, 0.32);
 }
 
 @media (max-width: 900px) {
   .home-hero-content h1 {
-    font-size: clamp(1.85rem, 6.5vw, 2.6rem);
+    font-size: clamp(2.96rem, 6.5vw, 4.16rem);
   }
 
   .home-hero-content p {
     margin-left: auto;
     margin-right: auto;
-    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-size: clamp(1.6rem, 3vw, 1.92rem);
   }
 
   .home-cta-group {
@@ -92,7 +92,6 @@
   .btn-secondary {
     width: 100%;
     text-align: center;
-    padding: 14px 20px;
+    padding: 1.4rem 2rem;
   }
 }
-

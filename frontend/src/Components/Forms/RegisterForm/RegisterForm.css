@@ -2,13 +2,11 @@
    se heredan globalmente desde index.css */
 
 .register-existing-box {
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid rgba(224, 30, 90, 0.25);
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 0.1rem solid rgba(224, 30, 90, 0.25);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 6px;
+    gap: 0.6rem;
 }
-
-

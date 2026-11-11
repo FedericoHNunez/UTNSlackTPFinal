@@ -1,46 +1,46 @@
 .workspace-card {
     background-color: var(--color-white);
-    border-radius: 12px;
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.06);
-    border: 1px solid var(--color-border-light);
+    border-radius: 1.2rem;
+    box-shadow: 0 0.8rem 2.8rem rgba(0, 0, 0, 0.1), 0 0.1rem 0.4rem rgba(0, 0, 0, 0.06);
+    border: 0.1rem solid var(--color-border-light);
     overflow: hidden;
     width: 100%;
 }
 
 .workspace-card-tabs {
-    padding: 16px 24px 0;
-    border-bottom: 1px solid var(--color-border-light);
+    padding: 1.6rem 2.4rem 0;
+    border-bottom: 0.1rem solid var(--color-border-light);
     display: flex;
     align-items: center;
 }
 
 .workspace-tab-active {
     display: inline-block;
-    font-size: 0.92rem;
+    font-size: 1.47rem;
     font-weight: 700;
     color: var(--color-text-main);
-    padding-bottom: 12px;
-    border-bottom: 2.5px solid var(--color-primary-btn);
+    padding-bottom: 1.2rem;
+    border-bottom: 0.25rem solid var(--color-primary-btn);
 }
 
 .workspace-card-body {
-    padding: 20px 24px 12px;
+    padding: 2rem 2.4rem 1.2rem;
 }
 
 .workspace-ready-label {
-    font-size: 0.9rem;
+    font-size: 1.44rem;
     color: var(--color-text-muted);
-    margin-bottom: 16px;
+    margin-bottom: 1.6rem;
 }
 
 .workspace-error-alert {
-    margin-bottom: 16px;
+    margin-bottom: 1.6rem;
 }
 
 .workspace-empty-text {
-    font-size: 0.95rem;
+    font-size: 1.52rem;
     color: var(--color-text-secondary);
-    padding: 12px 0 16px;
+    padding: 1.2rem 0 1.6rem;
 }
 
 .workspace-items-list {
@@ -50,7 +50,7 @@
 }
 
 .workspace-item {
-    border-bottom: 1px solid rgba(235, 235, 235, 0.6);
+    border-bottom: 0.1rem solid rgba(235, 235, 235, 0.6);
 }
 
 .workspace-item:last-child {
@@ -60,11 +60,11 @@
 .workspace-item-link {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 14px 8px;
+    gap: 1.6rem;
+    padding: 1.4rem 0.8rem;
     text-decoration: none;
     color: var(--color-text-main);
-    border-radius: 8px;
+    border-radius: 0.8rem;
     transition: background-color 0.15s ease;
 }
 
@@ -74,14 +74,14 @@
 
 /* Ícono / Avatar del Workspace estilo Slack */
 .workspace-item-avatar {
-    width: 52px;
-    height: 52px;
-    border-radius: 10px;
+    width: 5.2rem;
+    height: 5.2rem;
+    border-radius: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: var(--font-heading);
-    font-size: 1.35rem;
+    font-size: 2.16rem;
     font-weight: 800;
     color: var(--color-white);
     flex-shrink: 0;
@@ -106,12 +106,12 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0.5rem;
 }
 
 .workspace-item-info h2 {
     font-family: var(--font-main);
-    font-size: 1.05rem;
+    font-size: 1.68rem;
     font-weight: 800;
     color: var(--color-text-main);
     white-space: nowrap;
@@ -122,7 +122,7 @@
 .workspace-item-meta {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.8rem;
 }
 
 .workspace-member-pills {
@@ -131,10 +131,10 @@
 }
 
 .member-pill {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    font-size: 0.7rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.4rem;
+    font-size: 1.12rem;
     font-weight: 700;
     color: var(--color-white);
     display: inline-flex;
@@ -147,31 +147,31 @@
 }
 
 .workspace-item-meta p {
-    font-size: 0.84rem;
+    font-size: 1.34rem;
     color: var(--color-text-muted);
 }
 
 .workspace-item-arrow {
-    font-size: 1.35rem;
+    font-size: 2.16rem;
     color: var(--color-text-main);
-    padding: 0 6px;
+    padding: 0 0.6rem;
     transition: transform 0.15s ease, color 0.15s ease;
 }
 
 .workspace-item-link:hover .workspace-item-arrow {
-    transform: translateX(4px);
+    transform: translateX(0.4rem);
     color: var(--color-link);
 }
 
 /* Pie de la tarjeta */
 .workspace-card-footer {
-    padding: 18px 24px 22px;
-    border-top: 1px solid var(--color-border-light);
+    padding: 1.8rem 2.4rem 2.2rem;
+    border-top: 0.1rem solid var(--color-border-light);
     background-color: #fcfcfc;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 1.2rem;
 }
 
 .workspace-create-link-btn {
@@ -179,7 +179,7 @@
     border: none;
     padding: 0;
     font-family: var(--font-main);
-    font-size: 0.92rem;
+    font-size: 1.47rem;
     font-weight: 700;
     color: var(--color-link);
     cursor: pointer;
@@ -191,42 +191,41 @@
 }
 
 .workspace-footer-help {
-    font-size: 0.9rem;
+    font-size: 1.44rem;
     color: var(--color-text-main);
     line-height: 1.4;
 }
 
 .workspace-footer-help .form-link {
-    margin-left: 2px;
+    margin-left: 0.2rem;
 }
 
 /* Responsive hasta 320px */
 @media (max-width: 480px) {
     .workspace-card-tabs {
-        padding: 14px 16px 0;
+        padding: 1.4rem 1.6rem 0;
     }
 
     .workspace-card-body {
-        padding: 16px 14px 10px;
+        padding: 1.6rem 1.4rem 1rem;
     }
 
     .workspace-item-link {
-        gap: 12px;
-        padding: 12px 4px;
+        gap: 1.2rem;
+        padding: 1.2rem 0.4rem;
     }
 
     .workspace-item-avatar {
-        width: 44px;
-        height: 44px;
-        font-size: 1.15rem;
+        width: 4.4rem;
+        height: 4.4rem;
+        font-size: 1.84rem;
     }
 
     .workspace-item-info h2 {
-        font-size: 0.96rem;
+        font-size: 1.54rem;
     }
 
     .workspace-card-footer {
-        padding: 16px 14px 18px;
+        padding: 1.6rem 1.4rem 1.8rem;
     }
 }
-

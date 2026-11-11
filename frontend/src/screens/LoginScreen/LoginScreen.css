@@ -6,43 +6,43 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
+    padding: 4rem 2rem;
 }
 
 .login-header {
     width: 100%;
-    max-width: 700px;
+    max-width: 70rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 3.2rem;
 }
 
 .login-logo {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    font-size: 1.75rem;
+    gap: 1rem;
+    font-size: 2.8rem;
     font-weight: 800;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.05rem;
     color: var(--color-text-main);
     text-decoration: none;
-    margin-bottom: 36px;
+    margin-bottom: 3.6rem;
 }
 
 .login-header h1 {
     font-family: var(--font-heading);
-    font-size: clamp(1.75rem, 5.5vw, 3rem);
+    font-size: clamp(2.8rem, 5.5vw, 4.8rem);
     font-weight: 700;
-    letter-spacing: -0.75px;
+    letter-spacing: -0.075rem;
     line-height: 1.15;
     color: var(--color-text-main);
-    margin-bottom: 12px;
+    margin-bottom: 1.2rem;
 }
 
 .login-subtitle {
-    font-size: clamp(0.95rem, 2.5vw, 1.125rem);
+    font-size: clamp(1.52rem, 2.5vw, 1.8rem);
     line-height: 1.5;
     color: var(--color-text-secondary);
 }
@@ -53,32 +53,32 @@
 
 .login-card {
     width: 100%;
-    max-width: 400px;
+    max-width: 40rem;
 }
 
 .login-footer {
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid var(--color-border-light);
+    margin-top: 2.8rem;
+    padding-top: 2rem;
+    border-top: 0.1rem solid var(--color-border-light);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    font-size: 0.92rem;
+    gap: 1rem;
+    font-size: 1.47rem;
     color: var(--color-text-muted);
     text-align: center;
 }
 
 @media (max-width: 480px) {
     .login-page {
-        padding: 24px 16px;
+        padding: 2.4rem 1.6rem;
     }
 
     .login-logo {
-        margin-bottom: 24px;
+        margin-bottom: 2.4rem;
     }
 
     .login-header {
-        margin-bottom: 24px;
+        margin-bottom: 2.4rem;
     }
 }
