@@ -21,13 +21,14 @@ class AuthService {
         }
 
         const userEmailExist = await userRepository.getByEmail(email);
-        if (userEmailExist) {
-            throw new ServerError("No fue posible completar el registro con los datos ingresados.", 409, "ALREADY_EXISTS");
-        }
         const userNameExist = await userRepository.getByUserName(userName);
-        if (userNameExist) {
-            throw new ServerError("No fue posible completar el registro con los datos ingresados.", 409, "ALREADY_EXISTS");
+        
+        if (userNameExist && userEmailExist) {
+            throw new ServerError("El usuario ya se encuentra registrado.", 409, "ALREADY_EXISTS");
         }
+        if (userEmailExist || userNameExist) {
+        throw new ServerError("El correo electrónico o el nombre de usuario ya se encuentra registrado.", 409, "ALREADY_REGISTERED");
+         }
 
         const hashedPassword = await hashPassword(password);
         const user = await userRepository.create({ userName, email, password: hashedPassword });
