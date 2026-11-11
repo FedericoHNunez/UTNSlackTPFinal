@@ -5,6 +5,7 @@ import SpinnerLoading from "../../Components/Ui/SpinnerLoading/SpinnerLoading";
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext";
 import { SlackLogo } from "../../Components/Ui/SlackLogo";
 import InvitationModal from "../../Components/modal/InvitationModal";
+import Footer from "../../Components/Footer/Footer";
 import "./WorkspaceScreen.css";
 
 export const WorkspaceScreen = () => {
@@ -103,6 +104,8 @@ export const WorkspaceScreen = () => {
                     onClose={() => setShowInvitationModal(false)}
                 />
             )}
+            
+            <Footer />
         </div>
     );
 };
