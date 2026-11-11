@@ -58,25 +58,20 @@ export const RegisterForm = () => {
                 />
             </div>
 
-            {error && !loading && (
+            { error && !loading && (
                 <div className="register-alert register-alert-error">
-                    <p>{error}</p>
-                    {((errorCode === "ALREADY_EXISTS" && (
-                        <div className="register-existing-box">
+                    {errorCode === "already-registered" ? (
+                        <p>Usuario o email inválidos.</p>
+                    ) : errorCode === "ALREADY_EXISTS" ? (
+                        <div>
                             <span>Usuario ya registrado.</span>
                             <Link to="/login" className="register-link">
                                 Iniciar sesión
                             </Link>
                         </div>
-                    )) ||
-                        (errorCode === "ALREADY_REGISTERED" && (
-                            <div className="register-existing-box">
-                                <span>Usuario o email ya registrado.</span>
-                                <Link to="/login" className="register-link">
-                                    Iniciar sesión
-                                </Link>
-                            </div>
-                        )))}
+                    ) : (
+                        <p>{error}</p>
+                    )}
                 </div>
             )}
 
