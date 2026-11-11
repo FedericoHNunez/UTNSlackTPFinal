@@ -1,16 +1,14 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router";
+import { useContext } from "react";
 import { WorkspaceList } from "../../Components/WorkspaceList/WorkspaceList";
+import { WorkspaceHeroHeader } from "../../Components/Workspace/WorkspaceHeroHeader";
+import { WorkspaceInviteAside } from "../../Components/Workspace/WorkspaceInviteAside";
 import SpinnerLoading from "../../Components/Ui/SpinnerLoading/SpinnerLoading";
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext";
-import { SlackLogo } from "../../Components/Ui/SlackLogo";
-import InvitationModal from "../../Components/modal/InvitationModal";
 import Footer from "../../Components/Footer/Footer";
 import "./WorkspaceScreen.css";
 
 export const WorkspaceScreen = () => {
     const { workspace_loading } = useContext(WorkspaceContext);
-    const [showInvitationModal, setShowInvitationModal] = useState(false);
 
     if (workspace_loading) {
         return (
@@ -25,21 +23,7 @@ export const WorkspaceScreen = () => {
         <div className="workspace-screen-container">
             <div className="workspace-bg-arch" aria-hidden="true"></div>
 
-            <header className="workspace-top-bar">
-                <Link to="/" className="workspace-logo-link">
-                    <SlackLogo color="white" />
-                </Link>
-            </header>
-
-            <section className="workspace-hero-header">
-                <h1>
-                    ¡Hola otra vez!{" "}
-                    <span className="workspace-wave" role="img" aria-label="saludo">
-                        👋
-                    </span>
-                </h1>
-                <p>Elige un espacio de trabajo para empezar.</p>
-            </section>
+            <WorkspaceHeroHeader />
 
             <main className="workspace-main-grid">
                 <div className="workspace-list-column">
@@ -66,45 +50,9 @@ export const WorkspaceScreen = () => {
                     <WorkspaceList />
                 </div>
 
-                <aside className="workspace-invite-column">
-                    <div className="workspace-section-label">
-                        <span className="workspace-mini-badge" aria-hidden="true"></span>
-                        <span>UTN SLACK</span>
-                    </div>
-
-                    <div className="workspace-invite-card">
-                        <div className="workspace-invite-content">
-                            <h3>Invitar a socios externos.</h3>
-                            <p>Agiliza el trabajo con los equipos externos</p>
-                            <button
-                                type="button"
-                                className="workspace-invite-btn"
-                                onClick={() => setShowInvitationModal(true)}
-                            >
-                                Invitar socios
-                            </button>
-                        </div>
-
-                        <div className="workspace-invite-icon" aria-hidden="true">
-                            <svg
-                                width="32"
-                                height="32"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                            >
-                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                            </svg>
-                        </div>
-                    </div>
-                </aside>
+                <WorkspaceInviteAside />
             </main>
 
-            {showInvitationModal && (
-                <InvitationModal
-                    onClose={() => setShowInvitationModal(false)}
-                />
-            )}
-            
             <Footer />
         </div>
     );

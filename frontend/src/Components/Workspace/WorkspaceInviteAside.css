@@ -1,0 +1,91 @@
+.workspace-mini-badge {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 0.4rem;
+    background: linear-gradient(90deg, #e01e5a 50%, #ecb22e 50%);
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* Tarjeta lateral de Invitación */
+.workspace-invite-card {
+    background-color: var(--color-white);
+    border-radius: 1.2rem;
+    padding: 2.4rem 2rem;
+    box-shadow: 0 0.8rem 2.8rem rgba(0, 0, 0, 0.1), 0 0.1rem 0.4rem rgba(0, 0, 0, 0.06);
+    border: 0.1rem solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+}
+
+.workspace-invite-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+}
+
+.workspace-invite-content h3 {
+    font-size: 1.57rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    line-height: 1.3;
+}
+
+.workspace-invite-content p {
+    font-size: 1.4rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+.workspace-invite-btn {
+    background-color: var(--color-white);
+    color: var(--color-text-main);
+    font-family: var(--font-main);
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding: 0.8rem 1.4rem;
+    border-radius: 0.6rem;
+    border: 0.1rem solid var(--color-border-input);
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.workspace-invite-btn:hover {
+    background-color: var(--color-hover-subtle);
+    border-color: var(--border-input-hover);
+}
+
+.workspace-invite-icon {
+    width: 6.4rem;
+    height: 6.4rem;
+    border-radius: 50%;
+    background-color: #f6eef8;
+    color: #b865e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transform: rotate(-18deg);
+}
+
+@media (max-width: 900px) {
+    .workspace-invite-column .workspace-section-label {
+        color: var(--color-text-main);
+    }
+}
+
+@media (max-width: 480px) {
+    .workspace-invite-card {
+        padding: 1.8rem 1.6rem;
+    }
+
+    .workspace-invite-icon {
+        width: 5.2rem;
+        height: 5.2rem;
+    }
+}
+

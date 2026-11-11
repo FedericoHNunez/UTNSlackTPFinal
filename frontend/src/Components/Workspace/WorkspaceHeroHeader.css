@@ -1,0 +1,49 @@
+.workspace-top-bar {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 106rem;
+    padding: 2.4rem 0 1.2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.workspace-logo-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.workspace-hero-header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: var(--color-white);
+    margin: 1.2rem 0 4rem;
+}
+
+.workspace-hero-header h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(3.2rem, 5vw, 4.8rem);
+    font-weight: 800;
+    letter-spacing: -0.075rem;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+}
+
+.workspace-wave {
+    display: inline-block;
+    font-size: 0.95em;
+}
+
+.workspace-hero-header p {
+    font-size: clamp(1.52rem, 2.5vw, 1.73rem);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 480px) {
+    .workspace-hero-header {
+        margin: 0.8rem 0 2.8rem;
+    }
+}
+
