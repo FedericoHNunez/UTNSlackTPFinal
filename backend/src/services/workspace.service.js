@@ -51,8 +51,25 @@ class WorkspaceService {
                 400
             );
         }
-        return await workspaceRepository.create({ name, description });
-    }
+        const newWorkspace = await workspaceRepository.create({ name, description });
+        await channelRepository.create({
+            name: "informal",
+            description: "Convers en Social",
+            id_workspace: newWorkspace._id
+        })
+        await channelRepository.create({
+            name: "nuevo-canal",
+            description: "Te damos la bienvenida a tu nuevo canal!",
+            id_workspace: newWorkspace._id
+        })
+        await channelRepository.create({
+            name: "todo-ejemplo",
+            description: "Encuentra a todos en este canal",
+            id_workspace: newWorkspace._id
+        })
+        
+        return newWorkspace;
+    }   
 
     async deleteWorkspaceById(workspace_id) {
         const channelsInWorkspaces = await channelRepository.getChannelsByWorkspaceId(workspace_id);
