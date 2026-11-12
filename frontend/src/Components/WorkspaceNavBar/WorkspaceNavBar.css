@@ -1,0 +1,198 @@
+/* =========================================================
+   WorkspaceNavBar - Rail de Navegación y Menú Hamburguesa
+   ========================================================= */
+
+/* Botón hamburguesa oculto en Desktop */
+.workspace-navbar-toggle {
+    display: none;
+}
+
+.workspace-navbar-backdrop {
+    display: none;
+}
+
+.workspace-navbar-menu {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.workspace-navbar-group {
+    width: 100%;
+}
+
+.workspace-navbar-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.workspace-navbar-item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.workspace-navbar-avatar-btn {
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.22);
+    color: var(--color-white);
+    font-size: 1.6rem;
+    font-weight: 900;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 0.4rem;
+    transition: background-color 0.15s ease;
+}
+
+.workspace-navbar-avatar-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.workspace-navbar-link,
+.workspace-navbar-btn,
+.workspace-navbar-text {
+    width: 100%;
+    padding: 0.6rem 0.4rem;
+    border-radius: 0.6rem;
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    word-break: break-word;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.workspace-navbar-link:hover,
+.workspace-navbar-btn:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+    color: var(--color-white);
+}
+
+/* =========================================================
+   Responsive Menú Hamburguesa (<= 768px)
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .workspace-navbar-toggle {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        width: 3.6rem;
+        height: 3.6rem;
+        padding: 0.6rem;
+        border-radius: 0.6rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 60;
+        transition: background-color 0.15s ease;
+    }
+
+    .workspace-navbar-toggle:hover {
+        background-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .workspace-navbar-burger-line {
+        width: 2rem;
+        height: 0.22rem;
+        background-color: var(--color-white);
+        border-radius: 0.2rem;
+        transition: transform 0.22s ease, opacity 0.22s ease;
+    }
+
+    .workspace-navbar-toggle.is-open .workspace-navbar-burger-line:nth-child(1) {
+        transform: translateY(0.67rem) rotate(45deg);
+    }
+
+    .workspace-navbar-toggle.is-open .workspace-navbar-burger-line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .workspace-navbar-toggle.is-open .workspace-navbar-burger-line:nth-child(3) {
+        transform: translateY(-0.67rem) rotate(-45deg);
+    }
+
+    .workspace-navbar-backdrop {
+        display: block;
+        position: fixed;
+        inset: 4.6rem 0 0 0;
+        background-color: var(--color-overlay);
+        z-index: 45;
+    }
+
+    .workspace-navbar-menu {
+        position: fixed;
+        top: 4.6rem;
+        left: 0;
+        width: 24rem;
+        max-width: 78vw;
+        height: calc(100dvh - 4.6rem);
+        max-height: calc(100dvh - 4.6rem);
+        padding: 1.4rem 1.2rem;
+        background-color: var(--color-header-bg);
+        border-right: 0.1rem solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0.6rem 0 2rem rgba(0, 0, 0, 0.35);
+        align-items: stretch;
+        overflow-y: auto;
+        transform: translateX(-100%);
+        pointer-events: none;
+        transition: transform 0.25s ease;
+        z-index: 50;
+    }
+
+    .workspace-navbar-menu.is-open {
+        transform: translateX(0);
+        pointer-events: auto;
+    }
+
+    .workspace-navbar-list {
+        align-items: stretch;
+        gap: 0.4rem;
+    }
+
+    .workspace-navbar-item {
+        justify-content: flex-start;
+    }
+
+    .workspace-navbar-avatar-btn {
+        width: 3.6rem;
+        height: 3.6rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .workspace-navbar-link,
+    .workspace-navbar-btn,
+    .workspace-navbar-text {
+        font-size: 1.4rem;
+        text-align: left;
+        padding: 0.9rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .workspace-navbar-backdrop {
+        inset: 4.2rem 0 0 0;
+    }
+
+    .workspace-navbar-menu {
+        top: 4.2rem;
+        height: calc(100dvh - 4.2rem);
+        max-height: calc(100dvh - 4.2rem);
+    }
+}

@@ -15,18 +15,18 @@ export const MessageList = () => {
     }, [channel_id]);
 
     return (
-        <>
-            <div>
+        <section aria-label="Lista de mensajes">
+            <header>
                 <h1>Messages Channel Screen</h1>
                 <p>Channel ID: {currentchannel_id}</p>
-            </div>
-            {message_error && <p>Error: {message_error}</p>}
+            </header>
+            {message_error && <p role="alert">Error: {message_error}</p>}
             {currentMessagesList &&
                 currentMessagesList.map((message) => (
-                    <div key={message._id}>
+                    <article key={message._id}>
                         <p>{message.content}</p>
-                    </div>
+                    </article>
                 ))}
-        </>
+        </section>
     );
 };

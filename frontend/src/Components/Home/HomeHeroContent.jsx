@@ -4,7 +4,7 @@ import "./HomeHeroContent.css";
 
 export const HomeHeroContent = () => {
   return (
-    <div className="home-hero-content">
+    <section className="home-hero-content">
       <h1>
         Pensado para las personas.{" "}
         <span className="home-hero-highlight">
@@ -24,7 +24,7 @@ export const HomeHeroContent = () => {
           Iniciar sesión
         </Link>
       </div>
-    </div>
+    </section>
   );
 };
 

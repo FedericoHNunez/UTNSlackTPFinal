@@ -7,7 +7,7 @@ import { ResetPasswordScreen } from "./screens/ResetPasswordScreen/ResetPassword
 import { UserProvider } from "./Context/UserContext/UserProvider";
 import { WorkspaceScreen } from "./screens/WorkspaceScreen/WorkspaceScreen";
 import { UserValidationScreen } from "./screens/UserValidationScreen/UserValidationScreen";
-import { ChannelLayout } from "./Layout/ChannelLayout";
+import { ChannelLayout } from "./Layout/ChannelLayout/ChannelLayout";
 import { MessagesChannelScreen } from "./screens/MessagesChannelScreen/MessagesChannelScreen";
 import { Navigate } from "react-router";
 import { MessagesChannelDefaultScreen } from "./screens/MessagesChannelDefault/MessagesChannelDefault";
@@ -16,6 +16,7 @@ import { WorkspaceProvider } from "./Context/WorkspaceContext/WorkspaceProvider"
 import { ChannelProvider } from "./Context/ChannelContext/ChannelProvider";
 import { MessagesProvider } from "./Context/MessagesContext/MessagesProvider";
 import { MembersProvider } from "./Context/MembersContext/MembersProvider";
+import { NavLayout } from "./Layout/MainLayout";
 
 const App = () => {
   return (
@@ -32,9 +33,11 @@ const App = () => {
                 <Route path="/auth/verify-email/:token" element={<UserValidationScreen />} />
                 <Route element={<AuthMiddleware />}>
                   <Route path="/workspaces" element={<WorkspaceScreen />} />
-                  <Route path="/workspaces/:workspace_id/channels" element={<ChannelLayout />}>
-                    <Route index element={<MessagesChannelDefaultScreen />} />
-                    <Route path=":channel_id/messages" element={<MessagesChannelScreen />} />
+                  <Route path="/workspaces/:workspace_id/" element={<NavLayout />}>
+                    <Route path="/workspaces/:workspace_id/channels" element={<ChannelLayout />}>
+                      <Route index element={<MessagesChannelDefaultScreen />} />
+                      <Route path=":channel_id/messages" element={<MessagesChannelScreen />} />
+                    </Route>
                   </Route>
                 </Route>
                 {/* Redirección por defecto si la ruta no existe */}

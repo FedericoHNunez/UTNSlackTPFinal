@@ -28,7 +28,7 @@ export const LoginScreen = () => {
             <main className="login-card">
                 <LoginForm />
 
-                <div className="login-footer">
+                <footer className="login-footer">
                     <p>
                         ¿Nuevo en Slack?
                         <Link to="/register" className="login-link">
@@ -45,7 +45,7 @@ export const LoginScreen = () => {
                             Recuperar contraseña
                         </button>
                     </p>
-                </div>
+                </footer>
             </main>
 
             <Footer />

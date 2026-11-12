@@ -25,14 +25,14 @@ export const RegisterScreen = () => {
       <main className="register-card">
         <RegisterForm />
 
-        <div className="register-footer">
+        <footer className="register-footer">
           <p>
             ¿Ya usas Slack?
             <Link to="/login" className="register-footer-link">
               Iniciar sesión
             </Link>
           </p>
-        </div>
+        </footer>
       </main>
 
       <Footer />

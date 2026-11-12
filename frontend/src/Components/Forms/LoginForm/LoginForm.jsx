@@ -62,7 +62,7 @@ export const LoginForm = () => {
                         <p>{error}</p>
                         {errorCode === "EMAIL_NOT_VERIFIED" && (
                             <div className="login-resend-box">
-                                <p>¿Deseas enviar un nuevo mail de validación?</p>
+                                <p>¿No lo encuantras? Envia uno nuevo</p>
                                 <button
                                     type="button"
                                     className="login-link login-link-btn"

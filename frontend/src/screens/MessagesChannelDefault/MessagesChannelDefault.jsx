@@ -1,7 +1,7 @@
 export const MessagesChannelDefaultScreen = () => {
     return (
-        <div>
+        <section>
             <h1>Messages Channel Default Screen</h1>
-        </div>
-    )
-}
+        </section>
+    );
+};

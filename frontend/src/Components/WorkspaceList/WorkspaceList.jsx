@@ -15,10 +15,10 @@ export const WorkspaceList = () => {
     const [showCreateWorkspaceModal, setShowCreateWorkspaceModal] = useState(false);
 
     return (
-        <div className="workspace-card">
-            <div className="workspace-card-tabs">
+        <article className="workspace-card">
+            <header className="workspace-card-tabs">
                 <span className="workspace-tab-active">Espacios de trabajo</span>
-            </div>
+            </header>
 
             <div className="workspace-card-body">
                 <p className="workspace-ready-label">Listo para comenzar</p>
@@ -94,7 +94,7 @@ export const WorkspaceList = () => {
                 )}
             </div>
 
-            <div className="workspace-card-footer">
+            <footer className="workspace-card-footer">
                 {currentWorkspaceList &&
                     (currentWorkspaceList.length === 0 ? (
                         <button
@@ -120,13 +120,13 @@ export const WorkspaceList = () => {
                         Prueba con otro correo electrónico
                     </Link>
                 </p>
-            </div>
+            </footer>
 
             <CreateWorkspaceModal
                 isOpen={showCreateWorkspaceModal}
                 onClose={() => setShowCreateWorkspaceModal(false)}
             />
-        </div>
+        </article>
     );
 };
 

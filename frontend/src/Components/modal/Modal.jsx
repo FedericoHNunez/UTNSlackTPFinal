@@ -5,8 +5,13 @@ export const Modal = ({ isOpen = true, onClose, title, children }) => {
 
     return (
         <div className="modal-overlay" onClick={onClose}>
-            <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-                <div className="modal-header">
+            <div
+                className="modal-card"
+                role="dialog"
+                aria-modal="true"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <header className="modal-header">
                     {title && <h2>{title}</h2>}
                     <button
                         type="button"
@@ -16,7 +21,7 @@ export const Modal = ({ isOpen = true, onClose, title, children }) => {
                     >
                         &times;
                     </button>
-                </div>
+                </header>
 
                 <div className="modal-body">
                     {children}

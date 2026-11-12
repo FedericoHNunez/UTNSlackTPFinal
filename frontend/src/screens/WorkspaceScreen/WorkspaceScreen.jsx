@@ -21,12 +21,13 @@ export const WorkspaceScreen = () => {
 
     return (
         <div className="workspace-screen-container">
+            {/* div de fondo */}
             <div className="workspace-bg-arch" aria-hidden="true"></div>
 
             <WorkspaceHeroHeader />
 
             <main className="workspace-main-grid">
-                <div className="workspace-list-column">
+                <section className="workspace-list-column">
                     <div className="workspace-section-label">
                         <svg
                             width="18"
@@ -48,7 +49,7 @@ export const WorkspaceScreen = () => {
                     </div>
 
                     <WorkspaceList />
-                </div>
+                </section>
 
                 <WorkspaceInviteAside />
             </main>

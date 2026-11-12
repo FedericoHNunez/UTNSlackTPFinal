@@ -3,7 +3,7 @@ import "./HomeMockup.css";
 
 export const HomeMockup = () => {
   return (
-    <div className="home-mockup">
+    <aside className="home-mockup" aria-label="Vista previa de la aplicación">
       <div className="mockup-header">
         <span className="mockup-circle dot-red"></span>
         <span className="mockup-circle dot-yellow"></span>
@@ -40,7 +40,7 @@ export const HomeMockup = () => {
           </div>
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 

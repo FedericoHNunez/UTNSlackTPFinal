@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
 import { CreateChannelModal } from "../modal/CreateChannelModal.jsx";
+import "./ChannelList.css";
 
 export const ChannelList = () => {
     const { workspace_id } = useParams();
@@ -16,30 +17,33 @@ export const ChannelList = () => {
     }, [workspace_id]);
 
     return (
-        <>
-            <section>
+        <section className="channel-list" aria-label="Canales del espacio de trabajo">
+            <h2 className="channel-list-title">Canales</h2>
+            <p className="channel-list-workspace-id">ID de workspace: {currentWorkspace_id}</p>
 
-                <h1>Channel</h1>
-                <p>ID de workspace: {currentWorkspace_id}</p>
-
-                {channel_error && <p>Error: {channel_error}</p>}
-                {currentchannelList && (
-                    <ul>
-                        {currentchannelList.map((channel) => (
-                            <li key={channel.channel_id}>
-                                <Link
-                                    to={`/workspaces/${currentWorkspace_id}/channels/${channel.channel_id}/messages`}
-                                >
-                                    <p>#{channel.channel_name}</p>
-                                </Link>
-                            </li>
-                        ))}
-                        <li>
-                            <CreateChannelModal />
+            {channel_error && (
+                <p className="channel-list-error" role="alert">
+                    Error: {channel_error}
+                </p>
+            )}
+            {currentchannelList && (
+                <ul className="channel-list-items">
+                    {currentchannelList.map((channel) => (
+                        <li key={channel.channel_id} className="channel-list-item">
+                            <Link
+                                to={`/workspaces/${currentWorkspace_id}/channels/${channel.channel_id}/messages`}
+                                className="channel-list-link"
+                            >
+                                <p>#{channel.channel_name}</p>
+                            </Link>
                         </li>
-                    </ul>
-                )}
-            </section>
-        </>
+                    ))}
+                    <li className="channel-list-item">
+                        <CreateChannelModal />
+                    </li>
+                </ul>
+            )}
+        </section>
     );
 };
+

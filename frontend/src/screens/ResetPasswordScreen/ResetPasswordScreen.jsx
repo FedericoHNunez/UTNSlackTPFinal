@@ -1,11 +1,13 @@
-import { Link, useSearchParams } from "react-router";
+import { Link, useNavigate, useSearchParams } from "react-router";
 import useForm from "../../hooks/useForm.js";
 import useRequest from "../../hooks/useRequest.js";
 import { changePassword } from "../../services/authService.js";
+import { SlackLogo } from "../../Components/Ui/SlackLogo.jsx";
 import "../LoginScreen/LoginScreen.css";
 
 export const ResetPasswordScreen = () => {
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
     const token = searchParams.get("token");
 
     const initial_form = {
@@ -34,13 +36,7 @@ export const ResetPasswordScreen = () => {
         <div className="login-page">
             <header className="login-header">
                 <Link to="/" className="login-logo">
-                    <div className="login-logo-icon">
-                        <span className="login-dot login-dot-blue"></span>
-                        <span className="login-dot login-dot-green"></span>
-                        <span className="login-dot login-dot-red"></span>
-                        <span className="login-dot login-dot-yellow"></span>
-                    </div>
-                    <span>slack</span>
+                    <SlackLogo color="black" />
                 </Link>
                 <h1>Restablecer contraseña</h1>
                 <p className="login-subtitle">
@@ -104,14 +100,14 @@ export const ResetPasswordScreen = () => {
                     </button>
                 </form>
 
-                <div className="login-footer">
+                <footer className="login-footer">
                     <p>
                         ¿Recordaste tu contraseña?
                         <Link to="/login" className="login-link">
                             Volver a iniciar sesión
                         </Link>
                     </p>
-                </div>
+                </footer>
             </main>
         </div>
     );

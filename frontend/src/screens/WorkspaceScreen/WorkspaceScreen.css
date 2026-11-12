@@ -28,12 +28,17 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 106rem;
+    max-width: 110rem;
     display: grid;
-    grid-template-columns: 1fr 31rem;
+    grid-template-columns: minmax(0, 1fr) 31rem;
     gap: 3.2rem;
     align-items: start;
     margin-bottom: 6.4rem;
+}
+
+.workspace-list-column {
+    width: 100%;
+    min-width: 0;
 }
 
 .workspace-section-label {
@@ -57,7 +62,7 @@
 
     .workspace-main-grid {
         grid-template-columns: 1fr;
-        max-width: 68rem;
+        max-width: 72rem;
     }
 }
 
