@@ -24,11 +24,11 @@ class AuthService {
         const userNameExist = await userRepository.getByUserName(userName);
         
         if (userNameExist && userEmailExist) {
-            throw new ServerError("El usuario ya se encuentra registrado.", 409, "ALREADY_EXISTS");
+            throw new ServerError("Usuario ya registrado.", 409, "ALREADY_REGISTERED");
         }
         if (userEmailExist || userNameExist) {
-        throw new ServerError("El correo electrónico o el nombre de usuario ya se encuentra registrado.", 409, "ALREADY_REGISTERED");
-         }
+            throw new ServerError("Usuario o email inválidos.", 409, "ALREADY_EXISTS");
+        }
 
         const hashedPassword = await hashPassword(password);
         const user = await userRepository.create({ userName, email, password: hashedPassword });
