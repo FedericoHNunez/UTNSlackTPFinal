@@ -1,3 +1,4 @@
+import { SearchForm } from "../Forms/SearchForm/SearchForm";
 import "./WorkspaceHeader.css";
 
 export const WorkspaceHeader = () => {
@@ -13,17 +14,9 @@ export const WorkspaceHeader = () => {
                 <button type="button" className="workspace-header-btn">
                     <img alt="Historial" />
                 </button>
-                <form role="search" className="workspace-header-search-form">
-                    <input
-                        type="search"
-                        aria-label="Buscar"
-                        placeholder="Describe lo que estás buscando"
-                        className="workspace-header-search-input"
-                    />
-                    <button type="submit" className="workspace-header-btn">
-                        <img alt="Buscar" />
-                    </button>
-                </form>
+                <SearchForm
+                    placeholder="Describe lo que estas buscando"
+                />
                 <button type="button" className="workspace-header-btn">
                     <img alt="Slack grupo" />
                 </button>

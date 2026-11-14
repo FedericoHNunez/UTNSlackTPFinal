@@ -1,8 +1,5 @@
 .login-page {
     min-height: 100vh;
-    background-color: var(--color-white);
-    color: var(--color-text-main);
-    font-family: var(--font-main);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,7 +20,7 @@
     display: inline-flex;
     align-items: center;
     gap: 1rem;
-    font-size: 2.8rem;
+    font-size: var(--font-size-h2);
     font-weight: 800;
     letter-spacing: -0.05rem;
     color: var(--color-text-main);
@@ -32,28 +29,20 @@
 }
 
 .login-header h1 {
-    font-family: var(--font-heading);
-    font-size: clamp(2.8rem, 5.5vw, 4.8rem);
     font-weight: 700;
     letter-spacing: -0.075rem;
     line-height: 1.15;
-    color: var(--color-text-main);
     margin-bottom: 1.2rem;
 }
 
 .login-subtitle {
-    font-size: clamp(1.52rem, 2.5vw, 1.8rem);
+    font-size: var(--font-size-h4);
     line-height: 1.5;
     color: var(--color-text-secondary);
 }
 
 .login-subtitle strong {
     font-weight: 700;
-}
-
-.login-card {
-    width: 100%;
-    max-width: 40rem;
 }
 
 .login-footer {
@@ -64,7 +53,6 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    font-size: 1.47rem;
     color: var(--color-text-muted);
     text-align: center;
 }

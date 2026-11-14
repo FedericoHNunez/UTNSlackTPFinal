@@ -4,10 +4,11 @@ import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx"
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
 import { CreateChannelModal } from "../modal/CreateChannelModal.jsx";
 import "./ChannelList.css";
+import { SearchForm } from "../Forms/SearchForm/SearchForm.jsx";
 
 export const ChannelList = () => {
     const { workspace_id } = useParams();
-    const { currentWorkspace_id, setCurrentWorkspace_id } = useContext(WorkspaceContext);
+    const { currentWorkspace_id, setCurrentWorkspace_id, currentWorkspaceList } = useContext(WorkspaceContext);
     const { currentchannelList, channel_error } = useContext(ChannelContext);
 
     useEffect(() => {
@@ -15,12 +16,16 @@ export const ChannelList = () => {
             setCurrentWorkspace_id(workspace_id);
         }
     }, [workspace_id]);
+    
+    const currentWorkspace = currentWorkspaceList?.find((workspace) => workspace.workspace_id === workspace_id);
 
     return (
         <section className="channel-list" aria-label="Canales del espacio de trabajo">
-            <h2 className="channel-list-title">Canales</h2>
-            <p className="channel-list-workspace-id">ID de workspace: {currentWorkspace_id}</p>
-
+            <h4 className="channel-list-title">{currentWorkspace?.workspace_name || "Cargando..."}</h4>
+            <SearchForm
+                placeholder="Buscar un canal"
+            />
+            <h4>Canales</h4>
             {channel_error && (
                 <p className="channel-list-error" role="alert">
                     Error: {channel_error}

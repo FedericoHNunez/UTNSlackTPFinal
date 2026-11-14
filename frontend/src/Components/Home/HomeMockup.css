@@ -40,14 +40,13 @@
 
 .mockup-workspace-title {
   font-weight: 700;
-  font-size: 1.52rem;
   margin-bottom: 1.6rem;
   padding-bottom: 1rem;
   border-bottom: 0.1rem solid rgba(255, 255, 255, 0.15);
 }
 
 .mockup-channel {
-  font-size: 1.36rem;
+  font-size: var(--font-size-small);
   color: rgba(255, 255, 255, 0.7);
   padding: 0.6rem 0.8rem;
   border-radius: 0.4rem;
@@ -84,18 +83,15 @@
   justify-content: center;
   color: var(--color-white);
   font-weight: 700;
-  font-size: 1.44rem;
   flex-shrink: 0;
 }
 
 .mockup-msg-text strong {
   display: block;
-  font-size: 1.44rem;
   margin-bottom: 0.2rem;
 }
 
 .mockup-msg-text span {
-  font-size: 1.4rem;
   color: var(--color-text-secondary);
 }
 

@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-size: 2.56rem;
+  font-size: var(--font-size-h3);
   font-weight: 800;
   letter-spacing: -0.05rem;
   color: var(--color-white);
@@ -27,15 +27,18 @@
   gap: 1.6rem;
 }
 
-.btn-nav-login {
-  color: var(--color-white);
+.btn-nav-login,
+.btn-nav-register {
   text-decoration: none;
   font-weight: 700;
-  font-size: 1.44rem;
-  padding: 1.1rem 1.8rem;
   border-radius: 0.6rem;
-  border: 0.1rem solid rgba(255, 255, 255, 0.45);
   transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-nav-login {
+  color: var(--color-white);
+  padding: 1.1rem 1.8rem;
+  border: 0.1rem solid rgba(255, 255, 255, 0.45);
 }
 
 .btn-nav-login:hover {
@@ -46,15 +49,10 @@
 .btn-nav-register {
   background-color: var(--color-white);
   color: var(--color-primary);
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.44rem;
   text-transform: uppercase;
   letter-spacing: 0.08rem;
   padding: 1.1rem 2rem;
-  border-radius: 0.6rem;
   border: 0.1rem solid var(--color-white);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .btn-nav-register:hover {
@@ -80,6 +78,6 @@
     flex: 1;
     text-align: center;
     padding: 1rem 1.2rem;
-    font-size: 1.36rem;
+    font-size: var(--font-size-small);
   }
 }

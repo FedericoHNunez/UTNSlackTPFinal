@@ -9,22 +9,15 @@
 }
 
 .channel-list-title {
-    font-size: 1.5rem;
+    
     font-weight: 800;
     color: var(--color-white);
     padding: 0.4rem 0.8rem;
-    margin-bottom: 0.2rem;
-}
-
-.channel-list-workspace-id {
-    font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.65);
-    padding: 0.2rem 0.8rem;
-    margin-bottom: 0.4rem;
+ 
 }
 
 .channel-list-error {
-    font-size: 1.3rem;
+    font-size: var(--font-size-small);
     color: #ff9bb8;
     padding: 0.4rem 0.8rem;
 }
@@ -34,7 +27,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
-    margin-top: 0.4rem;
+    margin-top: 1rem;
 }
 
 .channel-list-item {
@@ -48,18 +41,16 @@
     border-radius: 0.6rem;
     color: rgba(255, 255, 255, 0.82);
     text-decoration: none;
-    font-size: 1.45rem;
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .channel-list-link p {
-    padding: 0;
     color: inherit;
-    font-size: inherit;
 }
 
 .channel-list-link:hover {
     background-color: rgba(255, 255, 255, 0.12);
     color: var(--color-white);
 }
+
 

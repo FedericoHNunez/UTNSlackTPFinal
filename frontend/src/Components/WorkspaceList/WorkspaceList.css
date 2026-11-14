@@ -16,7 +16,6 @@
 
 .workspace-tab-active {
     display: inline-block;
-    font-size: 1.47rem;
     font-weight: 700;
     color: var(--color-text-main);
     padding-bottom: 1.2rem;
@@ -28,7 +27,6 @@
 }
 
 .workspace-ready-label {
-    font-size: 1.44rem;
     color: var(--color-text-muted);
     margin-bottom: 1.6rem;
 }
@@ -38,7 +36,6 @@
 }
 
 .workspace-empty-text {
-    font-size: 1.52rem;
     color: var(--color-text-secondary);
     padding: 1.2rem 0 1.6rem;
 }
@@ -81,7 +78,7 @@
     align-items: center;
     justify-content: center;
     font-family: var(--font-heading);
-    font-size: 2.16rem;
+    font-size: var(--font-size-h3);
     font-weight: 800;
     color: var(--color-white);
     flex-shrink: 0;
@@ -111,7 +108,7 @@
 
 .workspace-item-info h2 {
     font-family: var(--font-main);
-    font-size: 1.68rem;
+    font-size: var(--font-size-h4);
     font-weight: 800;
     color: var(--color-text-main);
     white-space: nowrap;
@@ -134,7 +131,7 @@
     width: 2rem;
     height: 2rem;
     border-radius: 0.4rem;
-    font-size: 1.12rem;
+    font-size: var(--font-size-small);
     font-weight: 700;
     color: var(--color-white);
     display: inline-flex;
@@ -143,16 +140,16 @@
 }
 
 .pill-teal {
-    background-color: #1264a3;
+    background-color: var(--color-link);
 }
 
 .workspace-item-meta p {
-    font-size: 1.34rem;
+    font-size: var(--font-size-small);
     color: var(--color-text-muted);
 }
 
 .workspace-item-arrow {
-    font-size: 2.16rem;
+    font-size: var(--font-size-h3);
     color: var(--color-text-main);
     padding: 0 0.6rem;
     transition: transform 0.15s ease, color 0.15s ease;
@@ -178,8 +175,6 @@
     background: none;
     border: none;
     padding: 0;
-    font-family: var(--font-main);
-    font-size: 1.47rem;
     font-weight: 700;
     color: var(--color-link);
     cursor: pointer;
@@ -191,7 +186,6 @@
 }
 
 .workspace-footer-help {
-    font-size: 1.44rem;
     color: var(--color-text-main);
     line-height: 1.4;
 }
@@ -218,11 +212,11 @@
     .workspace-item-avatar {
         width: 4.4rem;
         height: 4.4rem;
-        font-size: 1.84rem;
+        font-size: var(--font-size-h4);
     }
 
     .workspace-item-info h2 {
-        font-size: 1.54rem;
+        font-size: var(--font-size-p);
     }
 
     .workspace-card-footer {

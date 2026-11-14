@@ -7,7 +7,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: var(--font-main);
 }
 
 .slack-footer-nav {
@@ -22,7 +21,6 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 1.47rem;
     font-weight: 400;
     color: var(--color-text-muted);
     text-decoration: none;
@@ -66,6 +64,6 @@
     }
 
     .slack-footer-link {
-        font-size: 1.36rem;
+        font-size: var(--font-size-small);
     }
 }

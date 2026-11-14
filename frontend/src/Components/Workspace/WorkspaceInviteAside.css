@@ -28,14 +28,13 @@
 }
 
 .workspace-invite-content h3 {
-    font-size: 1.57rem;
+    font-size: var(--font-size-p);
     font-weight: 800;
     color: var(--color-text-main);
     line-height: 1.3;
 }
 
 .workspace-invite-content p {
-    font-size: 1.4rem;
     color: var(--color-text-secondary);
     line-height: 1.4;
     margin-bottom: 1rem;
@@ -44,8 +43,6 @@
 .workspace-invite-btn {
     background-color: var(--color-white);
     color: var(--color-text-main);
-    font-family: var(--font-main);
-    font-size: 1.4rem;
     font-weight: 700;
     padding: 0.8rem 1.4rem;
     border-radius: 0.6rem;

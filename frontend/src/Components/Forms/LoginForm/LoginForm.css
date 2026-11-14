@@ -1,16 +1,3 @@
-/* Los estilos base de formulario (.login-form, .login-field, .login-submit-btn, .login-alert)
+/* Los estilos base de formulario (.login-form, .login-field, .login-submit-btn, .login-alert, .login-resend-box)
    se heredan globalmente desde index.css */
 
-.login-resend-box {
-    margin-top: 0.8rem;
-    padding-top: 0.8rem;
-    border-top: 0.1rem solid rgba(224, 30, 90, 0.25);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.4rem;
-}
-
-.login-resend-box .login-link-btn {
-    margin-left: 0;
-}

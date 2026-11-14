@@ -62,8 +62,7 @@
     align-items: center;
     gap: 0.6rem;
     padding: 0.6rem 1.2rem;
-    font-family: var(--font-main);
-    font-size: 1.35rem;
+    font-size: var(--font-size-small);
     font-weight: 700;
     border-radius: 0.6rem;
     border: none;
@@ -90,7 +89,6 @@
 }
 
 .channel-layout-mobile-title {
-    font-size: 1.45rem;
     font-weight: 700;
     color: var(--color-white);
 }
