@@ -12,7 +12,7 @@ export const ChannelScreen = () => {
         <>
 
             {channel_loading
-                ? <SpinnerLoading text='Cargando canales...' fullScreen={true} />
+                ? <SpinnerLoading text='Cargando canales...' fullScreen={true} variant="dark" />
                 :
                 <>
                     <aside>

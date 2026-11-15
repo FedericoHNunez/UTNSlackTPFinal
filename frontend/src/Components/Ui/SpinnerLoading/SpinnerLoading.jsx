@@ -2,15 +2,17 @@ import React from "react";
 import "./SpinnerLoading.css";
 import { SlackLogo } from "../SlackLogo";
 
-export const SpinnerLoading = ({ text = "Cargando...", fullScreen = false }) => {
+export const SpinnerLoading = ({ text = "Cargando...", fullScreen = false, variant = "light" }) => {
+    const isDark = variant === "dark";
+
     return (
         <div
-            className={`spinner-wrapper ${fullScreen ? "spinner-fullscreen" : ""}`}
+            className={`spinner-wrapper ${fullScreen ? "spinner-fullscreen" : ""} ${isDark ? "spinner-dark" : ""}`}
             role="status"
             aria-live="polite"
         >
             <div>
-                <SlackLogo color="black" />
+                <SlackLogo color={isDark ? "white" : "black"} />
             </div>
             <div className="spinner-ring-container">
                 <div className="spinner-ring" />

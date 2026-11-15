@@ -1,0 +1,64 @@
+/* =========================================================
+   SendMessageForm - Formulario para enviar mensajes al canal
+   ========================================================= */
+
+.send-message-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 1.2rem;
+}
+
+.send-message-box {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 1rem;
+    background-color: var(--color-white);
+    border: var(--border-input-stylized);
+    border-radius: var(--radius-input);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.send-message-box:focus-within {
+    border-color: rgba(97, 31, 105, 0.55);
+    box-shadow: var(--shadow-input-focus);
+}
+
+.send-message-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--color-text-main);
+    font-size: var(--font-size-p);
+    padding: 0.4rem 0.6rem;
+}
+
+.send-message-input::placeholder {
+    color: var(--color-text-placeholder);
+}
+
+.send-message-btn {
+    padding: 0.8rem 1.6rem;
+    background-color: var(--color-accent-green);
+    color: var(--color-white);
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    border: none;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    transition: opacity 0.15s ease, background-color 0.15s ease;
+}
+
+.send-message-btn:hover:not(:disabled) {
+    background-color: #249966;
+}
+
+.send-message-btn:disabled {
+    background-color: var(--color-disabled-bg);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+}

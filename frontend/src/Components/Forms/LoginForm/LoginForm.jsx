@@ -9,7 +9,7 @@ import "./LoginForm.css";
 
 export const LoginForm = () => {
     const navigate = useNavigate();
-    const { setUserToken } = useContext(UserContext);
+    const { setUserToken, setUserData } = useContext(UserContext);
     const [showResendModal, setShowResendModal] = useState(false);
 
     const initial_state = { email: "", password: "" };
@@ -19,6 +19,7 @@ export const LoginForm = () => {
     useEffect(() => {
         if (response) {
             setUserToken(response.data.auth_token);
+            setUserData(response.data.user);
             navigate("/workspaces");
         }
     }, [response]);
