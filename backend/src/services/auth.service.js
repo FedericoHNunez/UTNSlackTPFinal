@@ -86,7 +86,13 @@ class AuthService {
             }
         );
 
-        return auth_token;
+        const userData = {
+            userName: user.userName,
+            email: user.email,
+            createdAt: user.createdAt
+        };
+
+        return { auth_token, user: userData };
     }
 
     async verifyEmail(email) {

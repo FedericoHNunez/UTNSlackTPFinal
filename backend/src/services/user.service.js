@@ -15,7 +15,11 @@ class UserService {
         if (!user) {
             throw new ServerError("Usuario no encontrado.", 404);
         }
-        return user;
+        return {
+            userName: user.userName,
+            email: user.email,
+            createdAt: user.createdAt
+        };
     }
 
     async deleteUser(userId) {

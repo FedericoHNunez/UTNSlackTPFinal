@@ -18,6 +18,7 @@ class MessagesChannelService {
         }
 
         const newMessage = await channelMessageRepository.create({ content, id_channel, id_user });
+        await newMessage.populate("id_user", "userName");
         return newMessage;
     }
 

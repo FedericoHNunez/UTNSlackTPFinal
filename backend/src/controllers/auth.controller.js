@@ -14,11 +14,11 @@ class AuthController {
 
     async loginUser(req, res) {
         const { email, password } = req.body;
-        const auth_token = await authService.loginUser(email, password);
+        const { auth_token, user } = await authService.loginUser(email, password);
         return successResponse(
             res,
             "Inicio de sesión exitoso.",
-            { auth_token }
+            { auth_token, user }
         );
     }
 
