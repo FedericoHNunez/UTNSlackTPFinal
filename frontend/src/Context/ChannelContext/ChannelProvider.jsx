@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { ChannelContext } from "./ChannelContext.jsx";
 import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext.jsx";
 import { UserContext } from "../UserContext/UserContext.jsx";
-import { useChannelList, useCreateChannel } from "../../hooks/useChannel.js";
+import { useChannelList, useCreateChannel } from "../../hooks/fetch/useChannel.js";
 
 export const ChannelProvider = ({ children }) => {
     const [currentChannelList, setCurrentChannelList] = useState(null);

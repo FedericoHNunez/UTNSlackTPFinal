@@ -3,7 +3,7 @@ import useRequest from "./useRequest.js";
 import {
     getChannelsByWorkspace,
     createChannel as createChannelService
-} from "../services/ChannelService.js";
+} from "../../services/ChannelService.js";
 
 export const useChannelList = (workspace_id, userToken) => {
     const { response, error, loading, sendRequest } = useRequest();

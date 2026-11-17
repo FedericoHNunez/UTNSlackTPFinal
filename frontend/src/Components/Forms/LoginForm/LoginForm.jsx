@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import useForm from "../../../hooks/useForm.js";
-import useRequest from "../../../hooks/useRequest.js";
+import useRequest from "../../../hooks/fetch/useRequest.js";
 import { login } from "../../../services/authService.js";
 import { UserContext } from "../../../Context/UserContext/UserContext.jsx";
 import { ResendVerificationModal } from "../../modal/ResendVerificationModal.jsx";

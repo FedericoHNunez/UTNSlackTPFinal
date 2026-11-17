@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { WorkspaceContext } from "./WorkspaceContext.jsx";
-import { useWorkspaceList, useCreateWorkspace } from "../../hooks/useWorkspace.js";
+import { useWorkspaceList, useCreateWorkspace } from "../../hooks/fetch/useWorkspace.js";
 import { UserContext } from "../UserContext/UserContext.jsx";
 
 export const WorkspaceProvider = ({ children }) => {

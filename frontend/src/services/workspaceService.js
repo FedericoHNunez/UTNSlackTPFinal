@@ -41,3 +41,13 @@ export async function inviteNewUser(email, token) {
     });
     return response.json();
 }
+
+export async function deleteWorkspace(workspace_id, token){
+    const response = await fetch(`${url_backend}/api/workspaces/${workspace_id}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.json();
+}

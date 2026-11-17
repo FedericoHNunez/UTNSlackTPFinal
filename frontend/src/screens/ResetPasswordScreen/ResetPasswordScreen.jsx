@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
 import useForm from "../../hooks/useForm.js";
-import useRequest from "../../hooks/useRequest.js";
+import useRequest from "../../hooks/fetch/useRequest.js";
 import { changePassword } from "../../services/authService.js";
 import { SlackLogo } from "../../Components/Ui/SlackLogo.jsx";
 import "../LoginScreen/LoginScreen.css";
@@ -18,6 +19,15 @@ export const ResetPasswordScreen = () => {
     const { formState, handleChangeInput } = useForm(initial_form);
     const { loading, error, response, sendRequest } = useRequest();
 
+    useEffect(() => {
+        if (response && !loading) {
+            const timer = setTimeout(() => {
+                navigate("/login");
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [response, loading, navigate]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         await sendRequest(() =>
@@ -27,9 +37,7 @@ export const ResetPasswordScreen = () => {
                 token,
             ),
         );
-        if (response) {
-            navigate("/login");
-        }
+     
     };
 
     return (
@@ -84,10 +92,7 @@ export const ResetPasswordScreen = () => {
                     {response && !loading && (
                         <div className="login-alert login-alert-success">
                             {response.message ||
-                                "Contraseña actualizada con éxito."}{" "}
-                            <Link to="/login" className="login-link">
-                                Iniciar sesión
-                            </Link>
+                                "Contraseña actualizada con éxito."}
                         </div>
                     )}
 

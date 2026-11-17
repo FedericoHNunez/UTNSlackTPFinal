@@ -1,4 +1,4 @@
-import { getMembersByWorkspace } from '../services/MembersService';
+import { getMembersByWorkspace } from '../../services/MembersService';
 import useRequest from './useRequest';
 import { useEffect } from 'react';
 

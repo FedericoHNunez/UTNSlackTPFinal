@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
-import useRequest from "../../hooks/useRequest.js";
+import useRequest from "../../hooks/fetch/useRequest.js";
 import { validateUser } from "../../services/authService.js";
 import { SlackLogo } from "../../Components/Ui/SlackLogo.jsx";
 import SpinnerLoading from "../../Components/Ui/SpinnerLoading/SpinnerLoading.jsx";

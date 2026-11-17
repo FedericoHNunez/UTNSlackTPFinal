@@ -1,5 +1,5 @@
 import useForm from "../../hooks/useForm.js";
-import useRequest from "../../hooks/useRequest.js";
+import useRequest from "../../hooks/fetch/useRequest.js";
 import { resendVerification } from "../../services/authService.js";
 import { Modal } from "./Modal.jsx";
 

@@ -3,7 +3,7 @@ import useRequest from "./useRequest.js";
 import {
     getMessagesByChannelID,
     createMessageChannel
-} from "../services/messagesChannelService.js";
+} from "../../services/messagesChannelService.js";
 
 export const useMessageList = (workspace_id, channel_id, userToken) => {
     const { response, error, sendRequest, loading } = useRequest();

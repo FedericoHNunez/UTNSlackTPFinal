@@ -4,7 +4,7 @@ import {
     getWorkspaceByUser,
     createWorkspace as createWorkspaceService,
     inviteNewUser as inviteNewUserService
-} from "../services/workspaceService.js";
+} from "../../services/workspaceService.js";
 
 export const useWorkspaceList = (userToken) => {
     const { loading, error, response, sendRequest } = useRequest();

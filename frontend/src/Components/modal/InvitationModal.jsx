@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import useForm from "../../hooks/useForm.js";
-import { useInviteNewUser } from "../../hooks/useWorkspace.js";
+import { useInviteNewUser } from "../../hooks/fetch/useWorkspace.js";
 import { UserContext } from "../../Context/UserContext/UserContext.jsx";
 import { Modal } from "./Modal.jsx";
 

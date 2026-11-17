@@ -3,7 +3,7 @@ import { MessagesContext } from "./MessagesContext.jsx";
 import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext.jsx";
 import { ChannelContext } from "../ChannelContext/ChannelContext.jsx";
 import { UserContext } from "../UserContext/UserContext.jsx";
-import { useMessageList, useCreateMessage } from "../../hooks/useMessage.js";
+import { useMessageList, useCreateMessage } from "../../hooks/fetch/useMessage.js";
 
 export const MessagesProvider = ({ children }) => {
     const [currentMessagesList, setCurrentMessagesList] = useState([]);

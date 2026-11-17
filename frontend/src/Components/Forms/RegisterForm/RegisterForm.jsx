@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import useRequest from "../../../hooks/useRequest.js";
+import useRequest from "../../../hooks/fetch/useRequest.js";
 import useForm from "../../../hooks/useForm.js";
 import { register } from "../../../services/authService.js";
 import "./RegisterForm.css";
