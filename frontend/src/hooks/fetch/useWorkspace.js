@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import useRequest from "./useRequest.js";
 import {
-    getWorkspaceByUser,
-    createWorkspace as createWorkspaceService,
-    inviteNewUser as inviteNewUserService
+    getWorkspaceByUserService,
+    createWorkspaceService,
+    inviteNewUserService,
+    editWorkspaceService,
+    deleteWorkspaceService
 } from "../../services/workspaceService.js";
 
 export const useWorkspaceList = (userToken) => {
@@ -11,7 +13,7 @@ export const useWorkspaceList = (userToken) => {
 
     useEffect(() => {
         if (userToken) {
-            sendRequest(() => getWorkspaceByUser(userToken));
+            sendRequest(() => getWorkspaceByUserService(userToken));
         }
     }, [userToken]);
 
@@ -49,5 +51,35 @@ export const useInviteNewUser = () => {
         invite_new_user_error: error,
         invite_new_user_response: response,
         inviteNewUser
+    };
+};
+
+export const useEditWorkspace = () => {
+    const { loading, error, response, sendRequest } = useRequest();
+
+    const editWorkspace = (workspace_id, name, description, token) => {
+        sendRequest(() => editWorkspaceService(workspace_id, name, description, token));
+    };
+
+    return {
+        edit_workspace_loading: loading,
+        edit_workspace_error: error,
+        edit_workspace_response: response,
+        editWorkspace
+    };
+};
+
+export const useDeleteWorkspace = () => {
+    const { loading, error, response, sendRequest } = useRequest();
+
+    const deleteWorkspace = (workspace_id, token) => {
+        sendRequest(() => deleteWorkspaceService(workspace_id, token));
+    };
+
+    return {
+        delete_workspace_loading: loading,
+        delete_workspace_error: error,
+        delete_workspace_response: response,
+        deleteWorkspace
     };
 };

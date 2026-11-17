@@ -2,7 +2,7 @@ import ENVIRONMENT from "../config/envConfig.js";
 
 const url_backend = ENVIRONMENT.URL_BACKEND;
 
-export async function getWorkspaceByUser(userToken) {
+export async function getWorkspaceByUserService(userToken) {
     const response = await fetch(`${url_backend}/api/workspaces`, {
         method: "GET",
         headers: {
@@ -12,7 +12,7 @@ export async function getWorkspaceByUser(userToken) {
     return response.json();
 }
 
-export async function createWorkspace(name, description, userToken) {
+export async function createWorkspaceService(name, description, userToken) {
     const response_http = await fetch(`${url_backend}/api/workspaces`, {
         method: "POST",
         headers: {
@@ -30,7 +30,7 @@ export async function createWorkspace(name, description, userToken) {
     return response_body;
 }
 
-export async function inviteNewUser(email, token) {
+export async function inviteNewUserService(email, token) {
     const response = await fetch(`${url_backend}/api/workspaces/invite-new-user`, {
         method: "POST",
         headers: {
@@ -42,12 +42,36 @@ export async function inviteNewUser(email, token) {
     return response.json();
 }
 
-export async function deleteWorkspace(workspace_id, token){
-    const response = await fetch(`${url_backend}/api/workspaces/${workspace_id}`, {
+export async function deleteWorkspaceService(workspace_id, token) {
+    const response_http = await fetch(`${url_backend}/api/workspaces/${workspace_id}`, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${token}`,
         },
     });
-    return response.json();
+
+    const response_body = await response_http.json();
+    if (!response_body.ok) {
+        throw new Error(response_body.message);
+    }
+
+    return response_body;
+}
+
+export async function editWorkspaceService(workspace_id, name, description, token) {
+    const response_http = await fetch(`${url_backend}/api/workspaces/${workspace_id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ name, description }),
+    });
+
+    const response_body = await response_http.json();
+    if (!response_body.ok) {
+        throw new Error(response_body.message);
+    }
+
+    return response_body;
 }

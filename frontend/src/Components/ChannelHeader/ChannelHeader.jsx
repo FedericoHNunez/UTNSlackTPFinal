@@ -3,6 +3,9 @@ import { useParams } from "react-router";
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
 import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
 import { SearchForm } from "../Forms/SearchForm/SearchForm.jsx";
+import { InviteMemberModal } from "../modal/InviteMemberModal.jsx";
+import { EditWorkspaceModal } from "../modal/EditWorkspaceModal.jsx";
+import { DeleteWorkspaceModal } from "../modal/DeleteWorkspaceModal.jsx";
 import "./ChannelHeader.css";
 
 const ROLE_LABELS = {
@@ -15,7 +18,11 @@ export const ChannelHeader = () => {
     const { workspace_id } = useParams();
     const { currentWorkspaceList } = useContext(WorkspaceContext);
     const { searchValue, setSearchValue } = useContext(ChannelContext);
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const menuRef = useRef(null);
 
     const currentWorkspace = currentWorkspaceList?.find(
@@ -37,6 +44,21 @@ export const ChannelHeader = () => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
+
+    const handleOpenInviteModal = () => {
+        setIsMenuOpen(false);
+        setIsInviteModalOpen(true);
+    };
+
+    const handleOpenEditModal = () => {
+        setIsMenuOpen(false);
+        setIsEditModalOpen(true);
+    };
+
+    const handleOpenDeleteModal = () => {
+        setIsMenuOpen(false);
+        setIsDeleteModalOpen(true);
+    };
 
     return (
         <header className="channel-header">
@@ -92,7 +114,7 @@ export const ChannelHeader = () => {
                                         type="button"
                                         className="channel-header-menu-item"
                                         role="menuitem"
-                                        onClick={() => setIsMenuOpen(false)}
+                                        onClick={handleOpenInviteModal}
                                     >
                                         Invitar nuevos miembros
                                     </button>
@@ -102,7 +124,7 @@ export const ChannelHeader = () => {
                                         type="button"
                                         className="channel-header-menu-item"
                                         role="menuitem"
-                                        onClick={() => setIsMenuOpen(false)}
+                                        onClick={handleOpenEditModal}
                                     >
                                         Editar espacio de trabajo
                                     </button>
@@ -116,7 +138,7 @@ export const ChannelHeader = () => {
                                     type="button"
                                     className="channel-header-menu-item channel-header-menu-item--danger"
                                     role="menuitem"
-                                    onClick={() => setIsMenuOpen(false)}
+                                    onClick={handleOpenDeleteModal}
                                 >
                                     Eliminar espacio de trabajo
                                 </button>
@@ -130,6 +152,24 @@ export const ChannelHeader = () => {
                 placeholder="Buscar un canal"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
+            />
+
+            <InviteMemberModal
+                isOpen={isInviteModalOpen}
+                onClose={() => setIsInviteModalOpen(false)}
+                workspaceName={currentWorkspace?.workspace_name}
+            />
+
+            <EditWorkspaceModal
+                isOpen={isEditModalOpen}
+                onClose={() => setIsEditModalOpen(false)}
+                currentWorkspace={currentWorkspace}
+            />
+
+            <DeleteWorkspaceModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                workspaceName={currentWorkspace?.workspace_name}
             />
         </header>
     );

@@ -22,3 +22,25 @@ export const getMembersByWorkspace = async (workspace_id, userToken) => {
 
     return response_body
 }
+
+export const inviteMemberToWorkspace = async (workspace_id, email, role, userToken) => {
+    const response_http = await fetch(
+        `${url_backend}/api/workspaces/${workspace_id}/members/invite`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${userToken}`,
+            },
+            body: JSON.stringify({ email, role }),
+        },
+    )
+
+    const response_body = await response_http.json()
+
+    if (!response_body.ok) {
+        throw new Error(response_body.message)
+    }
+
+    return response_body
+}
