@@ -9,20 +9,24 @@ export const UserProvider = ({ children }) => {
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        if (userToken) {
-            localStorage.setItem("auth_token", userToken);
-            if (!userData) {
-                getUserMe(userToken)
-                    .then((res) => setUserData(res.data.user))
-                    .catch(() => {
-                        setUserToken(null);
-                        setUserData(null);
-                    });
+        const fetchUserData = async () => {
+            if (userToken) {
+                localStorage.setItem("auth_token", userToken);
+                if (!userData) {
+                    try {
+                        const response = await getUserMe(userToken);
+                        setUserData(response.data.user);
+                    } catch (error) {
+                        console.error("Error al obtener datos del usuario:", error);
+                    }
+                }
+            } else {
+                localStorage.removeItem("auth_token");
+                setUserData(null);
             }
-        } else {
-            localStorage.removeItem("auth_token");
-            setUserData(null);
-        }
+        };
+
+        fetchUserData();
     }, [userToken]);
 
     const values = {

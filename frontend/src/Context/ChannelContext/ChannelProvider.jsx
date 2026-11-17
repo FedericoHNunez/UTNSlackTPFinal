@@ -5,15 +5,22 @@ import { UserContext } from "../UserContext/UserContext.jsx";
 import { useChannelList, useCreateChannel } from "../../hooks/useChannel.js";
 
 export const ChannelProvider = ({ children }) => {
-    const [currentchannelList, setCurrentChannelList] = useState(null);
-    const [currentchannel_id, setCurrentChannel_id] = useState(null);
+    const [currentChannelList, setCurrentChannelList] = useState(null);
+    const [currentChannel_id, setCurrentChannel_id] = useState(null);
+    const [searchValue, setSearchValue] = useState("");
     const { currentWorkspace_id } = useContext(WorkspaceContext);
     const { userToken } = useContext(UserContext);
 
-    const { channel_response, channel_error, channel_loading } = useChannelList(
-        currentWorkspace_id,
-        userToken
-    );
+    const { channel_response,
+         channel_error, 
+         channel_loading 
+        } = useChannelList( currentWorkspace_id, userToken);
+      
+        useEffect(() => {
+            if (channel_response) {
+                setCurrentChannelList(channel_response.data.channels);
+            }
+        }, [channel_response]);
 
     const {
         create_channel_response,
@@ -21,13 +28,7 @@ export const ChannelProvider = ({ children }) => {
         create_channel_loading,
         createChannel
     } = useCreateChannel();
-
-    useEffect(() => {
-        if (channel_response) {
-            setCurrentChannelList(channel_response.data.channels);
-        }
-    }, [channel_response]);
-
+    
     useEffect(() => {
         if (create_channel_response?.data?.channel) {
             const newChannel = create_channel_response.data.channel;
@@ -48,16 +49,19 @@ export const ChannelProvider = ({ children }) => {
     };
 
     const values = {
-        currentchannelList,
+
+        currentChannelList,
         setCurrentChannelList,
         channel_error,
         channel_loading,
-        currentchannel_id,
+        currentChannel_id,
         setCurrentChannel_id,
         create_channel_loading,
         create_channel_error,
         create_channel_response,
-        handleCreateChannel
+        handleCreateChannel,
+        searchValue,
+        setSearchValue
     };
 
     return (

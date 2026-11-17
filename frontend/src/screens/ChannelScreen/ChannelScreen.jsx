@@ -1,3 +1,4 @@
+import { ChannelHeader } from "../../Components/ChannelHeader/ChannelHeader.jsx";
 import { ChannelList } from "../../Components/ChannelList/ChannelList.jsx"
 import { useContext } from "react"
 import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx"
@@ -16,6 +17,7 @@ export const ChannelScreen = () => {
                 :
                 <>
                     <aside>
+                        <ChannelHeader />
                         <ChannelList />
                         <MembersList />
                     </aside>

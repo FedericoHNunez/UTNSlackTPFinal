@@ -10,6 +10,12 @@ const AVATAR_THEMES = [
     "workspace-avatar-theme-3",
 ];
 
+const ROLE_LABELS = {
+    owner: "Owner",
+    admin: "Admin",
+    user: "Miembro",
+};
+
 export const WorkspaceList = () => {
     const { wokspace_error, currentWorkspaceList } = useContext(WorkspaceContext);
     const [showCreateWorkspaceModal, setShowCreateWorkspaceModal] = useState(false);
@@ -34,7 +40,7 @@ export const WorkspaceList = () => {
                         Aún no perteneces a ningún espacio de trabajo.
                     </p>
                 )}
-
+                
                 {currentWorkspaceList && currentWorkspaceList.length > 0 && (
                     <ul className="workspace-items-list">
                         {currentWorkspaceList.map((workspace, index) => {
@@ -43,6 +49,7 @@ export const WorkspaceList = () => {
                             const initial = workspace.workspace_name
                                 ? workspace.workspace_name.charAt(0).toUpperCase()
                                 : "W";
+                            const userRole = workspace.workspace_role || "user";
 
                             return (
                                 <li
@@ -61,7 +68,14 @@ export const WorkspaceList = () => {
                                         </div>
 
                                         <div className="workspace-item-info">
-                                            <h2>{workspace.workspace_name}</h2>
+                                            <div className="workspace-item-header">
+                                                <h2>{workspace.workspace_name}</h2>
+                                                <span
+                                                    className={`workspace-role-badge workspace-role-badge--${userRole}`}
+                                                >
+                                                    {ROLE_LABELS[userRole] || userRole}
+                                                </span>
+                                            </div>
                                             <div className="workspace-item-meta">
                                                 <div
                                                     className="workspace-member-pills"
@@ -94,7 +108,7 @@ export const WorkspaceList = () => {
                 )}
             </div>
 
-            <footer className="workspace-card-footer">
+            <div className="workspace-card-footer">
                 {currentWorkspaceList &&
                     (currentWorkspaceList.length === 0 ? (
                         <button
@@ -120,7 +134,7 @@ export const WorkspaceList = () => {
                         Prueba con otro correo electrónico
                     </Link>
                 </p>
-            </footer>
+            </div>
 
             <CreateWorkspaceModal
                 isOpen={showCreateWorkspaceModal}

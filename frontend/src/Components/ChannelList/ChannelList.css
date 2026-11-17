@@ -8,14 +8,6 @@
     margin-bottom: 1.6rem;
 }
 
-.channel-list-title {
-    
-    font-weight: 800;
-    color: var(--color-white);
-    padding: 0.4rem 0.8rem;
- 
-}
-
 .channel-list-error {
     font-size: var(--font-size-small);
     color: #ff9bb8;

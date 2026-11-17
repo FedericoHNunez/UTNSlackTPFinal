@@ -8,7 +8,7 @@ import { useMessageList, useCreateMessage } from "../../hooks/useMessage.js";
 export const MessagesProvider = ({ children }) => {
     const [currentMessagesList, setCurrentMessagesList] = useState([]);
     const { currentWorkspace_id } = useContext(WorkspaceContext);
-    const { currentchannel_id } = useContext(ChannelContext);
+    const { currentChannel_id } = useContext(ChannelContext);
     const { userToken } = useContext(UserContext);
 
     const {
@@ -16,7 +16,7 @@ export const MessagesProvider = ({ children }) => {
         message_error,
         message_loading,
         message_sendRequest
-    } = useMessageList(currentWorkspace_id, currentchannel_id, userToken);
+    } = useMessageList(currentWorkspace_id, currentChannel_id, userToken);
 
     const {
         create_message_response,
@@ -39,7 +39,7 @@ export const MessagesProvider = ({ children }) => {
     }, [create_message_response]);
 
     const handleCreateMessage = (content) => {
-        createMessage(currentWorkspace_id, currentchannel_id, content, userToken);
+        createMessage(currentWorkspace_id, currentChannel_id, content, userToken);
     };
 
     const values = {

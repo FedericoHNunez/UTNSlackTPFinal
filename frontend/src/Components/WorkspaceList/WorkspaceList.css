@@ -106,6 +106,13 @@
     gap: 0.5rem;
 }
 
+.workspace-item-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-width: 0;
+}
+
 .workspace-item-info h2 {
     font-family: var(--font-main);
     font-size: var(--font-size-h4);
@@ -114,6 +121,31 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.workspace-role-badge {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+}
+
+.workspace-role-badge--owner {
+    background-color: rgba(73, 26, 84, 0.12);
+    color: var(--color-primary);
+}
+
+.workspace-role-badge--admin {
+    background-color: rgba(18, 100, 163, 0.12);
+    color: #1264a3;
+}
+
+.workspace-role-badge--user {
+    background-color: rgba(97, 96, 97, 0.12);
+    color: #616061;
 }
 
 .workspace-item-meta {
