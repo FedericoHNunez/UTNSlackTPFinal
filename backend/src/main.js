@@ -10,8 +10,11 @@ import directMessageRouter from "./routes/directMessage.router.js";
 import ENVIRONMENT from "./config/environment.config.js";
 import memberRouter from "./routes/member.router.js";
 import authMiddleware from "./middlewares/auth.middleware.js";
+import loggerMiddleware from "./middlewares/logger.middleware.js";
 import cors from 'cors';
 import connectMongoDBMiddleware from "./middlewares/connectMongoDB.middleware.js";
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './docs/swagger.config.js';
 // 1. Connect to the database
 connectMongoDB();
 
@@ -20,11 +23,22 @@ connectMongoDB();
 const PORT = ENVIRONMENT.PORT;
 const app = express();
 app.use(connectMongoDBMiddleware)
+// Logger de consultas (MongoDB, fire-and-forget, sin body)
+app.use(loggerMiddleware)
 app.use(cors());
 app.use(express.json());
 
 // Middleware to catch JSON format errors (SyntaxError)
 app.use(jsonErrorHandler);
+
+// Swagger UI documentation (always available)
+app.get('/api/docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+    customSiteTitle: 'Slack Clone API - Docs',
+}));
 
 // Healthcheck endpoint
 app.get("/api/status", (req, res) => {
@@ -57,10 +71,3 @@ app.listen(PORT, () => {
 
 export default app;
 
-
-
-/* 
-(autentificado) /api/wokspace
-  traer la lista de trabajo de ese usuario
-
-*/

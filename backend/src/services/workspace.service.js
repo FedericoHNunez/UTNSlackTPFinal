@@ -54,7 +54,7 @@ class WorkspaceService {
         const newWorkspace = await workspaceRepository.create({ name, description });
         await channelRepository.create({
             name: "informal",
-            description: "Convers en Social",
+            description: "Conversaciones en Social",
             id_workspace: newWorkspace._id
         })
         await channelRepository.create({
