@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react";
+import TextareaAutosize from "react-textarea-autosize";
 import useForm from "../../../hooks/useForm.js";
 import { MessagesContext } from "../../../Context/MessagesContext/MessagesContext.jsx";
 import "./SendMessageForm.css";
@@ -26,6 +27,15 @@ export const SendMessageForm = () => {
         handleCreateMessage(formState.content);
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            if (!create_message_loading && formState.content.trim()) {
+                handleCreateMessage(formState.content);
+            }
+        }
+    };
+
     return (
         <form className="send-message-form" onSubmit={handleSubmit}>
             {create_message_error && !create_message_loading && (
@@ -35,14 +45,16 @@ export const SendMessageForm = () => {
             )}
 
             <div className="send-message-box">
-                <input
-                    type="text"
+                <TextareaAutosize
                     name="content"
                     id="message-content"
                     className="send-message-input"
                     placeholder="Escribe un mensaje..."
                     value={formState.content}
                     onChange={handleChangeInput}
+                    onKeyDown={handleKeyDown}
+                    minRows={1}
+                    maxRows={6}
                     disabled={create_message_loading}
                     required
                 />

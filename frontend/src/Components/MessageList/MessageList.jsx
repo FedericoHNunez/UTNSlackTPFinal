@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useLayoutEffect, useRef } from "react";
 import { useParams } from "react-router";
 import { MessagesContext } from "../../Context/MessagesContext/MessagesContext.jsx";
 import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
@@ -34,7 +34,7 @@ export const MessageList = () => {
         }
     }, [channel_id]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (listRef.current) {
             listRef.current.scrollTop = listRef.current.scrollHeight;
         }
