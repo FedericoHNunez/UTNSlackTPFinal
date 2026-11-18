@@ -73,7 +73,7 @@ class MemberService {
         return invitation;
     }
 
-    async acceptInvite(invitation_id, role) {
+    async acceptInvite(invitation_id) {
 
 
         const invitationFound = await invitationRepository.getById(invitation_id);
@@ -92,7 +92,7 @@ class MemberService {
         const newMember = await memberRepository.create(
             invitationFound.id_invitedUser,
             invitationFound.id_workspace,
-            role,
+            invitationFound.role,
             true
         );
 

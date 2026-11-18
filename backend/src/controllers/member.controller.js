@@ -40,8 +40,8 @@ class MemberController {
 
     async acceptInvite(req, res) {
         const { invitation_token } = req.params;
-        const { invitation_id, role } = jwt.verify(invitation_token, ENVIRONMENT.TOKEN_JWT_KEY);
-        const member = await memberService.acceptInvite(invitation_id, role);
+        const { invitation_id} = jwt.verify(invitation_token, ENVIRONMENT.TOKEN_JWT_KEY);
+        const member = await memberService.acceptInvite(invitation_id);
         return successResponse(res, "Invitación aceptada correctamente.", { member });
     }
 }
