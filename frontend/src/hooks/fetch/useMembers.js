@@ -1,4 +1,8 @@
-import { getMembersByWorkspace, inviteMemberToWorkspace } from '../../services/MembersService';
+import {
+    getMembersByWorkspace,
+    inviteMemberToWorkspace,
+    acceptWorkspaceInvite
+} from '../../services/MembersService';
 import useRequest from './useRequest';
 import { useEffect } from 'react';
 
@@ -35,5 +39,24 @@ export const useInviteMember = () => {
         invite_member_loading: loading,
         invite_member_error: error,
         inviteMember,
+    }
+}
+
+export const useAcceptWorkspaceInvite = (workspace_id, token) => {
+    const { response, loading, error, errorCode, sendRequest } = useRequest()
+
+    useEffect(() => {
+        if (workspace_id && token) {
+            sendRequest(
+                () => acceptWorkspaceInvite(workspace_id, token)
+            )
+        }
+    }, [workspace_id, token])
+
+    return {
+        accept_invite_response: response,
+        accept_invite_loading: loading,
+        accept_invite_error: error,
+        accept_invite_error_code: errorCode,
     }
 }

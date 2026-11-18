@@ -44,3 +44,22 @@ export const inviteMemberToWorkspace = async (workspace_id, email, role, userTok
 
     return response_body
 }
+
+export const acceptWorkspaceInvite = async (workspace_id, token) => {
+    const response_http = await fetch(
+        `${url_backend}/api/workspaces/${workspace_id}/members/accept-invite/${token}`,
+        {
+            method: 'GET',
+        },
+    )
+
+    const response_body = await response_http.json()
+
+    if (!response_body.ok) {
+        const error = new Error(response_body.message)
+        error.code = response_body.code || null
+        throw error
+    }
+
+    return response_body
+}

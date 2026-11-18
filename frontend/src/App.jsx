@@ -17,7 +17,7 @@ import { ChannelProvider } from "./Context/ChannelContext/ChannelProvider";
 import { MessagesProvider } from "./Context/MessagesContext/MessagesProvider";
 import { MembersProvider } from "./Context/MembersContext/MembersProvider";
 import { NavLayout } from "./Layout/MainLayout";
-import { InvitationWorkspaceScreen } from "./screens/InvitationWorkspaceScreen/InvitationWorsoaceScreen";
+import { InvitationWorkspaceScreen } from "./screens/InvitationWorkspaceScreen/InvitationWorkspaceScreen";
 
 const App = () => {
   return (
