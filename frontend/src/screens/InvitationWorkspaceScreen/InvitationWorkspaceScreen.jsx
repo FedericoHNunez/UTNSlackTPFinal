@@ -15,17 +15,6 @@ export const InvitationWorkspaceScreen = () => {
         accept_invite_error
     } = useAcceptWorkspaceInvite(workspace_id, token);
 
-    const isAlreadyMember =
-        accept_invite_error === "Ya eres miembro de este espacio de trabajo.";
-
-    useEffect(() => {
-        document.title = accept_invite_response
-            ? "Invitación confirmada | Slack"
-            : accept_invite_error
-            ? "Error en la invitación | Slack"
-            : "Confirmando invitación | Slack";
-    }, [accept_invite_response, accept_invite_error]);
-
     useEffect(() => {
         if (accept_invite_response) {
             const timer = setTimeout(() => {

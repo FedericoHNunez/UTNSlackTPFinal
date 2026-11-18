@@ -9,31 +9,33 @@ export const UserProvider = ({ children }) => {
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            if (userToken) {
-                localStorage.setItem("auth_token", userToken);
-                if (!userData) {
-                    try {
-                        const response = await getUserMe(userToken);
-                        setUserData(response.data.user);
-                    } catch (error) {
-                        console.error("Error al obtener datos del usuario:", error);
-                    }
-                }
-            } else {
-                localStorage.removeItem("auth_token");
-                setUserData(null);
-            }
-        };
-
-        fetchUserData();
+        if (userToken) {
+            localStorage.setItem("auth_token", userToken);
+        } else {
+            localStorage.removeItem("auth_token");
+            setUserData(null);
+        }
     }, [userToken]);
+
+    const fetchUserData = async () => {
+        if (userToken && !userData) {
+            try {
+                const response = await getUserMe(userToken);
+                if (response?.data?.user) {
+                    setUserData(response.data.user);
+                }
+            } catch (error) {
+                console.error("Error al obtener datos del usuario:", error);
+            }
+        }
+    };
 
     const values = {
         userToken,
         setUserToken,
         userData,
-        setUserData
+        setUserData,
+        fetchUserData
     };
 
     return (
