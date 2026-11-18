@@ -71,12 +71,12 @@ export const InvitationWorkspaceScreen = () => {
                         <h1>¡Te has unido al espacio de trabajo!</h1>
                         <p className="invitation-subtitle">
                             {accept_invite_response.message}{" "}
-                            Serás redirigido al inicio de sesión en 3
+                            Serás redirigido a los espacios de trabajo en 3
                             segundos...
                         </p>
 
                         <Link
-                            to="/login"
+                            to="/workspaces"
                             className="form-submit-btn invitation-btn"
                         >
                             Ir a iniciar sesión
@@ -117,10 +117,10 @@ export const InvitationWorkspaceScreen = () => {
                         </div>
 
                         <Link
-                            to="/login"
+                            to="/workspaces"
                             className="form-submit-btn invitation-btn"
                         >
-                            Ir a iniciar sesión
+                            Ir a los espacios de trabajo
                         </Link>
                     </div>
                 )}
