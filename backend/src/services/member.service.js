@@ -35,7 +35,7 @@ class MemberService {
         return await memberRepository.deleteById(member_selected._id);
     }
 
-    async inviteMember(emailInvitedUser, workspace_id, role, senderUser, workspace_name) {
+    async inviteMember(emailInvitedUser, workspace_id, role, senderUser, senderUserId, workspace_name) {
 
         const userInvetedFound = await userRepository.getByEmail(emailInvitedUser);
         if (!userInvetedFound) {
@@ -51,7 +51,7 @@ class MemberService {
             throw new ServerError("No es posible asignar el rol de propietario en una invitación.", 400);
         }
 
-        const invitation = await invitationRepository.create({ id_invitedUser: userInvetedFound._id, id_workspace: workspace_id, role: role });
+        const invitation = await invitationRepository.create({id_inviterUser: senderUserId, id_invitedUser: userInvetedFound._id, id_workspace: workspace_id, role: role });
 
         const token = await tokenHelper.createVerifyEmailToken(
             {

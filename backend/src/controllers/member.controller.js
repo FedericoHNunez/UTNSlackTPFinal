@@ -31,9 +31,10 @@ class MemberController {
     async inviteMember(req, res) {
         const { email, role } = req.body;
         const senderUser = req.user.userName;
+        const senderUserId = req.user.id;
         const workspace_id = req.workspace_selected._id;
         const workspace_name = req.workspace_selected.name;
-        const invitation = await memberService.inviteMember(email, workspace_id, role, senderUser, workspace_name);
+        const invitation = await memberService.inviteMember(email, workspace_id, role, senderUser, senderUserId, workspace_name);
         return successResponse(res, "Invitación enviada correctamente.", { invitation });
     }
 

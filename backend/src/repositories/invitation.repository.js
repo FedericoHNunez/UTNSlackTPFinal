@@ -7,10 +7,9 @@ class InvitationRepository extends BaseRepository {
     }
 
 
-    async findActiveInvitation(emailInvitedUser, workspace_id) {
-        const invitation = await this.model.findOne({
-            emailInvitedUser,
-            workspace_id,
+    async findActiveInvitation(id_invitedUser) {
+        const invitation = await this.model.find({
+            id_invitedUser,
             active: true
         });
         return invitation;

@@ -4,6 +4,11 @@ import { USER_COLLECTION_NAME } from "./user.model.js";
 
 const newInvitationSchema = new mongoose.Schema(
     {
+        id_inviterUser: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: USER_COLLECTION_NAME
+        },
         id_invitedUser: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
