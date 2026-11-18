@@ -1,0 +1,237 @@
+/* =========================================================
+   WorkspaceNavBarMobile - Menú Hamburguesa y Drawer (<= 768px)
+   ========================================================= */
+
+.workspace-nav-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .workspace-nav-mobile {
+        display: flex;
+        align-items: center;
+    }
+
+    .workspace-nav-mobile-toggle {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        width: 3.6rem;
+        height: 3.6rem;
+        padding: 0.6rem;
+        border-radius: 0.6rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 60;
+        transition: background-color 0.15s ease;
+    }
+
+    .workspace-nav-mobile-toggle:hover {
+        background-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .workspace-nav-mobile-burger-line {
+        width: 2rem;
+        height: 0.22rem;
+        background-color: var(--color-white);
+        border-radius: 0.2rem;
+        transition: transform 0.22s ease, opacity 0.22s ease;
+    }
+
+    .workspace-nav-mobile-toggle.is-open .workspace-nav-mobile-burger-line:nth-child(1) {
+        transform: translateY(0.67rem) rotate(45deg);
+    }
+
+    .workspace-nav-mobile-toggle.is-open .workspace-nav-mobile-burger-line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .workspace-nav-mobile-toggle.is-open .workspace-nav-mobile-burger-line:nth-child(3) {
+        transform: translateY(-0.67rem) rotate(-45deg);
+    }
+
+    .workspace-nav-mobile-backdrop {
+        display: block;
+        position: fixed;
+        inset: 4.6rem 0 0 0;
+        background-color: var(--color-overlay);
+        z-index: 45;
+    }
+
+    .workspace-nav-mobile-drawer {
+        position: fixed;
+        top: 4.6rem;
+        left: 0;
+        width: 24rem;
+        max-width: 78vw;
+        height: calc(100dvh - 4.6rem);
+        max-height: calc(100dvh - 4.6rem);
+        padding: 1.4rem 1.2rem;
+        background-color: var(--color-header-bg);
+        border-right: 0.1rem solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0.6rem 0 2rem rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        overflow-y: auto;
+        transform: translateX(-100%);
+        pointer-events: none;
+        transition: transform 0.25s ease;
+        z-index: 50;
+    }
+
+    .workspace-nav-mobile-drawer.is-open {
+        transform: translateX(0);
+        pointer-events: auto;
+    }
+
+    .workspace-nav-mobile-group {
+        width: 100%;
+    }
+
+    .workspace-nav-mobile-header {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        padding: 0.4rem 0.6rem 1.2rem;
+        margin-bottom: 0.6rem;
+        border-bottom: 0.1rem solid rgba(255, 255, 255, 0.12);
+    }
+
+    .workspace-nav-mobile-avatar-btn {
+        width: 3.6rem;
+        height: 3.6rem;
+        border-radius: 0.9rem;
+        background-color: #a8a8ac;
+        color: #231f24;
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        border: none;
+        cursor: pointer;
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .workspace-nav-mobile-workspace-name {
+        font-size: var(--font-size-p);
+        font-weight: 800;
+        color: var(--color-white);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .workspace-nav-mobile-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.4rem;
+        width: 100%;
+    }
+
+    .workspace-nav-mobile-bottom-list {
+        padding-top: 1rem;
+        border-top: 0.1rem solid rgba(255, 255, 255, 0.12);
+    }
+
+    .workspace-nav-mobile-item {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .workspace-nav-mobile-link,
+    .workspace-nav-mobile-theme-btn,
+    .workspace-nav-mobile-user-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.2rem;
+        padding: 0.6rem 0.8rem;
+        border-radius: 0.8rem;
+        color: rgba(255, 255, 255, 0.92);
+        text-decoration: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.15s ease;
+    }
+
+    .workspace-nav-mobile-link:hover,
+    .workspace-nav-mobile-theme-btn:hover,
+    .workspace-nav-mobile-user-row:hover {
+        background-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .workspace-nav-mobile-icon-box {
+        width: 3.4rem;
+        height: 3.4rem;
+        border-radius: 0.8rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-white);
+        background-color: rgba(255, 255, 255, 0.12);
+        flex-shrink: 0;
+    }
+
+    .workspace-nav-mobile-link.is-active .workspace-nav-mobile-icon-box {
+        background-color: rgba(255, 255, 255, 0.24);
+    }
+
+    .workspace-nav-mobile-label {
+        font-size: var(--font-size-p);
+        font-weight: 700;
+        text-align: left;
+        color: var(--color-white);
+    }
+
+    .workspace-nav-mobile-user-avatar {
+        position: relative;
+        width: 3.4rem;
+        height: 3.4rem;
+        border-radius: 0.8rem;
+        background: linear-gradient(135deg, #e8dff0 0%, #cbb8dc 100%);
+        color: var(--color-header-bg);
+        font-weight: 800;
+        font-size: 1.4rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .workspace-nav-mobile-status-dot {
+        position: absolute;
+        right: -0.2rem;
+        bottom: -0.2rem;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        background-color: var(--color-accent-green);
+        border: 0.2rem solid var(--color-header-bg);
+    }
+}
+
+@media (max-width: 480px) {
+    .workspace-nav-mobile-backdrop {
+        inset: 4.2rem 0 0 0;
+    }
+
+    .workspace-nav-mobile-drawer {
+        top: 4.2rem;
+        height: calc(100dvh - 4.2rem);
+        max-height: calc(100dvh - 4.2rem);
+    }
+}

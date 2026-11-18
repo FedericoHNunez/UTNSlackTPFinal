@@ -15,7 +15,7 @@ export const WorkspaceProvider = ({ children }) => {
     const { userToken } = useContext(UserContext);
     const {
         workspace_loading,
-        wokspace_error,
+        wokspace_error, 
         wokspace_response
     } = useWorkspaceList(userToken);
 

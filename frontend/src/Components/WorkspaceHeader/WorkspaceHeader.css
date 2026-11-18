@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
-    max-width: 78rem;
+    max-width: 96rem;
     margin: 0 auto;
 }
 
@@ -43,6 +43,12 @@
 .workspace-header-btn:hover {
     background-color: rgba(255, 255, 255, 0.14);
     color: var(--color-white);
+}
+
+.workspace-header-slack-btn {
+    border: 0.1rem solid rgba(255, 255, 255, 0.22);
+    border-radius: 0.6rem;
+    padding: 0.4rem;
 }
 
 /* =========================================================
