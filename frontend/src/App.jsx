@@ -27,6 +27,7 @@ const App = () => {
             <MessagesProvider>
               <Routes>
                 <Route path="/" element={<HomeScreen />} />
+                <Route path="/workspaces/:workspace_id/members/accept-invite/:token" element={<InvitationWorkspaceScreen />} />
                 <Route path="/login" element={<LoginScreen />} />
                 <Route path="/register" element={<RegisterScreen />} />
                 <Route path="/auth/reset-password" element={<ResetPasswordScreen />} />
