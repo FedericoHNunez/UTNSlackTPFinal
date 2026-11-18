@@ -89,12 +89,12 @@ class MemberService {
             throw new ServerError("Ya eres miembro de este espacio de trabajo.", 400);
         }
 
-        const newMember = await memberRepository.create(
-            invitationFound.id_invitedUser,
-            invitationFound.id_workspace,
-            invitationFound.role,
-            true
-        );
+        const newMember = await memberRepository.create({
+            id_user: invitationFound.id_invitedUser,
+            id_workspace: invitationFound.id_workspace,
+            role: invitationFound.role,
+            active: true
+        });
 
         invitationFound.active = false;
         await invitationFound.save();
