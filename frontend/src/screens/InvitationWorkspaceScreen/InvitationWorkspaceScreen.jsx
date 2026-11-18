@@ -70,8 +70,7 @@ export const InvitationWorkspaceScreen = () => {
 
                         <h1>¡Te has unido al espacio de trabajo!</h1>
                         <p className="invitation-subtitle">
-                            {accept_invite_response.message ||
-                                "Tu invitación fue confirmada con éxito."}{" "}
+                            {accept_invite_response.message}{" "}
                             Serás redirigido al inicio de sesión en 3
                             segundos...
                         </p>
@@ -111,11 +110,7 @@ export const InvitationWorkspaceScreen = () => {
                             </svg>
                         </div>
 
-                        <h1>
-                            {isAlreadyMember
-                                ? "Ya eres miembro de este espacio"
-                                : "No pudimos confirmar tu invitación"}
-                        </h1>
+                        <h1>No pudimos confirmar tu invitación</h1>
 
                         <div className="form-alert form-alert-error invitation-alert">
                             <p>{accept_invite_error}</p>
