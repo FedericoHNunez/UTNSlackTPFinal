@@ -79,7 +79,7 @@ export const InvitationWorkspaceScreen = () => {
                             to="/workspaces"
                             className="form-submit-btn invitation-btn"
                         >
-                            Ir a iniciar sesión
+                            Ir a los espacios de trabajo
                         </Link>
                     </div>
                 )}
