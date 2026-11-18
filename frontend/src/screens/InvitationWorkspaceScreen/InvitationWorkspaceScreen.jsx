@@ -18,7 +18,7 @@ export const InvitationWorkspaceScreen = () => {
     useEffect(() => {
         if (accept_invite_response) {
             const timer = setTimeout(() => {
-                navigate("/login");
+                navigate("/workspaces");
             }, 3000);
 
             return () => clearTimeout(timer);
