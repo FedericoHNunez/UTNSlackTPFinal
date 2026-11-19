@@ -5,22 +5,28 @@ import {
     createMessageChannel
 } from "../../services/messagesChannelService.js";
 
-export const useMessageList = (workspace_id, channel_id, userToken) => {
+export const useGetMessageList = (workspace_id, channel_id, userToken) => {
     const { response, error, sendRequest, loading } = useRequest();
 
-    useEffect(() => {
+    const getMessageList = (showLoading = true) => {
         if (workspace_id && channel_id && userToken) {
-            sendRequest(() =>
-                getMessagesByChannelID(workspace_id, channel_id, userToken)
+            sendRequest(
+                () => getMessagesByChannelID(workspace_id, channel_id, userToken),
+                showLoading
             );
         }
+    };
+
+    useEffect(() => {
+        getMessageList();
     }, [workspace_id, channel_id, userToken]);
 
     return {
-        message_response: response,
-        message_error: error,
-        message_loading: loading,
-        message_sendRequest: sendRequest
+        get_message_response: response,
+        get_message_error: error,
+        get_message_loading: loading,
+        get_message_sendRequest: sendRequest,
+        getMessageList
     };
 };
 

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router";
-import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
-import { CreateWorkspaceModal } from "../modal/CreateWorkspaceModal.jsx";
+import { WorkspaceContext } from "../../../Context/WorkspaceContext/WorkspaceContext.jsx";
+import { CreateWorkspaceModal } from "../../modal/CreateWorkspaceModal.jsx";
 import "./WorkspaceList.css";
 
 const AVATAR_THEMES = [
@@ -17,7 +17,7 @@ const ROLE_LABELS = {
 };
 
 export const WorkspaceList = () => {
-    const { wokspace_error, currentWorkspaceList } = useContext(WorkspaceContext);
+    const { get_workspace_error, currentWorkspaceList } = useContext(WorkspaceContext);
     const [showCreateWorkspaceModal, setShowCreateWorkspaceModal] = useState(false);
 
     return (
@@ -29,9 +29,9 @@ export const WorkspaceList = () => {
             <div className="workspace-card-body">
                 <p className="workspace-ready-label">Listo para comenzar</p>
 
-                {wokspace_error && (
+                {get_workspace_error && (
                     <div className="form-alert form-alert-error workspace-error-alert">
-                        <p>{wokspace_error}</p>
+                        <p>{get_workspace_error}</p>
                     </div>
                 )}
 

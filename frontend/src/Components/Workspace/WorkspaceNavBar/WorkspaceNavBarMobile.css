@@ -222,6 +222,13 @@
         background-color: var(--color-accent-green);
         border: 0.2rem solid var(--color-header-bg);
     }
+
+    /* Contenedor de perfil en vista móvil */
+    .workspace-nav-mobile-profile-wrapper {
+        position: relative;
+        flex-direction: column;
+        align-items: stretch;
+    }
 }
 
 @media (max-width: 480px) {

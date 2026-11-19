@@ -1,21 +1,22 @@
+import { Outlet } from "react-router";
 import { MembersContext } from "./MembersContext";
 import { UserContext } from "../UserContext/UserContext";
 import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext";
 import { useState, useContext, useEffect } from "react";
-import { useMembersList, useInviteMember } from "../../hooks/fetch/useMembers";
+import { useGetMembersList, useInviteMember } from "../../hooks/fetch/useMembers";
 
 
-export const MembersProvider = ({ children }) => {
+export const MembersProvider = () => {
 
     const { userToken } = useContext(UserContext);
     const { currentWorkspace_id } = useContext(WorkspaceContext);
     const [currentWorkspaceMembers, setCurrentWorkspaceMembers] = useState([]);
 
     const {
-        members_response,
-        members_error,
-        members_loading
-    } = useMembersList(currentWorkspace_id, userToken);
+        get_members_response,
+        get_members_error,
+        get_members_loading
+    } = useGetMembersList(currentWorkspace_id, userToken);
 
     const {
         invite_member_response,
@@ -25,10 +26,10 @@ export const MembersProvider = ({ children }) => {
     } = useInviteMember();
 
     useEffect(() => {
-        if (members_response?.data?.members) {
-            setCurrentWorkspaceMembers(members_response.data.members);
+        if (get_members_response?.data?.members) {
+            setCurrentWorkspaceMembers(get_members_response.data.members);
         }
-    }, [members_response]);
+    }, [get_members_response]);
 
     const handleInviteMember = (email, role = "user", workspace_id = currentWorkspace_id) => {
         inviteMember(workspace_id, email, role, userToken);
@@ -36,8 +37,8 @@ export const MembersProvider = ({ children }) => {
 
     const values = {
         currentWorkspaceMembers,
-        members_error,
-        members_loading,
+        get_members_error,
+        get_members_loading,
         setCurrentWorkspaceMembers,
         invite_member_response,
         invite_member_loading,
@@ -47,7 +48,7 @@ export const MembersProvider = ({ children }) => {
 
     return (
         <MembersContext.Provider value={values}>
-            {children}
+            <Outlet />
         </MembersContext.Provider>
     );
 };

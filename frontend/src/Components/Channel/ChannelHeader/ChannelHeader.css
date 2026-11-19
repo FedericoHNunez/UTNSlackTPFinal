@@ -1,0 +1,65 @@
+/* =========================================================
+   ChannelHeader - Encabezado de Canales en Sidebar
+   ========================================================= */
+
+.channel-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.channel-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+}
+
+.channel-header-title {
+    font-weight: 800;
+    color: var(--color-white);
+    padding: 0.4rem 0.8rem;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.channel-header-settings {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.channel-header-settings-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    padding: 0;
+    border: none;
+    border-radius: 0.6rem;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.82);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.2s ease;
+}
+
+.channel-header-settings-btn:hover,
+.channel-header-settings-btn[aria-expanded="true"] {
+    background-color: rgba(255, 255, 255, 0.14);
+    color: var(--color-white);
+}
+
+.channel-header-settings-btn[aria-expanded="true"] svg {
+    transform: rotate(45deg);
+}
+
+.modal-actions .channel-header-delete-btn {
+    background-color: var(--color-accent-red, #e01e5a);
+    border-color: rgba(224, 30, 90, 0.4);
+}
+
+.modal-actions .channel-header-delete-btn:hover:not(:disabled) {
+    background-color: #c5164d;
+}

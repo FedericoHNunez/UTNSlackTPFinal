@@ -5,20 +5,25 @@ import {
     createChannel as createChannelService
 } from "../../services/ChannelService.js";
 
-export const useChannelList = (workspace_id, userToken) => {
+export const useGetChannelList = (workspace_id, userToken) => {
     const { response, error, loading, sendRequest } = useRequest();
 
-    useEffect(() => {
+    const getChannelList = (showLoading = true) => {
         if (workspace_id && userToken) {
-            sendRequest(() => getChannelsByWorkspace(workspace_id, userToken));
+            sendRequest(() => getChannelsByWorkspace(workspace_id, userToken), showLoading);
         }
+    };
+
+    useEffect(() => {
+        getChannelList();
     }, [workspace_id, userToken]);
 
     return {
-        channel_response: response,
-        channel_error: error,
-        channel_loading: loading,
-        channel_sendRequest: sendRequest
+        get_channel_response: response,
+        get_channel_error: error,
+        get_channel_loading: loading,
+        get_channel_sendRequest: sendRequest,
+        getChannelList
     };
 };
 

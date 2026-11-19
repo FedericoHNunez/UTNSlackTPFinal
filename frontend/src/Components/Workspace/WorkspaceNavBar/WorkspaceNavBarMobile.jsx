@@ -1,27 +1,33 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router";
 import "./WorkspaceNavBarMobile.css";
-import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext";
-import { UserContext } from "../../Context/UserContext/UserContext";
+import { useDropdown } from "../../../hooks/useDropdown";
+import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
+import { UserProfileDropdown } from "../../Dropdown/UserProfileDropdown";
 
 export function WorkspaceNavbarMobile() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { currentWorkspaceList, currentWorkspace_id } = useContext(WorkspaceContext);
-    const { userData } = useContext(UserContext);
+
+    const {
+        currentWorkspace_id,
+        currentWorkspaceObj,
+        currentWorkspaceInitials,
+        userData,
+        userInitial,
+        handleLogout
+    } = useWorkspaceNav();
+
+    const {
+        isOpen: isProfileOpen,
+        toggle: toggleProfile,
+        close: closeProfile,
+        dropdownRef: profileRef
+    } = useDropdown();
 
     const handleCloseMenu = () => {
         setIsMenuOpen(false);
+        closeProfile();
     };
-
-    const currentWorkspaceObj = currentWorkspaceList?.find(
-        (workspace) => workspace.workspace_id === currentWorkspace_id
-    );
-    const currentWorkspaceInitials = currentWorkspaceObj?.workspace_name
-        ? currentWorkspaceObj.workspace_name.slice(0, 2).toUpperCase()
-        : "WS";
-    const userInitial = userData?.userName
-        ? userData.userName.charAt(0).toUpperCase()
-        : "M";
 
     return (
         <div className="workspace-nav-mobile">
@@ -214,10 +220,13 @@ export function WorkspaceNavbarMobile() {
                                 <span className="workspace-nav-mobile-label">Tema</span>
                             </button>
                         </li>
-                        <li className="workspace-nav-mobile-item">
-                            <div
+                        <li className="workspace-nav-mobile-item workspace-nav-mobile-profile-wrapper" ref={profileRef}>
+                            <button
+                                type="button"
                                 className="workspace-nav-mobile-user-row"
                                 title={userData?.userName || "Mi perfil"}
+                                aria-expanded={isProfileOpen}
+                                onClick={toggleProfile}
                             >
                                 <span className="workspace-nav-mobile-user-avatar">
                                     {userInitial}
@@ -229,7 +238,15 @@ export function WorkspaceNavbarMobile() {
                                 <span className="workspace-nav-mobile-label">
                                     {userData?.userName || "Me"}
                                 </span>
-                            </div>
+                            </button>
+
+                            <UserProfileDropdown
+                                isOpen={isProfileOpen}
+                                position="top-full"
+                                userData={userData}
+                                userInitial={userInitial}
+                                onLogout={() => handleLogout(handleCloseMenu)}
+                            />
                         </li>
                     </ul>
                 </div>

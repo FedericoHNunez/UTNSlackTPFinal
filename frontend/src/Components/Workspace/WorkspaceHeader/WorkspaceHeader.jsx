@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { SearchForm } from "../Forms/SearchForm/SearchForm";
-import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext";
+import { SearchForm } from "../../Forms/SearchForm/SearchForm";
+import { WorkspaceContext } from "../../../Context/WorkspaceContext/WorkspaceContext";
 import "./WorkspaceHeader.css";
 
 export const WorkspaceHeader = () => {

@@ -1,23 +1,25 @@
 import { useState, useContext, useEffect } from "react";
+import { Outlet } from "react-router";
 import { WorkspaceContext } from "./WorkspaceContext.jsx";
 import {
-    useWorkspaceList,
+    useGetWorkspaceList,
     useCreateWorkspace,
     useEditWorkspace,
     useDeleteWorkspace
 } from "../../hooks/fetch/useWorkspace.js";
 import { UserContext } from "../UserContext/UserContext.jsx";
 
-export const WorkspaceProvider = ({ children }) => {
+export const WorkspaceProvider = () => {
 
     const [currentWorkspace_id, setCurrentWorkspace_id] = useState(null);
     const [currentWorkspaceList, setCurrentWorkspaceList] = useState(null);
     const { userToken } = useContext(UserContext);
     const {
-        workspace_loading,
-        wokspace_error, 
-        wokspace_response
-    } = useWorkspaceList(userToken);
+        get_workspace_loading,
+        get_workspace_error, 
+        get_workspace_response,
+        getWorkspaceList
+    } = useGetWorkspaceList(userToken);
 
     const {
         create_workspace_loading,
@@ -41,64 +43,26 @@ export const WorkspaceProvider = ({ children }) => {
     } = useDeleteWorkspace();
 
     useEffect(() => {
-        if (wokspace_response?.data?.workspaces) {
-            setCurrentWorkspaceList(wokspace_response.data.workspaces);
+        if (get_workspace_response?.data?.workspaces) {
+            setCurrentWorkspaceList(get_workspace_response.data.workspaces);
         }
-    }, [wokspace_response]);
+    }, [get_workspace_response]);
 
     useEffect(() => {
         if (create_workspace_response?.data?.workspace) {
-            const newWorkspace = create_workspace_response.data.workspace;
-            const newMember = create_workspace_response.data.member;
-
-            setCurrentWorkspaceList((prev) => [
-                ...(prev || []),
-                {
-                    member_id: newMember?._id,
-                    workspace_id: newWorkspace._id,
-                    workspace_name: newWorkspace.name,
-                    workspace_description: newWorkspace.description,
-                    workspace_role: newMember?.role || "owner",
-                    workspace_creation_date: newWorkspace.createdAt,
-                    workspace_members_count: 1
-                }
-            ]);
+            getWorkspaceList(false);
         }
     }, [create_workspace_response]);
 
     useEffect(() => {
         if (edit_workspace_response?.data?.workspace) {
-            const updatedWorkspace = edit_workspace_response.data.workspace;
-
-            setCurrentWorkspaceList((prev) =>
-                (prev || []).map((workspace) =>
-                    workspace.workspace_id === updatedWorkspace._id
-                        ? {
-                              ...workspace,
-                              workspace_name: updatedWorkspace.name,
-                              workspace_description: updatedWorkspace.description
-                          }
-                        : workspace
-                )
-            );
+            getWorkspaceList(false);
         }
     }, [edit_workspace_response]);
 
     useEffect(() => {
         if (delete_workspace_response?.ok) {
-            const deletedWorkspaceId =
-                delete_workspace_response.data?.result?.deletedWorkspace?._id ||
-                currentWorkspace_id;
-
-            setCurrentWorkspaceList((prev) =>
-                (prev || []).filter(
-                    (workspace) => workspace.workspace_id !== deletedWorkspaceId
-                )
-            );
-
-            if (currentWorkspace_id === deletedWorkspaceId) {
-                setCurrentWorkspace_id(null);
-            }
+            getWorkspaceList(false);
         }
     }, [delete_workspace_response]);
 
@@ -115,8 +79,8 @@ export const WorkspaceProvider = ({ children }) => {
     };
 
     const values = {
-        workspace_loading,
-        wokspace_error,
+        get_workspace_loading,
+        get_workspace_error,
         currentWorkspaceList,
         currentWorkspace_id,
         setCurrentWorkspace_id,
@@ -136,7 +100,7 @@ export const WorkspaceProvider = ({ children }) => {
 
     return (
         <WorkspaceContext.Provider value={values}>
-            {children}
+            <Outlet />
         </WorkspaceContext.Provider>
     );
 };

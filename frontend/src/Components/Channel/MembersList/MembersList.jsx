@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MembersContext } from "../../Context/MembersContext/MembersContext";
+import { MembersContext } from "../../../Context/MembersContext/MembersContext";
 import "./MembersList.css";
 
 export const MembersList = () => {

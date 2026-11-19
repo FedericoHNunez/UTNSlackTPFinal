@@ -1,0 +1,110 @@
+/* =========================================================
+   DropdownMenu - Componente Reutilizable para Menús Desplegables
+   ========================================================= */
+
+.dropdown-menu {
+    background-color: var(--color-white);
+    border: 0.1rem solid var(--color-border-light);
+    border-radius: 1rem;
+    box-shadow: 0 0.8rem 2.8rem rgba(0, 0, 0, 0.24);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.8rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.18s ease,
+        visibility 0.22s;
+}
+
+.dropdown-menu.is-open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Posición: Debajo a la derecha (ej: Configuración en ChannelHeader) */
+.dropdown-menu--bottom-right {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    right: 0;
+    min-width: 20rem;
+    transform-origin: top right;
+    transform: translateY(-0.6rem) scale(0.96);
+}
+
+/* Posición: Lateral inferior (ej: Perfil en barra vertical Desktop) */
+.dropdown-menu--side-bottom {
+    position: fixed;
+    left: 7.4rem;
+    bottom: 1.2rem;
+    width: 25rem;
+    padding: 1.2rem;
+    gap: 1rem;
+    transform-origin: bottom left;
+    transform: translateY(0.6rem) scale(0.96);
+}
+
+/* Posición: Arriba ocupando el ancho del contenedor (ej: Perfil en Drawer Mobile) */
+.dropdown-menu--top-full {
+    position: absolute;
+    bottom: calc(100% + 0.6rem);
+    left: 0;
+    right: 0;
+    padding: 1.2rem;
+    gap: 1rem;
+    transform-origin: bottom center;
+    transform: translateY(0.6rem) scale(0.96);
+}
+
+/* Separador horizontal */
+.dropdown-menu-divider {
+    height: 0.1rem;
+    background-color: var(--color-border-light);
+    width: 100%;
+    margin: 0.2rem 0;
+}
+
+/* Botón / Opción del menú */
+.dropdown-menu-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-align: left;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 0.6rem;
+    background: transparent;
+    color: var(--color-text-main);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.dropdown-menu-item:hover {
+    background-color: rgba(73, 26, 84, 0.08);
+    color: var(--color-primary);
+}
+
+.dropdown-menu-item--danger {
+    color: var(--color-accent-red);
+    font-weight: 700;
+}
+
+.dropdown-menu-item--danger:hover {
+    background-color: rgba(224, 30, 90, 0.1);
+    color: #c5164d;
+}
+
+@media (max-width: 960px) {
+    .dropdown-menu--side-bottom {
+        left: 6.4rem;
+    }
+}

@@ -1,16 +1,16 @@
 import { useContext } from "react";
-import { WorkspaceList } from "../../Components/WorkspaceList/WorkspaceList";
+import { WorkspaceList } from "../../Components/Workspace/WorkspaceList/WorkspaceList";
 import { WorkspaceHeroHeader } from "../../Components/Workspace/WorkspaceHeroHeader";
 import { WorkspaceInviteAside } from "../../Components/Workspace/WorkspaceInviteAside";
 import SpinnerLoading from "../../Components/Ui/SpinnerLoading/SpinnerLoading";
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext";
-import Footer from "../../Components/Footer/Footer";
+import Footer from "../../Components/Ui/Footer/Footer";
 import "./WorkspaceScreen.css";
 
 export const WorkspaceScreen = () => {
-    const { workspace_loading } = useContext(WorkspaceContext);
+    const { get_workspace_loading } = useContext(WorkspaceContext);
 
-    if (workspace_loading) {
+    if (get_workspace_loading) {
         return (
             <SpinnerLoading
                 fullScreen={true}

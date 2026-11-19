@@ -1,22 +1,25 @@
-import { useContext } from "react";
 import { Link } from "react-router";
 import "./WorkspaceNavBarDesktop.css";
-import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext";
-import { UserContext } from "../../Context/UserContext/UserContext";
+import { useDropdown } from "../../../hooks/useDropdown";
+import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
+import { UserProfileDropdown } from "../../Dropdown/UserProfileDropdown";
 
 export function WorkspaceNavbarDesktop() {
-    const { currentWorkspaceList, currentWorkspace_id } = useContext(WorkspaceContext);
-    const { userData } = useContext(UserContext);
+    const {
+        currentWorkspace_id,
+        currentWorkspaceObj,
+        currentWorkspaceInitials,
+        userData,
+        userInitial,
+        handleLogout
+    } = useWorkspaceNav();
 
-    const currentWorkspaceObj = currentWorkspaceList?.find(
-        (workspace) => workspace.workspace_id === currentWorkspace_id
-    );
-    const currentWorkspaceInitials = currentWorkspaceObj?.workspace_name
-        ? currentWorkspaceObj.workspace_name.slice(0, 2).toUpperCase()
-        : "WS";
-    const userInitial = userData?.userName
-        ? userData.userName.charAt(0).toUpperCase()
-        : "M";
+    const {
+        isOpen: isProfileOpen,
+        toggle: toggleProfile,
+        close: closeProfile,
+        dropdownRef: profileRef
+    } = useDropdown();
 
     return (
         <div className="workspace-nav-desktop">
@@ -183,17 +186,29 @@ export function WorkspaceNavbarDesktop() {
                             </svg>
                         </button>
                     </li>
-                    <li className="workspace-nav-desktop-item">
-                        <div
+                    <li className="workspace-nav-desktop-item workspace-nav-desktop-profile-wrapper" ref={profileRef}>
+                        <button
+                            type="button"
                             className="workspace-nav-desktop-user-avatar"
                             title={userData?.userName || "Mi perfil"}
+                            aria-label="Menú de usuario"
+                            aria-expanded={isProfileOpen}
+                            onClick={toggleProfile}
                         >
                             <span>{userInitial}</span>
                             <span
                                 className="workspace-nav-desktop-status-dot"
                                 aria-hidden="true"
                             />
-                        </div>
+                        </button>
+
+                        <UserProfileDropdown
+                            isOpen={isProfileOpen}
+                            position="side-bottom"
+                            userData={userData}
+                            userInitial={userInitial}
+                            onLogout={() => handleLogout(closeProfile)}
+                        />
                     </li>
                 </ul>
             </div>

@@ -1,9 +1,9 @@
 import { useContext, useEffect, useLayoutEffect, useRef } from "react";
 import { useParams } from "react-router";
-import { MessagesContext } from "../../Context/MessagesContext/MessagesContext.jsx";
-import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
-import { UserContext } from "../../Context/UserContext/UserContext.jsx";
-import { messageGrouper } from "../../hooks/useMessagesGrouper.js";
+import { MessagesContext } from "../../../Context/MessagesContext/MessagesContext.jsx";
+import { ChannelContext } from "../../../Context/ChannelContext/ChannelContext.jsx";
+import { UserContext } from "../../../Context/UserContext/UserContext.jsx";
+import { messageGrouper } from "../../../hooks/useMessagesGrouper.js";
 import "./MessageList.css";
 
 const CHANNEL_HEADER_CONFIG = {
@@ -23,7 +23,7 @@ const CHANNEL_HEADER_CONFIG = {
 
 export const MessageList = () => {
     const { channel_id } = useParams();
-    const { currentMessagesList, message_error } = useContext(MessagesContext);
+    const { currentMessagesList, get_message_error } = useContext(MessagesContext);
     const { currentChannelList, setCurrentChannel_id } = useContext(ChannelContext);
     const { userData } = useContext(UserContext);
     const listRef = useRef(null);
@@ -74,9 +74,9 @@ export const MessageList = () => {
                 </p>
             </header>
 
-            {message_error && (
+            {get_message_error && (
                 <p className="form-alert form-alert-error" role="alert">
-                    Error: {message_error}
+                    Error: {get_message_error}
                 </p>
             )}
 

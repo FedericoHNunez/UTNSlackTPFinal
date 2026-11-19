@@ -127,6 +127,10 @@
 }
 
 /* Avatar inferior del usuario con indicador de estado verde */
+.workspace-nav-desktop-profile-wrapper {
+    position: relative;
+}
+
 .workspace-nav-desktop-user-avatar {
     position: relative;
     width: 3.6rem;
@@ -136,11 +140,17 @@
     color: var(--color-header-bg);
     font-weight: 800;
     font-size: 1.5rem;
+    border: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     user-select: none;
+    transition: transform 0.12s ease, filter 0.15s ease;
+}
+
+.workspace-nav-desktop-user-avatar:hover {
+    filter: brightness(1.06);
 }
 
 .workspace-nav-desktop-status-dot {

@@ -1,14 +1,14 @@
 import { Link, useParams } from "react-router";
 import { useContext, useEffect } from "react";
-import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
-import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
-import { CreateChannelModal } from "../modal/CreateChannelModal.jsx";
+import { ChannelContext } from "../../../Context/ChannelContext/ChannelContext.jsx";
+import { WorkspaceContext } from "../../../Context/WorkspaceContext/WorkspaceContext.jsx";
+import { CreateChannelModal } from "../../modal/CreateChannelModal.jsx";
 import "./ChannelList.css";
 
 export const ChannelList = () => {
     const { workspace_id } = useParams();
     const { currentWorkspace_id, setCurrentWorkspace_id } = useContext(WorkspaceContext);
-    const { currentChannelList, channel_error, searchValue } = useContext(ChannelContext);
+    const { currentChannelList, get_channel_error, searchValue } = useContext(ChannelContext);
 
     useEffect(() => {
         if (workspace_id) {
@@ -19,9 +19,9 @@ export const ChannelList = () => {
     return (
         <section className="channel-list" aria-label="Canales del espacio de trabajo">
             <h4>Canales</h4>
-            {channel_error && (
+            {get_channel_error && (
                 <p className="channel-list-error" role="alert">
-                    Error: {channel_error}
+                    Error: {get_channel_error}
                 </p>
             )}
             {currentChannelList && (

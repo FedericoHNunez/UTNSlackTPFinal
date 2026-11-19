@@ -1,22 +1,24 @@
 import { useState, useContext, useEffect } from "react";
+import { Outlet } from "react-router";
 import { MessagesContext } from "./MessagesContext.jsx";
 import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext.jsx";
 import { ChannelContext } from "../ChannelContext/ChannelContext.jsx";
 import { UserContext } from "../UserContext/UserContext.jsx";
-import { useMessageList, useCreateMessage } from "../../hooks/fetch/useMessage.js";
+import { useGetMessageList, useCreateMessage } from "../../hooks/fetch/useMessage.js";
 
-export const MessagesProvider = ({ children }) => {
+export const MessagesProvider = () => {
     const [currentMessagesList, setCurrentMessagesList] = useState([]);
     const { currentWorkspace_id } = useContext(WorkspaceContext);
     const { currentChannel_id } = useContext(ChannelContext);
     const { userToken } = useContext(UserContext);
 
     const {
-        message_response,
-        message_error,
-        message_loading,
-        message_sendRequest
-    } = useMessageList(currentWorkspace_id, currentChannel_id, userToken);
+        get_message_response,
+        get_message_error,
+        get_message_loading,
+        get_message_sendRequest,
+        getMessageList
+    } = useGetMessageList(currentWorkspace_id, currentChannel_id, userToken);
 
     const {
         create_message_response,
@@ -26,15 +28,14 @@ export const MessagesProvider = ({ children }) => {
     } = useCreateMessage();
 
     useEffect(() => {
-        if (message_response?.data?.messagesChannel) {
-            setCurrentMessagesList(message_response.data.messagesChannel);
+        if (get_message_response?.data?.messagesChannel) {
+            setCurrentMessagesList(get_message_response.data.messagesChannel);
         }
-    }, [message_response]);
+    }, [get_message_response]);
 
     useEffect(() => {
         if (create_message_response?.data?.message) {
-            const newMessage = create_message_response.data.message;
-            setCurrentMessagesList((prev) => [...(prev || []), newMessage]);
+            getMessageList(false);
         }
     }, [create_message_response]);
 
@@ -45,9 +46,9 @@ export const MessagesProvider = ({ children }) => {
     const values = {
         currentMessagesList,
         setCurrentMessagesList,
-        message_error,
-        message_loading,
-        message_sendRequest,
+        get_message_error,
+        get_message_loading,
+        get_message_sendRequest,
         create_message_response,
         create_message_error,
         create_message_loading,
@@ -56,7 +57,7 @@ export const MessagesProvider = ({ children }) => {
 
     return (
         <MessagesContext.Provider value={values}>
-            {children}
+            <Outlet />
         </MessagesContext.Provider>
     );
 };

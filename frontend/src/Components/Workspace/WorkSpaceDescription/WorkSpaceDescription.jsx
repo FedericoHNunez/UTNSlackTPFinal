@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useParams } from "react-router";
-import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
+import { WorkspaceContext } from "../../../Context/WorkspaceContext/WorkspaceContext.jsx";
 import "./WorkSpaceDescription.css";
 
 export const WorkSpaceDescription = ({ onConfigClick }) => {

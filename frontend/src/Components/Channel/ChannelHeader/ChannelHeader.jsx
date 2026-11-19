@@ -1,29 +1,30 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router";
-import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
-import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
-import { SearchForm } from "../Forms/SearchForm/SearchForm.jsx";
-import { InviteMemberModal } from "../modal/InviteMemberModal.jsx";
-import { EditWorkspaceModal } from "../modal/EditWorkspaceModal.jsx";
-import { DeleteWorkspaceModal } from "../modal/DeleteWorkspaceModal.jsx";
+import { WorkspaceContext } from "../../../Context/WorkspaceContext/WorkspaceContext.jsx";
+import { ChannelContext } from "../../../Context/ChannelContext/ChannelContext.jsx";
+import { SearchForm } from "../../Forms/SearchForm/SearchForm.jsx";
+import { InviteMemberModal } from "../../modal/InviteMemberModal.jsx";
+import { EditWorkspaceModal } from "../../modal/EditWorkspaceModal.jsx";
+import { DeleteWorkspaceModal } from "../../modal/DeleteWorkspaceModal.jsx";
+import { WorkspaceSettingsDropdown } from "../../Dropdown/WorkspaceSettingsDropdown.jsx";
+import { useDropdown } from "../../../hooks/useDropdown.js";
 import "./ChannelHeader.css";
-
-const ROLE_LABELS = {
-    owner: "Owner",
-    admin: "Admin",
-    user: "Miembro"
-};
 
 export const ChannelHeader = () => {
     const { workspace_id } = useParams();
     const { currentWorkspaceList } = useContext(WorkspaceContext);
     const { searchValue, setSearchValue } = useContext(ChannelContext);
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const {
+        isOpen: isMenuOpen,
+        toggle: toggleMenu,
+        close: closeMenu,
+        dropdownRef: menuRef
+    } = useDropdown();
+
     const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const menuRef = useRef(null);
 
     const currentWorkspace = currentWorkspaceList?.find(
         (workspace) => workspace.workspace_id === workspace_id
@@ -34,29 +35,18 @@ export const ChannelHeader = () => {
     const isAdmin = userRole === "admin";
     const canManageWorkspace = isOwner || isAdmin;
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setIsMenuOpen(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-
     const handleOpenInviteModal = () => {
-        setIsMenuOpen(false);
+        closeMenu();
         setIsInviteModalOpen(true);
     };
 
     const handleOpenEditModal = () => {
-        setIsMenuOpen(false);
+        closeMenu();
         setIsEditModalOpen(true);
     };
 
     const handleOpenDeleteModal = () => {
-        setIsMenuOpen(false);
+        closeMenu();
         setIsDeleteModalOpen(true);
     };
 
@@ -73,7 +63,7 @@ export const ChannelHeader = () => {
                         className="channel-header-settings-btn"
                         aria-label="Configuración del espacio de trabajo"
                         aria-expanded={isMenuOpen}
-                        onClick={() => setIsMenuOpen((prev) => !prev)}
+                        onClick={toggleMenu}
                     >
                         <svg
                             width="18"
@@ -91,60 +81,15 @@ export const ChannelHeader = () => {
                         </svg>
                     </button>
 
-                    <ul
-                        className={`channel-header-menu ${isMenuOpen ? "is-open" : ""}`}
-                        role="menu"
-                        aria-hidden={!isMenuOpen}
-                    >
-                        <li className="channel-header-menu-role" role="presentation">
-                            <span className="channel-header-role-label">Privilegio:</span>
-                            <span
-                                className={`channel-header-role-badge channel-header-role-badge--${
-                                    userRole || "user"
-                                }`}
-                            >
-                                {ROLE_LABELS[userRole] || userRole || "Miembro"}
-                            </span>
-                        </li>
-
-                        {canManageWorkspace && (
-                            <>
-                                <li role="none">
-                                    <button
-                                        type="button"
-                                        className="channel-header-menu-item"
-                                        role="menuitem"
-                                        onClick={handleOpenInviteModal}
-                                    >
-                                        Invitar nuevos miembros
-                                    </button>
-                                </li>
-                                <li role="none">
-                                    <button
-                                        type="button"
-                                        className="channel-header-menu-item"
-                                        role="menuitem"
-                                        onClick={handleOpenEditModal}
-                                    >
-                                        Editar espacio de trabajo
-                                    </button>
-                                </li>
-                            </>
-                        )}
-
-                        {isOwner && (
-                            <li role="none">
-                                <button
-                                    type="button"
-                                    className="channel-header-menu-item channel-header-menu-item--danger"
-                                    role="menuitem"
-                                    onClick={handleOpenDeleteModal}
-                                >
-                                    Eliminar espacio de trabajo
-                                </button>
-                            </li>
-                        )}
-                    </ul>
+                    <WorkspaceSettingsDropdown
+                        isOpen={isMenuOpen}
+                        userRole={userRole}
+                        canManageWorkspace={canManageWorkspace}
+                        isOwner={isOwner}
+                        onOpenInvite={handleOpenInviteModal}
+                        onOpenEdit={handleOpenEditModal}
+                        onOpenDelete={handleOpenDeleteModal}
+                    />
                 </div>
             </div>
 

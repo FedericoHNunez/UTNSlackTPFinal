@@ -8,19 +8,24 @@ import {
     deleteWorkspaceService
 } from "../../services/workspaceService.js";
 
-export const useWorkspaceList = (userToken) => {
+export const useGetWorkspaceList = (userToken) => {
     const { loading, error, response, sendRequest } = useRequest();
 
-    useEffect(() => {
+    const getWorkspaceList = (showLoading = true) => {
         if (userToken) {
-            sendRequest(() => getWorkspaceByUserService(userToken));
+            sendRequest(() => getWorkspaceByUserService(userToken), showLoading);
         }
+    };
+
+    useEffect(() => {
+        getWorkspaceList();
     }, [userToken]);
 
     return {
-        workspace_loading: loading,
-        wokspace_error: error,
-        wokspace_response: response
+        get_workspace_loading: loading,
+        get_workspace_error: error,
+        get_workspace_response: response,
+        getWorkspaceList
     };
 };
 

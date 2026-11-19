@@ -1,0 +1,77 @@
+/* =========================================================
+   UserProfileDropdown - Contenido del Menú de Perfil de Usuario
+   ========================================================= */
+
+.user-profile-dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.user-profile-dropdown-avatar {
+    position: relative;
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #e8dff0 0%, #cbb8dc 100%);
+    color: var(--color-header-bg);
+    font-weight: 800;
+    font-size: 1.7rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.user-profile-dropdown-status-dot {
+    position: absolute;
+    right: -0.2rem;
+    bottom: -0.2rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background-color: var(--color-accent-green);
+    border: 0.2rem solid var(--color-white);
+}
+
+.user-profile-dropdown-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+    text-align: left;
+}
+
+.user-profile-dropdown-name {
+    font-size: var(--font-size-p);
+    font-weight: 800;
+    color: var(--color-text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-profile-dropdown-email {
+    font-size: var(--font-size-small);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-profile-dropdown-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    margin-top: 0.2rem;
+}
+
+.user-profile-dropdown-status-indicator {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background-color: var(--color-accent-green);
+}
