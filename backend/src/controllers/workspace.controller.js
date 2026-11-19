@@ -20,8 +20,8 @@ class WorkspaceController {
 
     async deleteWorkspaceById(req, res) {
         const workspace_id = req.workspace_selected._id;
-        const result = await workspaceService.deleteWorkspaceById(workspace_id);
-        return successResponse(res, "Espacio de trabajo eliminado correctamente.", { result });
+        await workspaceService.deleteWorkspaceById(workspace_id);
+        return successResponse(res, "Espacio de trabajo eliminado correctamente.");
     }
     async getChannelsByWorkspaceId(req, res) {
         const workspace_id = req.workspace_selected._id;

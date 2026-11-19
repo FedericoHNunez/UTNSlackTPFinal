@@ -6,6 +6,7 @@ import channelRepository from "../repositories/channel.repository.js";
 import { isValidEmail } from "../helpers/emailHelpers/emailvalidation.helper.js";
 import emailFormater from "../helpers/emailHelpers/emailFormater.helper.js";
 import mailer_transporter from "../config/mailer.config.js";
+import channelMessageRepository from "../repositories/channel_message.repository.js";
 
 class WorkspaceService {
     async getWorkspaces(filter = null) {
@@ -73,17 +74,13 @@ class WorkspaceService {
 
     async deleteWorkspaceById(workspace_id) {
         const channelsInWorkspaces = await channelRepository.getChannelsByWorkspaceId(workspace_id);
-        let deletedMessages = [];
         for (const channel of channelsInWorkspaces) {
-            deletedMessages = await channelMessageRepository.deleteAllMessagesByChannelId(channel._id);
+            await channelMessageRepository.deleteAllMessagesByChannelId(channel._id);
         }
-        const deletedMembers = await memberRepository.deleteByWorkspaceId(workspace_id);
-        const deletedWorkspace = await workspaceRepository.deleteById(workspace_id);
+        await memberRepository.deleteByWorkspaceId(workspace_id);
+        await workspaceRepository.deleteById(workspace_id);
 
         return {
-            deletedWorkspace: deletedWorkspace,
-            deletedMembers: deletedMembers,
-            deletedMessages: deletedMessages,
         }
     }
 
