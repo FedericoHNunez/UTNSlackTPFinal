@@ -6,7 +6,7 @@ import channelRepository from "../repositories/channel.repository.js";
 import { isValidEmail } from "../helpers/emailHelpers/emailvalidation.helper.js";
 import emailFormater from "../helpers/emailHelpers/emailFormater.helper.js";
 import mailer_transporter from "../config/mailer.config.js";
-import channelMessageRepository from "../repositories/channel_message.repository.js";
+import channelMessageRepository from "../repositories/channelMessage.repository.js";
 
 class WorkspaceService {
     async getWorkspaces(filter = null) {
