@@ -15,6 +15,12 @@ class ChannelControler {
         const messagesChannel = await channelService.getMessagesByChannelId(channel_id);
         return successResponse(res, "Mensajes obtenidos correctamente.", { messagesChannel }, 200);
     }
+    async updateChannelById(req, res){
+        const channel_id = req.channel_selected._id;
+        const { name, description } = req.body;
+        const channel = await channelService.updateChannelById(channel_id, name, description);
+        return successResponse(res, "Canal actualizado correctamente.", { channel }, 200);
+    }
 }
 
 const channelController = new ChannelControler();

@@ -6,7 +6,7 @@ import channelMiddleware from '../middlewares/channel.middleware.js';
 const channelRouter = express.Router({ mergeParams: true });
 
 channelRouter.use('/:channel_id/messages', channelMiddleware, MessagesChannelRouter);
-
+channelRouter.put("/:channel_id", channelMiddleware, channelController.updateChannelById);
 channelRouter.post('/', channelController.createChannel);
 /**
  * @openapi
@@ -207,4 +207,6 @@ channelRouter.get('/:channel_id', channelMiddleware, channelController.getMessag
  *       500:
  *         $ref: '#/components/responses/ServerError500'
  */
+
+
 export default channelRouter;
