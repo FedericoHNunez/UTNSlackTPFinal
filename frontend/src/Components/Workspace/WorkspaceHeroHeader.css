@@ -1,16 +1,28 @@
 .workspace-top-bar {
     position: relative;
-    z-index: 1;
+    z-index: 20;
     width: 100%;
-    max-width: 106rem;
+    max-width: 110rem;
     padding: 2.4rem 0 1.2rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.workspace-top-bar-spacer {
+    min-width: 3.6rem;
+}
+
+.workspace-top-bar-actions {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .workspace-logo-link {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     text-decoration: none;
 }
 

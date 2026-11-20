@@ -21,6 +21,12 @@ class ChannelControler {
         const channel = await channelService.updateChannelById(channel_id, name, description);
         return successResponse(res, "Canal actualizado correctamente.", { channel }, 200);
     }
+
+    async deleteChannelById(req, res) {
+        const channel_id = req.channel_selected._id;
+        await channelService.deleteChannelById(channel_id);
+        return successResponse(res, "Canal eliminado correctamente.");
+    }
 }
 
 const channelController = new ChannelControler();

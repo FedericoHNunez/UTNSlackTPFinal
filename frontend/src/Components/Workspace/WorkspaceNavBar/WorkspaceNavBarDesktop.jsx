@@ -2,37 +2,52 @@ import { Link } from "react-router";
 import "./WorkspaceNavBarDesktop.css";
 import { useDropdown } from "../../../hooks/useDropdown";
 import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
-import { UserProfileDropdown } from "../../Dropdown/UserProfileDropdown";
+import { UserProfileMenu } from "../../Dropdown/UserProfileMenu";
+import { WorkspaceInfoDropdown } from "../../Dropdown/WorkspaceInfoDropdown";
 
 export function WorkspaceNavbarDesktop() {
     const {
         currentWorkspace_id,
         currentWorkspaceObj,
         currentWorkspaceInitials,
-        userData,
-        userInitial,
-        handleLogout
+        handleBackToWorkspaces
     } = useWorkspaceNav();
 
     const {
-        isOpen: isProfileOpen,
-        toggle: toggleProfile,
-        close: closeProfile,
-        dropdownRef: profileRef
+        isOpen: isWorkspaceInfoOpen,
+        toggle: toggleWorkspaceInfo,
+        close: closeWorkspaceInfo,
+        dropdownRef: workspaceInfoRef
     } = useDropdown();
 
     return (
         <div className="workspace-nav-desktop">
             <div className="workspace-nav-desktop-group">
                 <ul className="workspace-nav-desktop-list">
-                    <li className="workspace-nav-desktop-item">
+                    <li
+                        className="workspace-nav-desktop-item workspace-nav-desktop-avatar-wrapper"
+                        ref={workspaceInfoRef}
+                    >
                         <button
                             type="button"
                             className="workspace-nav-desktop-avatar-btn"
                             title={currentWorkspaceObj?.workspace_name || "Espacio de trabajo"}
+                            aria-label="Información del espacio de trabajo"
+                            aria-expanded={isWorkspaceInfoOpen}
+                            onClick={toggleWorkspaceInfo}
                         >
                             {currentWorkspaceInitials}
                         </button>
+
+                        <WorkspaceInfoDropdown
+                            isOpen={isWorkspaceInfoOpen}
+                            position="side-top"
+                            workspaceObj={currentWorkspaceObj}
+                            workspaceInitials={currentWorkspaceInitials}
+                            onBackToWorkspaces={() =>
+                                handleBackToWorkspaces(closeWorkspaceInfo)
+                            }
+                        />
                     </li>
                     <li className="workspace-nav-desktop-item">
                         <Link
@@ -57,7 +72,7 @@ export function WorkspaceNavbarDesktop() {
                         </Link>
                     </li>
                     <li className="workspace-nav-desktop-item">
-                        <Link to="/" className="workspace-nav-desktop-link">
+                        <button type="button" className="workspace-nav-desktop-link">
                             <span className="workspace-nav-desktop-icon-box" aria-hidden="true">
                                 <svg
                                     width="20"
@@ -73,10 +88,10 @@ export function WorkspaceNavbarDesktop() {
                                 </svg>
                             </span>
                             <span className="workspace-nav-desktop-label">Mensajes directos</span>
-                        </Link>
+                        </button>
                     </li>
                     <li className="workspace-nav-desktop-item">
-                        <Link to="/direct" className="workspace-nav-desktop-link">
+                        <button type="button" className="workspace-nav-desktop-link">
                             <span className="workspace-nav-desktop-icon-box" aria-hidden="true">
                                 <svg
                                     width="20"
@@ -93,10 +108,10 @@ export function WorkspaceNavbarDesktop() {
                                 </svg>
                             </span>
                             <span className="workspace-nav-desktop-label">Actividad</span>
-                        </Link>
+                        </button>
                     </li>
                     <li className="workspace-nav-desktop-item">
-                        <Link to="/profile" className="workspace-nav-desktop-link">
+                        <button type="button" className="workspace-nav-desktop-link">
                             <span className="workspace-nav-desktop-icon-box" aria-hidden="true">
                                 <svg
                                     width="20"
@@ -113,10 +128,10 @@ export function WorkspaceNavbarDesktop() {
                                 </svg>
                             </span>
                             <span className="workspace-nav-desktop-label">Archivos</span>
-                        </Link>
+                        </button>
                     </li>
                     <li className="workspace-nav-desktop-item">
-                        <Link to="/profile" className="workspace-nav-desktop-link">
+                        <button type="button" className="workspace-nav-desktop-link">
                             <span className="workspace-nav-desktop-icon-box" aria-hidden="true">
                                 <svg
                                     width="20"
@@ -137,10 +152,10 @@ export function WorkspaceNavbarDesktop() {
                             <span className="workspace-nav-desktop-label">
                                 Agentes y herramientas
                             </span>
-                        </Link>
+                        </button>
                     </li>
                     <li className="workspace-nav-desktop-item">
-                        <Link to="/profile" className="workspace-nav-desktop-link">
+                        <button type="button" className="workspace-nav-desktop-link">
                             <span className="workspace-nav-desktop-icon-box" aria-hidden="true">
                                 <svg
                                     width="20"
@@ -157,7 +172,7 @@ export function WorkspaceNavbarDesktop() {
                                 </svg>
                             </span>
                             <span className="workspace-nav-desktop-label">Administrador</span>
-                        </Link>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -186,29 +201,8 @@ export function WorkspaceNavbarDesktop() {
                             </svg>
                         </button>
                     </li>
-                    <li className="workspace-nav-desktop-item workspace-nav-desktop-profile-wrapper" ref={profileRef}>
-                        <button
-                            type="button"
-                            className="workspace-nav-desktop-user-avatar"
-                            title={userData?.userName || "Mi perfil"}
-                            aria-label="Menú de usuario"
-                            aria-expanded={isProfileOpen}
-                            onClick={toggleProfile}
-                        >
-                            <span>{userInitial}</span>
-                            <span
-                                className="workspace-nav-desktop-status-dot"
-                                aria-hidden="true"
-                            />
-                        </button>
-
-                        <UserProfileDropdown
-                            isOpen={isProfileOpen}
-                            position="side-bottom"
-                            userData={userData}
-                            userInitial={userInitial}
-                            onLogout={() => handleLogout(closeProfile)}
-                        />
+                    <li className="workspace-nav-desktop-item">
+                        <UserProfileMenu position="side-bottom" size="md" />
                     </li>
                 </ul>
             </div>

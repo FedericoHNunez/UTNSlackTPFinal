@@ -28,13 +28,28 @@
     pointer-events: auto;
 }
 
-/* Posición: Debajo a la derecha (ej: Configuración en ChannelHeader) */
+/* Posición: Debajo a la derecha (ej: Configuración en ChannelHeader / Perfil en Header) */
 .dropdown-menu--bottom-right {
     position: absolute;
     top: calc(100% + 0.6rem);
     right: 0;
-    min-width: 20rem;
+    min-width: 24rem;
+    max-width: calc(100vw - 2.4rem);
+    padding: 1.2rem;
+    gap: 1rem;
     transform-origin: top right;
+    transform: translateY(-0.6rem) scale(0.96);
+}
+
+/* Posición: Lateral superior (ej: Avatar del Workspace en barra vertical Desktop) */
+.dropdown-menu--side-top {
+    position: fixed;
+    left: 7.4rem;
+    top: 5.2rem;
+    width: 26rem;
+    padding: 1.2rem;
+    gap: 1rem;
+    transform-origin: top left;
     transform: translateY(-0.6rem) scale(0.96);
 }
 
@@ -48,6 +63,18 @@
     gap: 1rem;
     transform-origin: bottom left;
     transform: translateY(0.6rem) scale(0.96);
+}
+
+/* Posición: Debajo ocupando el ancho del contenedor (ej: Avatar del Workspace en Drawer Mobile) */
+.dropdown-menu--bottom-full {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    left: 0;
+    right: 0;
+    padding: 1.2rem;
+    gap: 1rem;
+    transform-origin: top center;
+    transform: translateY(-0.6rem) scale(0.96);
 }
 
 /* Posición: Arriba ocupando el ancho del contenedor (ej: Perfil en Drawer Mobile) */
@@ -104,6 +131,7 @@
 }
 
 @media (max-width: 960px) {
+    .dropdown-menu--side-top,
     .dropdown-menu--side-bottom {
         left: 6.4rem;
     }

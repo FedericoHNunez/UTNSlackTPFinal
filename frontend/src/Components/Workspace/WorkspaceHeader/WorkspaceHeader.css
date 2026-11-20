@@ -52,12 +52,12 @@
 }
 
 /* =========================================================
-   Responsive Celular (<= 768px): Solo Barra de Búsqueda
+   Responsive Celular (<= 768px): Barra de Búsqueda + Perfil
    ========================================================= */
 
 @media (max-width: 768px) {
     .workspace-header-search-group > .workspace-header-btn,
-    .workspace-header-actions {
+    .workspace-header-help-btn {
         display: none;
     }
 

@@ -25,6 +25,21 @@ class ChannelService {
         return await channelMessageRepository.getMessagesByChannelId(channel_id);
 
     }
+
+    async updateChannelById(channel_id, name, description) {
+        if (!channel_id) {
+            throw new ServerError("El identificador del canal es obligatorio.", 400);
+        }
+        return await channelRepository.updateById(channel_id, name, description);
+    }
+
+    async deleteChannelById(channel_id) {
+        if (!channel_id) {
+            throw new ServerError("El identificador del canal es obligatorio.", 400);
+        }
+        await channelMessageRepository.deleteAllMessagesByChannelId(channel_id);
+        await channelRepository.deleteById(channel_id);
+    }
 }
 const channelService = new ChannelService();
 export default channelService;

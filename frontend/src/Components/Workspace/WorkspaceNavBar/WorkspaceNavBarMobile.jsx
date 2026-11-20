@@ -3,7 +3,8 @@ import { Link } from "react-router";
 import "./WorkspaceNavBarMobile.css";
 import { useDropdown } from "../../../hooks/useDropdown";
 import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
-import { UserProfileDropdown } from "../../Dropdown/UserProfileDropdown";
+import { UserProfileMenu } from "../../Dropdown/UserProfileMenu";
+import { WorkspaceInfoDropdown } from "../../Dropdown/WorkspaceInfoDropdown";
 
 export function WorkspaceNavbarMobile() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,21 +13,19 @@ export function WorkspaceNavbarMobile() {
         currentWorkspace_id,
         currentWorkspaceObj,
         currentWorkspaceInitials,
-        userData,
-        userInitial,
-        handleLogout
+        handleBackToWorkspaces
     } = useWorkspaceNav();
 
     const {
-        isOpen: isProfileOpen,
-        toggle: toggleProfile,
-        close: closeProfile,
-        dropdownRef: profileRef
+        isOpen: isWorkspaceInfoOpen,
+        toggle: toggleWorkspaceInfo,
+        close: closeWorkspaceInfo,
+        dropdownRef: workspaceInfoRef
     } = useDropdown();
 
     const handleCloseMenu = () => {
         setIsMenuOpen(false);
-        closeProfile();
+        closeWorkspaceInfo();
     };
 
     return (
@@ -53,20 +52,33 @@ export function WorkspaceNavbarMobile() {
 
             <div className={`workspace-nav-mobile-drawer ${isMenuOpen ? "is-open" : ""}`}>
                 <div className="workspace-nav-mobile-group">
-                    <div className="workspace-nav-mobile-header">
+                    <div className="workspace-nav-mobile-header" ref={workspaceInfoRef}>
                         <button
                             type="button"
                             className="workspace-nav-mobile-avatar-btn"
                             title={currentWorkspaceObj?.workspace_name || "Espacio de trabajo"}
+                            aria-label="Información del espacio de trabajo"
+                            aria-expanded={isWorkspaceInfoOpen}
+                            onClick={toggleWorkspaceInfo}
                         >
                             {currentWorkspaceInitials}
                         </button>
                         <span className="workspace-nav-mobile-workspace-name">
                             {currentWorkspaceObj?.workspace_name || "Espacio de trabajo"}
                         </span>
+
+                        <WorkspaceInfoDropdown
+                            isOpen={isWorkspaceInfoOpen}
+                            position="bottom-full"
+                            workspaceObj={currentWorkspaceObj}
+                            workspaceInitials={currentWorkspaceInitials}
+                            onBackToWorkspaces={() =>
+                                handleBackToWorkspaces(handleCloseMenu)
+                            }
+                        />
                     </div>
 
-                    <ul className="workspace-nav-mobile-list" onClick={handleCloseMenu}>
+                    <ul className="workspace-nav-mobile-list">
                         <li className="workspace-nav-mobile-item">
                             <Link
                                 to={
@@ -75,6 +87,7 @@ export function WorkspaceNavbarMobile() {
                                         : "/workspaces"
                                 }
                                 className="workspace-nav-mobile-link is-active"
+                                onClick={handleCloseMenu}
                             >
                                 <span className="workspace-nav-mobile-icon-box" aria-hidden="true">
                                     <svg
@@ -90,7 +103,7 @@ export function WorkspaceNavbarMobile() {
                             </Link>
                         </li>
                         <li className="workspace-nav-mobile-item">
-                            <Link to="/" className="workspace-nav-mobile-link">
+                            <button type="button" className="workspace-nav-mobile-link">
                                 <span className="workspace-nav-mobile-icon-box" aria-hidden="true">
                                     <svg
                                         width="20"
@@ -106,10 +119,10 @@ export function WorkspaceNavbarMobile() {
                                     </svg>
                                 </span>
                                 <span className="workspace-nav-mobile-label">Mensajes directos</span>
-                            </Link>
+                            </button>
                         </li>
                         <li className="workspace-nav-mobile-item">
-                            <Link to="/direct" className="workspace-nav-mobile-link">
+                            <button type="button" className="workspace-nav-mobile-link">
                                 <span className="workspace-nav-mobile-icon-box" aria-hidden="true">
                                     <svg
                                         width="20"
@@ -126,10 +139,10 @@ export function WorkspaceNavbarMobile() {
                                     </svg>
                                 </span>
                                 <span className="workspace-nav-mobile-label">Actividad</span>
-                            </Link>
+                            </button>
                         </li>
                         <li className="workspace-nav-mobile-item">
-                            <Link to="/profile" className="workspace-nav-mobile-link">
+                            <button type="button" className="workspace-nav-mobile-link">
                                 <span className="workspace-nav-mobile-icon-box" aria-hidden="true">
                                     <svg
                                         width="20"
@@ -146,10 +159,10 @@ export function WorkspaceNavbarMobile() {
                                     </svg>
                                 </span>
                                 <span className="workspace-nav-mobile-label">Archivos</span>
-                            </Link>
+                            </button>
                         </li>
                         <li className="workspace-nav-mobile-item">
-                            <Link to="/profile" className="workspace-nav-mobile-link">
+                            <button type="button" className="workspace-nav-mobile-link">
                                 <span className="workspace-nav-mobile-icon-box" aria-hidden="true">
                                     <svg
                                         width="20"
@@ -170,10 +183,10 @@ export function WorkspaceNavbarMobile() {
                                 <span className="workspace-nav-mobile-label">
                                     Agentes y herramientas
                                 </span>
-                            </Link>
+                            </button>
                         </li>
                         <li className="workspace-nav-mobile-item">
-                            <Link to="/profile" className="workspace-nav-mobile-link">
+                            <button type="button" className="workspace-nav-mobile-link">
                                 <span className="workspace-nav-mobile-icon-box" aria-hidden="true">
                                     <svg
                                         width="20"
@@ -190,7 +203,7 @@ export function WorkspaceNavbarMobile() {
                                     </svg>
                                 </span>
                                 <span className="workspace-nav-mobile-label">Administrador</span>
-                            </Link>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -220,32 +233,11 @@ export function WorkspaceNavbarMobile() {
                                 <span className="workspace-nav-mobile-label">Tema</span>
                             </button>
                         </li>
-                        <li className="workspace-nav-mobile-item workspace-nav-mobile-profile-wrapper" ref={profileRef}>
-                            <button
-                                type="button"
-                                className="workspace-nav-mobile-user-row"
-                                title={userData?.userName || "Mi perfil"}
-                                aria-expanded={isProfileOpen}
-                                onClick={toggleProfile}
-                            >
-                                <span className="workspace-nav-mobile-user-avatar">
-                                    {userInitial}
-                                    <span
-                                        className="workspace-nav-mobile-status-dot"
-                                        aria-hidden="true"
-                                    />
-                                </span>
-                                <span className="workspace-nav-mobile-label">
-                                    {userData?.userName || "Me"}
-                                </span>
-                            </button>
-
-                            <UserProfileDropdown
-                                isOpen={isProfileOpen}
+                        <li className="workspace-nav-mobile-item">
+                            <UserProfileMenu
                                 position="top-full"
-                                userData={userData}
-                                userInitial={userInitial}
-                                onLogout={() => handleLogout(handleCloseMenu)}
+                                showLabel={true}
+                                onAfterLogout={handleCloseMenu}
                             />
                         </li>
                     </ul>

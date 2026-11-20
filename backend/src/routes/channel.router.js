@@ -2,12 +2,14 @@ import express from 'express';
 import channelController from '../controllers/channel.controller.js';
 import MessagesChannelRouter from './messagesChannel.router.js';
 import channelMiddleware from '../middlewares/channel.middleware.js';
+import workSpaceMiddleware from '../middlewares/workSpace.middleware.js';
 
 const channelRouter = express.Router({ mergeParams: true });
 
 channelRouter.use('/:channel_id/messages', channelMiddleware, MessagesChannelRouter);
-channelRouter.put("/:channel_id", channelMiddleware, channelController.updateChannelById);
+channelRouter.put("/:channel_id", workSpaceMiddleware(['owner', 'admin']), channelMiddleware, channelController.updateChannelById);
 channelRouter.post('/', channelController.createChannel);
+channelRouter.delete("/:channel_id", workSpaceMiddleware(['owner']), channelMiddleware, channelController.deleteChannelById);
 /**
  * @openapi
  * /workspaces/{workspace_id}/channels:

@@ -1,0 +1,108 @@
+/* =========================================================
+   UserProfileMenu - Botón de Sesión ("Me") + Menú Desplegable
+   ========================================================= */
+
+.user-profile-menu {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.user-profile-menu--with-label {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.user-profile-menu-trigger {
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-profile-menu-trigger--avatar {
+    border-radius: 0.9rem;
+    transition: transform 0.12s ease, filter 0.15s ease;
+}
+
+.user-profile-menu-trigger--avatar:hover {
+    filter: brightness(1.06);
+}
+
+.user-profile-menu-trigger--row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.2rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.8rem;
+    color: rgba(255, 255, 255, 0.92);
+    transition: background-color 0.15s ease;
+}
+
+.user-profile-menu-trigger--row:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.user-profile-menu-avatar {
+    position: relative;
+    background: linear-gradient(135deg, #e8dff0 0%, #cbb8dc 100%);
+    color: var(--color-header-bg);
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.user-profile-menu-avatar--md {
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 0.9rem;
+    font-size: 1.5rem;
+}
+
+.user-profile-menu-avatar--sm {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    font-size: 1.35rem;
+}
+
+.user-profile-menu-trigger--row .user-profile-menu-avatar {
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 0.8rem;
+    font-size: 1.4rem;
+}
+
+.user-profile-menu-status-dot {
+    position: absolute;
+    right: -0.2rem;
+    bottom: -0.2rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background-color: var(--color-accent-green);
+    border: 0.2rem solid var(--color-header-bg);
+}
+
+.user-profile-menu-avatar--sm .user-profile-menu-status-dot,
+.user-profile-menu-trigger--row .user-profile-menu-status-dot {
+    width: 1rem;
+    height: 1rem;
+}
+
+.user-profile-menu-label {
+    font-size: var(--font-size-p);
+    font-weight: 700;
+    text-align: left;
+    color: var(--color-white);
+}

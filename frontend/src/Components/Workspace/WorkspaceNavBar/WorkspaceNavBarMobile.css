@@ -94,6 +94,7 @@
     }
 
     .workspace-nav-mobile-header {
+        position: relative;
         display: flex;
         align-items: center;
         gap: 1.2rem;

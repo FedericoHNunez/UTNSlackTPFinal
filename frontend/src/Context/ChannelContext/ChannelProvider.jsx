@@ -3,7 +3,12 @@ import { Outlet } from "react-router";
 import { ChannelContext } from "./ChannelContext.jsx";
 import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext.jsx";
 import { UserContext } from "../UserContext/UserContext.jsx";
-import { useGetChannelList, useCreateChannel } from "../../hooks/fetch/useChannel.js";
+import {
+    useGetChannelList,
+    useCreateChannel,
+    useEditChannel,
+    useDeleteChannel
+} from "../../hooks/fetch/useChannel.js";
 
 export const ChannelProvider = () => {
     const [currentChannelList, setCurrentChannelList] = useState(null);
@@ -32,18 +37,51 @@ export const ChannelProvider = () => {
         createChannel
     } = useCreateChannel();
 
+    const {
+        edit_channel_response,
+        edit_channel_error,
+        edit_channel_loading,
+        editChannel
+    } = useEditChannel();
+
+    const {
+        delete_channel_response,
+        delete_channel_error,
+        delete_channel_loading,
+        deleteChannel
+    } = useDeleteChannel();
+
     useEffect(() => {
         if (create_channel_response?.data?.channel) {
             getChannelList(false);
         }
     }, [create_channel_response]);
 
+    useEffect(() => {
+        if (edit_channel_response?.data?.channel) {
+            getChannelList(false);
+        }
+    }, [edit_channel_response]);
+
+    useEffect(() => {
+        if (delete_channel_response?.ok) {
+            getChannelList(false);
+        }
+    }, [delete_channel_response]);
+
     const handleCreateChannel = (name, description) => {
         createChannel(currentWorkspace_id, name, description, userToken);
     };
 
-    const values = {
+    const handleEditChannel = (name, description, channel_id = currentChannel_id, workspace_id = currentWorkspace_id) => {
+        editChannel(workspace_id, channel_id, name, description, userToken);
+    };
 
+    const handleDeleteChannel = (channel_id = currentChannel_id, workspace_id = currentWorkspace_id) => {
+        deleteChannel(workspace_id, channel_id, userToken);
+    };
+
+    const values = {
         currentChannelList,
         setCurrentChannelList,
         get_channel_error,
@@ -54,6 +92,14 @@ export const ChannelProvider = () => {
         create_channel_error,
         create_channel_response,
         handleCreateChannel,
+        edit_channel_loading,
+        edit_channel_error,
+        edit_channel_response,
+        handleEditChannel,
+        delete_channel_loading,
+        delete_channel_error,
+        delete_channel_response,
+        handleDeleteChannel,
         searchValue,
         setSearchValue
     };

@@ -31,5 +31,49 @@ export async function createChannel(workspace_id, name, description, userToken) 
     );
 
     const response_body = await response_http.json();
+    if (!response_body.ok) {
+        throw new Error(response_body.message);
+    }
+
+    return response_body;
+}
+
+export async function editChannel(workspace_id, channel_id, name, description, userToken) {
+    const response_http = await fetch(
+        `${url_backend}/api/workspaces/${workspace_id}/channels/${channel_id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userToken}`
+            },
+            body: JSON.stringify({ name, description })
+        }
+    );
+
+    const response_body = await response_http.json();
+    if (!response_body.ok) {
+        throw new Error(response_body.message);
+    }
+
+    return response_body;
+}
+
+export async function deleteChannel(workspace_id, channel_id, userToken) {
+    const response_http = await fetch(
+        `${url_backend}/api/workspaces/${workspace_id}/channels/${channel_id}`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${userToken}`
+            }
+        }
+    );
+
+    const response_body = await response_http.json();
+    if (!response_body.ok) {
+        throw new Error(response_body.message);
+    }
+
     return response_body;
 }

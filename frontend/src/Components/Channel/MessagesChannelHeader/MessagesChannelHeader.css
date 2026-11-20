@@ -1,0 +1,67 @@
+/* =========================================================
+   MessagesChannelHeader - Barra Superior del Canal Activo
+   ========================================================= */
+
+.messages-channel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 0.1rem solid var(--color-border-light);
+    flex-shrink: 0;
+}
+
+.messages-channel-header-info {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.messages-channel-header-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: var(--font-size-h4);
+    font-weight: 800;
+    color: var(--color-text-main);
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.messages-channel-header-hash {
+    color: var(--color-primary-btn);
+    font-weight: 900;
+}
+
+.messages-channel-header-actions {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.messages-channel-header-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    padding: 0;
+    border: 0.1rem solid transparent;
+    border-radius: 0.6rem;
+    background: transparent;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.messages-channel-header-menu-btn:hover,
+.messages-channel-header-menu-btn[aria-expanded="true"] {
+    background-color: var(--color-hover-light);
+    border-color: var(--color-border-light);
+    color: var(--color-text-main);
+}

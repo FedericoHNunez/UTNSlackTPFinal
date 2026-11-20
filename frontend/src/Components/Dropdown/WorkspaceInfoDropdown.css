@@ -1,0 +1,74 @@
+/* =========================================================
+   WorkspaceInfoDropdown - Menú Desplegable del Avatar del Workspace
+   ========================================================= */
+
+.workspace-info-dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.workspace-info-dropdown-avatar {
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 1rem;
+    background-color: #a8a8ac;
+    color: #231f24;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.6rem;
+    letter-spacing: -0.03em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.workspace-info-dropdown-title-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+    text-align: left;
+}
+
+.workspace-info-dropdown-name {
+    font-size: var(--font-size-p);
+    font-weight: 800;
+    color: var(--color-text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.workspace-info-dropdown-tag {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+.workspace-info-dropdown-description-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.8rem;
+    background-color: rgba(73, 26, 84, 0.05);
+    text-align: left;
+}
+
+.workspace-info-dropdown-description-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-primary);
+}
+
+.workspace-info-dropdown-description {
+    font-size: var(--font-size-small);
+    line-height: 1.4;
+    color: var(--color-text-secondary);
+    margin: 0;
+    word-break: break-word;
+}

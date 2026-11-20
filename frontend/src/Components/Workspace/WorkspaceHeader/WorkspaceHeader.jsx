@@ -6,10 +6,10 @@ import "./WorkspaceHeader.css";
 export const WorkspaceHeader = () => {
     const { currentWorkspaceList, currentWorkspace_id } = useContext(WorkspaceContext);
 
-    const currentWorkspaceObj = currentWorkspaceList?.find(
+    const currentWorkspace= currentWorkspaceList?.find(
         (workspace) => workspace.workspace_id === currentWorkspace_id
     );
-    const workspaceName = currentWorkspaceObj?.workspace_name || "el espacio de trabajo";
+    const workspaceName = currentWorkspace?.workspace_name || "el espacio de trabajo";
 
     return (
         <div className="workspace-header">
@@ -114,7 +114,7 @@ export const WorkspaceHeader = () => {
             <div className="workspace-header-actions">
                 <button
                     type="button"
-                    className="workspace-header-btn"
+                    className="workspace-header-btn workspace-header-help-btn"
                     aria-label="Ayuda"
                     title="Ayuda"
                 >
@@ -134,6 +134,7 @@ export const WorkspaceHeader = () => {
                         <line x1="12" y1="17" x2="12.01" y2="17" />
                     </svg>
                 </button>
+          
             </div>
         </div>
     );

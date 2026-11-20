@@ -1,15 +1,18 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { WorkspaceContext } from "../Context/WorkspaceContext/WorkspaceContext";
 import { UserContext } from "../Context/UserContext/UserContext";
 
 export function useWorkspaceNav() {
+    const { workspace_id } = useParams();
     const { currentWorkspaceList, currentWorkspace_id } = useContext(WorkspaceContext);
     const { userData, setUserToken } = useContext(UserContext);
     const navigate = useNavigate();
 
+    const activeWorkspaceId = workspace_id || currentWorkspace_id;
+
     const currentWorkspaceObj = currentWorkspaceList?.find(
-        (workspace) => workspace.workspace_id === currentWorkspace_id
+        (workspace) => workspace.workspace_id === activeWorkspaceId
     );
 
     const currentWorkspaceInitials = currentWorkspaceObj?.workspace_name
@@ -28,13 +31,21 @@ export function useWorkspaceNav() {
         navigate("/");
     };
 
+    const handleBackToWorkspaces = (onBeforeNavigate) => {
+        if (typeof onBeforeNavigate === "function") {
+            onBeforeNavigate();
+        }
+        navigate("/workspaces");
+    };
+
     return {
-        currentWorkspace_id,
+        currentWorkspace_id: activeWorkspaceId,
         currentWorkspaceObj,
         currentWorkspaceInitials,
         userData,
         userInitial,
-        handleLogout
+        handleLogout,
+        handleBackToWorkspaces
     };
 }
 

@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import useRequest from "./useRequest.js";
 import {
     getChannelsByWorkspace,
-    createChannel as createChannelService
+    createChannel as createChannelService,
+    editChannel as editChannelService,
+    deleteChannel as deleteChannelService
 } from "../../services/ChannelService.js";
 
 export const useGetChannelList = (workspace_id, userToken) => {
@@ -41,5 +43,39 @@ export const useCreateChannel = () => {
         create_channel_error: error,
         create_channel_loading: loading,
         createChannel
+    };
+};
+
+export const useEditChannel = () => {
+    const { response, error, loading, sendRequest } = useRequest();
+
+    const editChannel = (workspace_id, channel_id, name, description, userToken) => {
+        sendRequest(() =>
+            editChannelService(workspace_id, channel_id, name, description, userToken)
+        );
+    };
+
+    return {
+        edit_channel_response: response,
+        edit_channel_error: error,
+        edit_channel_loading: loading,
+        editChannel
+    };
+};
+
+export const useDeleteChannel = () => {
+    const { response, error, loading, sendRequest } = useRequest();
+
+    const deleteChannel = (workspace_id, channel_id, userToken) => {
+        sendRequest(() =>
+            deleteChannelService(workspace_id, channel_id, userToken)
+        );
+    };
+
+    return {
+        delete_channel_response: response,
+        delete_channel_error: error,
+        delete_channel_loading: loading,
+        deleteChannel
     };
 };

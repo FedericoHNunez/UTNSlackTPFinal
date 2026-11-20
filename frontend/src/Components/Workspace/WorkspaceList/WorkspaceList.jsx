@@ -77,14 +77,7 @@ export const WorkspaceList = () => {
                                                 </span>
                                             </div>
                                             <div className="workspace-item-meta">
-                                                <div
-                                                    className="workspace-member-pills"
-                                                    aria-hidden="true"
-                                                >
-                                                    <span className="member-pill pill-teal">
-                                                        {initial}
-                                                    </span>
-                                                </div>
+                                               
                                                 <p>
                                                     {workspace.workspace_members_count}
                                                     {workspace.workspace_members_count === 1
