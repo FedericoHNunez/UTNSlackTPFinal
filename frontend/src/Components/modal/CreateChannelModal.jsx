@@ -31,8 +31,15 @@ export const CreateChannelModal = () => {
 
     return (
         <>
-            <button type="button" onClick={handleOpenModal}>
-                + Crear canal
+            <button
+                type="button"
+                className="channel-list-create-btn"
+                onClick={handleOpenModal}
+            >
+                <span className="channel-list-create-icon" aria-hidden="true">
+                    +
+                </span>
+                <span>Crear canal</span>
             </button>
 
             <Modal

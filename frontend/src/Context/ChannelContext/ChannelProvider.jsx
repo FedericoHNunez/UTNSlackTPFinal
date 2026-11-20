@@ -9,6 +9,7 @@ import {
     useEditChannel,
     useDeleteChannel
 } from "../../hooks/fetch/useChannel.js";
+import { capitalizeListFields } from "../../hooks/useCapitalize.js";
 
 export const ChannelProvider = () => {
     const [currentChannelList, setCurrentChannelList] = useState(null);
@@ -26,7 +27,12 @@ export const ChannelProvider = () => {
 
     useEffect(() => {
         if (get_channel_response) {
-            setCurrentChannelList(get_channel_response.data.channels);
+            setCurrentChannelList(
+                capitalizeListFields(get_channel_response.data.channels, [
+                    "channel_name",
+                    "channel_description"
+                ])
+            );
         }
     }, [get_channel_response]);
 

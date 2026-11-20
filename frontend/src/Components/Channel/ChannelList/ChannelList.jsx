@@ -6,7 +6,7 @@ import { CreateChannelModal } from "../../modal/CreateChannelModal.jsx";
 import "./ChannelList.css";
 
 export const ChannelList = () => {
-    const { workspace_id } = useParams();
+    const { workspace_id, channel_id } = useParams();
     const { currentWorkspace_id, setCurrentWorkspace_id } = useContext(WorkspaceContext);
     const { currentChannelList, get_channel_error, searchValue } = useContext(ChannelContext);
 
@@ -18,7 +18,7 @@ export const ChannelList = () => {
 
     return (
         <section className="channel-list" aria-label="Canales del espacio de trabajo">
-            <h4>Canales</h4>
+            <h4 className="channel-list-title">Canales</h4>
             {get_channel_error && (
                 <p className="channel-list-error" role="alert">
                     Error: {get_channel_error}
@@ -32,16 +32,22 @@ export const ChannelList = () => {
                                 .toLowerCase()
                                 .includes(searchValue.toLowerCase())
                         )
-                        .map((channel) => (
-                            <li key={channel.channel_id} className="channel-list-item">
-                                <Link
-                                    to={`/workspaces/${currentWorkspace_id}/channels/${channel.channel_id}/messages`}
-                                    className="channel-list-link"
-                                >
-                                    <p>#{channel.channel_name}</p>
-                                </Link>
-                            </li>
-                        ))}
+                        .map((channel) => {
+                            const isActive = channel.channel_id === channel_id;
+                            return (
+                                <li key={channel.channel_id} className="channel-list-item">
+                                    <Link
+                                        to={`/workspaces/${currentWorkspace_id}/channels/${channel.channel_id}/messages`}
+                                        className={`channel-list-link ${isActive ? "is-active" : ""}`}
+                                    >
+                                        <span className="channel-list-hash" aria-hidden="true">
+                                            #
+                                        </span>
+                                        <p>{channel.channel_name}</p>
+                                    </Link>
+                                </li>
+                            );
+                        })}
                     <li className="channel-list-item">
                         <CreateChannelModal />
                     </li>

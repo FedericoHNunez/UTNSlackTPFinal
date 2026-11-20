@@ -8,6 +8,7 @@ import {
     useDeleteWorkspace
 } from "../../hooks/fetch/useWorkspace.js";
 import { UserContext } from "../UserContext/UserContext.jsx";
+import { capitalizeListFields } from "../../hooks/useCapitalize.js";
 
 export const WorkspaceProvider = () => {
 
@@ -44,7 +45,12 @@ export const WorkspaceProvider = () => {
 
     useEffect(() => {
         if (get_workspace_response?.data?.workspaces) {
-            setCurrentWorkspaceList(get_workspace_response.data.workspaces);
+            setCurrentWorkspaceList(
+                capitalizeListFields(get_workspace_response.data.workspaces, [
+                    "workspace_name",
+                    "workspace_description"
+                ])
+            );
         }
     }, [get_workspace_response]);
 

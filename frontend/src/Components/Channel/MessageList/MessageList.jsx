@@ -6,25 +6,10 @@ import { UserContext } from "../../../Context/UserContext/UserContext.jsx";
 import { messageGrouper } from "../../../hooks/useMessagesGrouper.js";
 import "./MessageList.css";
 
-const CHANNEL_HEADER_CONFIG = {
-    informal: {
-        badge: "Social & Café",
-        subtitle: "Un espacio distendido para charlar, compartir ideas y conectar con el equipo."
-    },
-    "nuevo-canal": {
-        badge: "Bienvenida",
-        subtitle: "Punto de partida para organizar las primeras tareas y objetivos del equipo."
-    },
-    "todo-ejemplo": {
-        badge: "General",
-        subtitle: "Espacio compartido con todos los miembros para anuncios y novedades."
-    }
-};
-
 export const MessageList = () => {
     const { channel_id } = useParams();
     const { currentMessagesList, get_message_error } = useContext(MessagesContext);
-    const { currentChannelList, setCurrentChannel_id } = useContext(ChannelContext);
+    const { setCurrentChannel_id } = useContext(ChannelContext);
     const { userData } = useContext(UserContext);
     const listRef = useRef(null);
 
@@ -40,40 +25,10 @@ export const MessageList = () => {
         }
     }, [currentMessagesList, channel_id]);
 
-    const currentChannel = currentChannelList?.find(
-        (channel) => channel.channel_id === channel_id
-    );
-
-    const channelName = currentChannel?.channel_name?.toLowerCase() || "";
-    const channelVariant = CHANNEL_HEADER_CONFIG[channelName] ? channelName : "generic";
-    const headerConfig = CHANNEL_HEADER_CONFIG[channelName] || {
-        badge: "Canal de equipo",
-        subtitle: "Espacio de conversación y colaboración para los miembros de este canal."
-    };
-
     const messagesGroupe = messageGrouper(currentMessagesList);
 
     return (
         <section className="message-list" ref={listRef} aria-label="Lista de mensajes">
-            <header className={`message-list-header message-list-header--${channelVariant}`}>
-                <div className="message-list-header-top">
-                    <span className="message-list-channel-pill">
-                        #{currentChannel?.channel_name || "canal"}
-                    </span>
-                    <span className="message-list-channel-badge">
-                        {headerConfig.badge}
-                    </span>
-                </div>
-
-                <h1 className="message-list-header-title">
-                    {currentChannel?.channel_description || `Canal #${currentChannel?.channel_name || ""}`}
-                </h1>
-
-                <p className="message-list-header-subtitle">
-                    {headerConfig.subtitle}
-                </p>
-            </header>
-
             {get_message_error && (
                 <p className="form-alert form-alert-error" role="alert">
                     Error: {get_message_error}

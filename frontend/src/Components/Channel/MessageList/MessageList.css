@@ -1,5 +1,5 @@
 /* =========================================================
-   MessageList - Header del Canal y Globos de Conversación
+   MessageList - Globos de Conversación
    ========================================================= */
 
 .message-list {
@@ -10,90 +10,6 @@
     gap: 1.6rem;
     overflow-y: auto;
     padding-right: 0.4rem;
-}
-
-/* =========================================================
-   Header del Canal (Colores Planos y Bordes Mínimos)
-   ========================================================= */
-
-.message-list-header {
-    --header-accent: var(--color-primary-btn);
-    --header-badge-bg: rgba(97, 31, 105, 0.08);
-    --header-bg: #faf8fb;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.6rem;
-    padding: 1.6rem 1.8rem;
-    border-radius: 0.8rem;
-    background-color: var(--header-bg);
-    border-bottom: 0.1rem solid var(--color-border-light);
-    flex-shrink: 0;
-}
-
-/* Variantes por canal (colores planos) */
-.message-list-header--informal {
-    --header-accent: #b45309;
-    --header-badge-bg: #fef3c7;
-    --header-bg: #fffbeb;
-}
-
-.message-list-header--nuevo-canal {
-    --header-accent: #1c7c50;
-    --header-badge-bg: #d1fae5;
-    --header-bg: #f2fbf6;
-}
-
-.message-list-header--todo-ejemplo {
-    --header-accent: #1264a3;
-    --header-badge-bg: #e0f2fe;
-    --header-bg: #f4f9fd;
-}
-
-.message-list-header-top {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-}
-
-.message-list-channel-pill {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.3rem 0.9rem;
-    border-radius: 0.5rem;
-    background-color: var(--color-white);
-    border: 0.1rem solid var(--color-border-light);
-    color: var(--header-accent);
-    font-size: var(--font-size-small);
-    font-weight: 800;
-}
-
-.message-list-channel-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.3rem 0.9rem;
-    border-radius: 0.5rem;
-    background-color: var(--header-badge-bg);
-    color: var(--header-accent);
-    font-size: 1.2rem;
-    font-weight: 700;
-}
-
-.message-list-header-title {
-    font-size: var(--font-size-h2);
-    font-weight: 800;
-    color: var(--color-text-main);
-    line-height: 1.2;
-    letter-spacing: -0.04rem;
-}
-
-.message-list-header-subtitle {
-    font-size: var(--font-size-p);
-    color: var(--color-text-secondary);
-    line-height: 1.5;
-    max-width: 62rem;
 }
 
 /* =========================================================
@@ -186,14 +102,6 @@
 }
 
 @media (max-width: 768px) {
-    .message-list-header {
-        padding: 1.6rem;
-    }
-
-    .message-list-header-title {
-        font-size: var(--font-size-h3);
-    }
-
     .message-bubble {
         padding: 0.8rem 0.6rem;
         gap: 1rem;

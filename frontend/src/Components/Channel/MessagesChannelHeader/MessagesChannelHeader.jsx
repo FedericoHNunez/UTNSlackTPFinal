@@ -63,8 +63,22 @@ export const MessagesChannelHeader = () => {
                     <span className="messages-channel-header-hash" aria-hidden="true">
                         #
                     </span>
-                    <span>{currentChannel?.channel_name || "canal"}</span>
+                    {currentChannel?.channel_name || "canal"}
                 </h2>
+                {currentChannel?.channel_description && (
+                    <>
+                        <span
+                            className="messages-channel-header-divider"
+                            aria-hidden="true"
+                        />
+                        <p
+                            className="messages-channel-header-description"
+                            title={currentChannel.channel_description}
+                        >
+                            {currentChannel.channel_description}
+                        </p>
+                    </>
+                )}
             </div>
 
             <div className="messages-channel-header-actions" ref={menuRef}>
