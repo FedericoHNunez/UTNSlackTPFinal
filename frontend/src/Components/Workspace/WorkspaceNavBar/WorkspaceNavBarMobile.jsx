@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import "./WorkspaceNavBarMobile.css";
 import { useDropdown } from "../../../hooks/useDropdown";
 import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
@@ -8,6 +8,7 @@ import { WorkspaceInfoDropdown } from "../../Dropdown/WorkspaceInfoDropdown";
 
 export function WorkspaceNavbarMobile() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const location = useLocation();
 
     const {
         currentWorkspace_id,
@@ -15,6 +16,8 @@ export function WorkspaceNavbarMobile() {
         currentWorkspaceInitials,
         handleBackToWorkspaces
     } = useWorkspaceNav();
+
+    const isDirectMessagesActive = location.pathname.includes("/MessagesPrivate");
 
     const {
         isOpen: isWorkspaceInfoOpen,
@@ -86,7 +89,9 @@ export function WorkspaceNavbarMobile() {
                                         ? `/workspaces/${currentWorkspace_id}/channels`
                                         : "/workspaces"
                                 }
-                                className="workspace-nav-mobile-link is-active"
+                                className={`workspace-nav-mobile-link ${
+                                    !isDirectMessagesActive ? "is-active" : ""
+                                }`}
                                 onClick={handleCloseMenu}
                             >
                                 <span className="workspace-nav-mobile-icon-box" aria-hidden="true">
@@ -103,7 +108,17 @@ export function WorkspaceNavbarMobile() {
                             </Link>
                         </li>
                         <li className="workspace-nav-mobile-item">
-                            <button type="button" className="workspace-nav-mobile-link">
+                            <Link
+                                to={
+                                    currentWorkspace_id
+                                        ? `/workspaces/${currentWorkspace_id}/MessagesPrivate`
+                                        : "/workspaces"
+                                }
+                                className={`workspace-nav-mobile-link ${
+                                    isDirectMessagesActive ? "is-active" : ""
+                                }`}
+                                onClick={handleCloseMenu}
+                            >
                                 <span className="workspace-nav-mobile-icon-box" aria-hidden="true">
                                     <svg
                                         width="20"
@@ -119,7 +134,7 @@ export function WorkspaceNavbarMobile() {
                                     </svg>
                                 </span>
                                 <span className="workspace-nav-mobile-label">Mensajes directos</span>
-                            </button>
+                            </Link>
                         </li>
                         <li className="workspace-nav-mobile-item">
                             <button type="button" className="workspace-nav-mobile-link">

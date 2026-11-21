@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
-import WorkspaceNavbar from "../Components/Workspace/WorkspaceNavBar/WorkspaceNavBar.jsx";
-import { WorkspaceHeader } from "../Components/Workspace/WorkspaceHeader/WorkspaceHeader.jsx";
+import WorkspaceNavbar from "../../Components/Workspace/WorkspaceNavBar/WorkspaceNavBar.jsx";
+import { WorkspaceHeader } from "../../Components/Workspace/WorkspaceHeader/WorkspaceHeader.jsx";
 import "./MainLayout.css";
 
 

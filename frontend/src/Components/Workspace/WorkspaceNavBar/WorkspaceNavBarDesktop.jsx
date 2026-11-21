@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import "./WorkspaceNavBarDesktop.css";
 import { useDropdown } from "../../../hooks/useDropdown";
 import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
@@ -6,12 +6,15 @@ import { UserProfileMenu } from "../../Dropdown/UserProfileMenu";
 import { WorkspaceInfoDropdown } from "../../Dropdown/WorkspaceInfoDropdown";
 
 export function WorkspaceNavbarDesktop() {
+    const location = useLocation();
     const {
         currentWorkspace_id,
         currentWorkspaceObj,
         currentWorkspaceInitials,
         handleBackToWorkspaces
     } = useWorkspaceNav();
+
+    const isDirectMessagesActive = location.pathname.includes("/MessagesPrivate");
 
     const {
         isOpen: isWorkspaceInfoOpen,
@@ -56,7 +59,9 @@ export function WorkspaceNavbarDesktop() {
                                     ? `/workspaces/${currentWorkspace_id}/channels`
                                     : "/workspaces"
                             }
-                            className="workspace-nav-desktop-link is-active"
+                            className={`workspace-nav-desktop-link ${
+                                !isDirectMessagesActive ? "is-active" : ""
+                            }`}
                         >
                             <span className="workspace-nav-desktop-icon-box" aria-hidden="true">
                                 <svg
@@ -72,7 +77,16 @@ export function WorkspaceNavbarDesktop() {
                         </Link>
                     </li>
                     <li className="workspace-nav-desktop-item">
-                        <button type="button" className="workspace-nav-desktop-link">
+                        <Link
+                            to={
+                                currentWorkspace_id
+                                    ? `/workspaces/${currentWorkspace_id}/MessagesPrivate`
+                                    : "/workspaces"
+                            }
+                            className={`workspace-nav-desktop-link ${
+                                isDirectMessagesActive ? "is-active" : ""
+                            }`}
+                        >
                             <span className="workspace-nav-desktop-icon-box" aria-hidden="true">
                                 <svg
                                     width="20"
@@ -88,7 +102,7 @@ export function WorkspaceNavbarDesktop() {
                                 </svg>
                             </span>
                             <span className="workspace-nav-desktop-label">Mensajes directos</span>
-                        </button>
+                        </Link>
                     </li>
                     <li className="workspace-nav-desktop-item">
                         <button type="button" className="workspace-nav-desktop-link">
