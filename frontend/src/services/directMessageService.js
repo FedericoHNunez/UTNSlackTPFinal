@@ -1,8 +1,8 @@
 import ENVIRONMENT from "../config/envConfig.js";
 const url_backend = ENVIRONMENT.URL_BACKEND;
 
-export const getDirectConversations = async (userToken) => {
-    const response_http = await fetch(`${url_backend}/api/directMessages`, {
+export const getDirectConversations = async (userToken, workspace_id) => {
+    const response_http = await fetch(`${url_backend}/api/workspaces/${workspace_id}/directMessages`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${userToken}`
@@ -15,8 +15,8 @@ export const getDirectConversations = async (userToken) => {
     return response_json;
 };
 
-export const getDirectMessagesByUserId = async (user_id, userToken) => {
-    const response_http = await fetch(`${url_backend}/api/directMessages/${user_id}`, {
+export const getDirectMessagesByUserId = async (user_id, userToken, workspace_id) => {
+    const response_http = await fetch(`${url_backend}/api/workspaces/${workspace_id}/directMessages/${user_id}`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${userToken}`
@@ -29,8 +29,8 @@ export const getDirectMessagesByUserId = async (user_id, userToken) => {
     return response_json;
 };
 
-export const createDirectMessage = async (user_id, message, userToken) => {
-    const response_http = await fetch(`${url_backend}/api/directMessages/${user_id}`, {
+export const createDirectMessage = async (user_id, message, userToken, workspace_id) => {
+    const response_http = await fetch(`${url_backend}/api/workspaces/${workspace_id}/directMessages/${user_id}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

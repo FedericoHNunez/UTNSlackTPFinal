@@ -1,7 +1,7 @@
 import express from "express";
 import directMessageController from "../controllers/directMessage.controller.js";
 
-const directMessageRouter = express.Router();
+const directMessageRouter = express.Router({ mergeParams: true });
 
 directMessageRouter.get('/', directMessageController.getConversationsByUserId);
 /**

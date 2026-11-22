@@ -1,7 +1,7 @@
 import { useContext, useEffect, useLayoutEffect, useRef } from "react";
 import { useParams } from "react-router";
 import TextareaAutosize from "react-textarea-autosize";
-import { MessagesPrivateContext } from "../../Context/MessagesPrivateContext/MessagesPrivateContext.jsx";
+import { DirectMessagesContext } from "../../Context/DirectMessagesContext/DirectMessagesContext.jsx";
 import { MembersContext } from "../../Context/MembersContext/MembersContext.jsx";
 import { UserContext } from "../../Context/UserContext/UserContext.jsx";
 import { SpinnerLoading } from "../../Components/Ui/SpinnerLoading/SpinnerLoading.jsx";
@@ -13,7 +13,7 @@ import "../../Components/Channel/MessagesChannelHeader/MessagesChannelHeader.css
 import "../../Components/Channel/MessageList/MessageList.css";
 import "../../Components/Forms/SendMessageForm/SendMessageForm.css";
 
-export const MessagesPrivateScreen = () => {
+export const DirectMessagesScreen = () => {
     const { user_id } = useParams();
     const {
         currentDirectMessages,
@@ -23,7 +23,7 @@ export const MessagesPrivateScreen = () => {
         create_direct_message_error,
         create_direct_message_loading,
         handleCreateDirectMessage
-    } = useContext(MessagesPrivateContext);
+    } = useContext(DirectMessagesContext);
     const { currentWorkspaceMembers } = useContext(MembersContext);
     const { userData } = useContext(UserContext);
     const listRef = useRef(null);

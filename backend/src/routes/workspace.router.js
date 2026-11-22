@@ -4,8 +4,16 @@ import channelRouter from './channel.router.js';
 import workSpaceMiddleware from '../middlewares/workSpace.middleware.js';
 import memberRouter from './member.router.js';
 import authMiddleware from '../middlewares/auth.middleware.js';
+import directMessageRouter from './directMessage.router.js';
 
 const workspaceRouter = express.Router();
+
+// Direct messages
+workspaceRouter.use('/:workspace_id/directMessages',
+     authMiddleware,
+     workSpaceMiddleware(['owner', 'admin', 'user']),
+     directMessageRouter);
+
 
 // Channels sub-router
 workspaceRouter.use('/:workspace_id/channels',

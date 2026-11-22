@@ -12,8 +12,8 @@ class DirectMessageController {
 
     async getConversationsByUserId(req, res) {
         const { id } = req.user;
-        const foundMessages = await directMessageService.getConversationsByUserId(id);
-        return successResponse(res, "Conversaciones obtenidas correctamente.", { foundMessages });
+        const directConversations = await directMessageService.getConversationsByUserId(id);
+        return successResponse(res, "Conversaciones obtenidas correctamente.", { directConversations });
     }
     async editMessageContent(req, res) {
         const { message_id, content } = req.body;

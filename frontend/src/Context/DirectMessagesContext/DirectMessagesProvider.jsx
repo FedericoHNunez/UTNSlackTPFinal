@@ -1,22 +1,26 @@
 import { useState, useContext, useEffect } from "react";
 import { Outlet, useParams } from "react-router";
-import { MessagesPrivateContext } from "./MessagesPrivateContext.jsx";
+import { DirectMessagesContext } from "./DirectMessagesContext.jsx";
 import { UserContext } from "../UserContext/UserContext.jsx";
+import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext.jsx";
 import {
     useGetDirectMessages,
-    useCreateDirectMessage
+    useCreateDirectMessage,
+    useGetConversations
 } from "../../hooks/fetch/useDirectMessage.js";
 
-export const MessagesPrivateProvider = () => {
-    const { user_id } = useParams();
+export const DirectMessagesProvider = () => {
+    const { workspace_id, user_id } = useParams();
     const [currentReceiver_id, setCurrentReceiver_id] = useState(user_id || null);
     const [currentDirectMessages, setCurrentDirectMessages] = useState([]);
+    const [currentDirectConversations, setCurrentDirectConversations] = useState([]);
     const { userToken } = useContext(UserContext);
+    const { currentWorkspace_id } = useContext(WorkspaceContext);
+
+    const activeWorkspaceId = workspace_id || currentWorkspace_id;
 
     useEffect(() => {
-        if (user_id) {
-            setCurrentReceiver_id(user_id);
-        }
+        setCurrentReceiver_id(user_id || null);
     }, [user_id]);
 
     const {
@@ -24,7 +28,7 @@ export const MessagesPrivateProvider = () => {
         get_direct_messages_error,
         get_direct_messages_loading,
         getDirectMessages
-    } = useGetDirectMessages(currentReceiver_id, userToken);
+    } = useGetDirectMessages(currentReceiver_id, userToken, activeWorkspaceId);
 
     const {
         create_direct_message_response,
@@ -32,6 +36,13 @@ export const MessagesPrivateProvider = () => {
         create_direct_message_loading,
         createDirectMessage
     } = useCreateDirectMessage();
+
+    const {
+        get_conversations_response,
+        get_conversations_error,
+        get_conversations_loading,
+        getConversations
+    } = useGetConversations(userToken, activeWorkspaceId);
 
     useEffect(() => {
         if (get_direct_messages_response?.data?.messages) {
@@ -42,12 +53,21 @@ export const MessagesPrivateProvider = () => {
     useEffect(() => {
         if (create_direct_message_response?.data?.newDirectMessage) {
             getDirectMessages(false);
+            getConversations(false);
         }
     }, [create_direct_message_response]);
 
+    useEffect(() => {
+        if (get_conversations_response?.data?.directConversations) {
+            setCurrentDirectConversations(
+                get_conversations_response.data.directConversations
+            );
+        }
+    }, [get_conversations_response]);
+
     const handleCreateDirectMessage = (content) => {
-        if (!currentReceiver_id) return;
-        createDirectMessage(currentReceiver_id, content, userToken);
+        if (!currentReceiver_id || !activeWorkspaceId) return;
+        createDirectMessage(currentReceiver_id, content, userToken, activeWorkspaceId);
     };
 
     const values = {
@@ -60,12 +80,18 @@ export const MessagesPrivateProvider = () => {
         create_direct_message_response,
         create_direct_message_error,
         create_direct_message_loading,
-        handleCreateDirectMessage
+        handleCreateDirectMessage,
+        get_conversations_response,
+        get_conversations_error,
+        get_conversations_loading,
+        currentDirectConversations,
+        setCurrentDirectConversations,
+        getConversations
     };
 
     return (
-        <MessagesPrivateContext.Provider value={values}>
+        <DirectMessagesContext.Provider value={values}>
             <Outlet />
-        </MessagesPrivateContext.Provider>
+        </DirectMessagesContext.Provider>
     );
 };

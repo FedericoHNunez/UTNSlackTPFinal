@@ -6,34 +6,13 @@ import {
     createDirectMessage as createDirectMessageService
 } from "../../services/directMessageService.js";
 
-export const useGetDirectConversations = (userToken) => {
-    const { response, error, loading, sendRequest } = useRequest();
-
-    const getConversations = (showLoading = true) => {
-        if (userToken) {
-            sendRequest(() => getDirectConversations(userToken), showLoading);
-        }
-    };
-
-    useEffect(() => {
-        getConversations();
-    }, [userToken]);
-
-    return {
-        get_conversations_response: response,
-        get_conversations_error: error,
-        get_conversations_loading: loading,
-        getConversations
-    };
-};
-
-export const useGetDirectMessages = (user_id, userToken) => {
+export const useGetDirectMessages = (user_id, userToken, workspace_id) => {
     const { response, error, loading, sendRequest } = useRequest();
 
     const getDirectMessages = (showLoading = true) => {
-        if (user_id && userToken) {
+        if (user_id && userToken && workspace_id) {
             sendRequest(
-                () => getDirectMessagesByUserId(user_id, userToken),
+                () => getDirectMessagesByUserId(user_id, userToken, workspace_id),
                 showLoading
             );
         }
@@ -41,7 +20,7 @@ export const useGetDirectMessages = (user_id, userToken) => {
 
     useEffect(() => {
         getDirectMessages();
-    }, [user_id, userToken]);
+    }, [user_id, userToken, workspace_id]);
 
     return {
         get_direct_messages_response: response,
@@ -54,9 +33,9 @@ export const useGetDirectMessages = (user_id, userToken) => {
 export const useCreateDirectMessage = () => {
     const { response, error, loading, sendRequest } = useRequest();
 
-    const createDirectMessage = (user_id, message, userToken) => {
+    const createDirectMessage = (user_id, message, userToken, workspace_id) => {
         sendRequest(() =>
-            createDirectMessageService(user_id, message, userToken)
+            createDirectMessageService(user_id, message, userToken, workspace_id)
         );
     };
 
@@ -65,5 +44,26 @@ export const useCreateDirectMessage = () => {
         create_direct_message_error: error,
         create_direct_message_loading: loading,
         createDirectMessage
+    };
+};
+
+export const useGetConversations = (userToken, workspace_id) => {
+    const { response, error, loading, sendRequest } = useRequest();
+
+    const getConversations = (showLoading = true) => {
+        if (userToken && workspace_id) {
+            sendRequest(() => getDirectConversations(userToken, workspace_id), showLoading);
+        }
+    };
+
+    useEffect(() => {
+        getConversations();
+    }, [userToken, workspace_id]);
+
+    return {
+        get_conversations_response: response,
+        get_conversations_error: error,
+        get_conversations_loading: loading,
+        getConversations
     };
 };

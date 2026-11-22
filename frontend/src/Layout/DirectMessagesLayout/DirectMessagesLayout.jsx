@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router";
-import { MembersList } from "../../Components/Channel/MembersList/MembersList.jsx";
+import { ConversationList } from "../../Components/DirectMessagesList/DirectMessagesList.jsx";
 import "../ChannelLayout/ChannelLayout.css";
 
 export const MessagesPrivateLayout = () => {
@@ -43,7 +43,7 @@ export const MessagesPrivateLayout = () => {
                     </header>
                 )}
                 <div className="channel-layout-aside-content">
-                    <MembersList />
+          <ConversationList />
                 </div>
             </aside>
 

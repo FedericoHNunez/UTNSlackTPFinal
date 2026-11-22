@@ -51,13 +51,9 @@ app.use("/api/auth", authRouter);
 // User endpoints
 app.use("/api/users", authMiddleware, userRouter);
 
-// Workspaces (includes channels sub-router)
+// Workspaces (includes channels sub-router - direct messages sub-router)
 app.use('/api/workspaces', workspaceRouter);
 
-
-
-// Direct messages
-app.use('/api/directMessages', authMiddleware, directMessageRouter);
 // Members
 app.use('/api/members', authMiddleware, memberRouter);
 
