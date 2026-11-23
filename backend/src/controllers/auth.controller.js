@@ -47,6 +47,25 @@ class AuthController {
         await authService.changePassword(email, userName, newPassword, confirmNewPassword);
         return successResponse(res, "Contraseña actualizada correctamente.");
     }
+
+    async requestReactivateAccount(req, res) {
+        const { email } = req.body;
+        await authService.requestReactivateAccount(email);
+        return successResponse(
+            res,
+            "Se ha enviado un correo electrónico con el enlace para reactivar tu cuenta."
+        );
+    }
+
+    async reactivateAccount(req, res) {
+        const { token_reactivate } = req.params;
+        const { email } = jwt.verify(token_reactivate, ENVIRONMENT.TOKEN_JWT_KEY);
+        await authService.reactivateAccount(email);
+        return successResponse(
+            res,
+            "Cuenta reactivada correctamente. Ya puedes iniciar sesión."
+        );
+    }
 }
 
 const authController = new AuthController();

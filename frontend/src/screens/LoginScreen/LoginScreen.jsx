@@ -3,11 +3,13 @@ import { Link } from "react-router";
 import { SlackLogo } from "../../Components/Ui/SlackLogo.jsx";
 import { LoginForm } from "../../Components/Forms/LoginForm/LoginForm.jsx";
 import { ForgotPasswordModal } from "../../Components/modal/ForgotPasswordModal.jsx";
+import { ReactivateAccountModal } from "../../Components/modal/ReactivateAccountModal.jsx";
 import { Footer } from "../../Components/Ui/Footer/Footer.jsx";
 import "./LoginScreen.css";
 
 export const LoginScreen = () => {
     const [showForgotModal, setShowForgotModal] = useState(false);
+    const [showReactivateModal, setShowReactivateModal] = useState(false);
 
     return (
         <div className="login-page">
@@ -45,6 +47,16 @@ export const LoginScreen = () => {
                             Recuperar contraseña
                         </button>
                     </p>
+                    <p>
+                        ¿Desactivaste tu cuenta?
+                        <button
+                            type="button"
+                            className="login-link login-link-btn"
+                            onClick={() => setShowReactivateModal(true)}
+                        >
+                            Reactivar cuenta
+                        </button>
+                    </p>
                 </footer>
             </main>
 
@@ -53,6 +65,12 @@ export const LoginScreen = () => {
             {showForgotModal && (
                 <ForgotPasswordModal
                     onClose={() => setShowForgotModal(false)}
+                />
+            )}
+
+            {showReactivateModal && (
+                <ReactivateAccountModal
+                    onClose={() => setShowReactivateModal(false)}
                 />
             )}
         </div>

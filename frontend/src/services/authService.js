@@ -143,6 +143,37 @@ export async function deleteUserMe(userToken) {
     return response_body;
 }
 
+export async function requestReactivateAccount(email) {
+    const response_http = await fetch(`${url_backend}/api/auth/reactivate-account`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+    });
+
+    const response_body = await response_http.json();
+    if (!response_body.ok) {
+        const error = new Error(response_body.message);
+        error.code = response_body.code || null;
+        throw error;
+    }
+    return response_body;
+}
+
+export async function confirmReactivateAccount(token) {
+    const response_http = await fetch(`${url_backend}/api/auth/reactivate-account/${token}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    const response_body = await response_http.json();
+    if (!response_body.ok) {
+        const error = new Error(response_body.message);
+        error.code = response_body.code || null;
+        throw error;
+    }
+    return response_body;
+}
+
 /* 
 JSON.stringify sirve para transformar un Objeto de JS en un JSON
 */

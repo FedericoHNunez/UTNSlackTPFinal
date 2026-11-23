@@ -7,6 +7,7 @@ import { ResetPasswordScreen } from "./screens/ResetPasswordScreen/ResetPassword
 import { UserProvider } from "./Context/UserContext/UserProvider";
 import { WorkspaceScreen } from "./screens/WorkspaceScreen/WorkspaceScreen";
 import { UserValidationScreen } from "./screens/UserValidationScreen/UserValidationScreen";
+import { ReactivateAccountScreen } from "./screens/ReactivateAccountScreen/ReactivateAccountScreen";
 import { ChannelLayout } from "./Layout/ChannelLayout/ChannelLayout";
 import { MessagesPrivateLayout } from "./Layout/DirectMessagesLayout/DirectMessagesLayout";
 import { MessagesChannelScreen } from "./screens/MessagesChannelScreen/MessagesChannelScreen";
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/auth/reset-password" element={<ResetPasswordScreen />} />
         <Route path="/auth/verify-email/:token" element={<UserValidationScreen />} />
+        <Route path="/auth/reactivate-account/:token" element={<ReactivateAccountScreen />} />
         <Route element={<AuthMiddleware />}>
           <Route element={<WorkspaceProvider />}>
             <Route path="/workspaces" element={<WorkspaceScreen />} />

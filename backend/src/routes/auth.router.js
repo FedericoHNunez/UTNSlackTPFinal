@@ -509,4 +509,135 @@ authRouter.patch('/reset-password', authController.changePassword);
  *       500:
  *         $ref: '#/components/responses/ServerError500'
  */
+authRouter.post('/reactivate-account', authController.requestReactivateAccount);
+/**
+ * @openapi
+ * /auth/reactivate-account:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Solicitar reactivación de cuenta desactivada
+ *     description: >
+ *       Valida que el correo exista en la base de datos y corresponda a una cuenta inactiva (`active: false`),
+ *       y envía un correo electrónico con un token JWT para reactivar la cuenta (válido por 1 día).
+ *     security: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [email]
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: juan@example.com
+ *     responses:
+ *       200:
+ *         description: Correo de reactivación enviado correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessEnvelope'
+ *             example:
+ *               ok: true
+ *               status: 200
+ *               message: Se ha enviado un correo electrónico con el enlace para reactivar tu cuenta.
+ *               data: null
+ *       400:
+ *         description: Email con formato inválido o la cuenta ya se encuentra activa.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorEnvelope'
+ *             examples:
+ *               email_invalido:
+ *                 summary: Email faltante o con formato inválido
+ *                 value:
+ *                   ok: false
+ *                   status: 400
+ *                   code: INVALID_EMAIL
+ *                   message: Debes ingresar un correo electrónico con formato válido.
+ *               ya_activa:
+ *                 summary: La cuenta ya está activa
+ *                 value:
+ *                   ok: false
+ *                   status: 400
+ *                   code: ALREADY_ACTIVE
+ *                   message: La cuenta ya se encuentra activa.
+ *       404:
+ *         description: No existe un usuario registrado con ese correo electrónico.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorEnvelope'
+ *             example:
+ *               ok: false
+ *               status: 404
+ *               code: USER_NOT_FOUND
+ *               message: No existe ningún usuario registrado con ese correo electrónico.
+ *       500:
+ *         $ref: '#/components/responses/ServerError500'
+ */
+authRouter.get('/reactivate-account/:token_reactivate', authController.reactivateAccount);
+/**
+ * @openapi
+ * /auth/reactivate-account/{token_reactivate}:
+ *   get:
+ *     tags: [Auth]
+ *     summary: Confirmar reactivación de cuenta mediante token
+ *     description: >
+ *       Verifica el token JWT enviado por correo electrónico y vuelve a activar la cuenta
+ *       del usuario (`active: true`) para permitirle iniciar sesión nuevamente.
+ *     security: []
+ *     parameters:
+ *       - in: path
+ *         name: token_reactivate
+ *         required: true
+ *         description: Token JWT de reactivación recibido por email (válido por 1 día).
+ *         schema:
+ *           type: string
+ *           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *     responses:
+ *       200:
+ *         description: Cuenta reactivada correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessEnvelope'
+ *             example:
+ *               ok: true
+ *               status: 200
+ *               message: Cuenta reactivada correctamente. Ya puedes iniciar sesión.
+ *               data: null
+ *       400:
+ *         description: El usuario no existe o la cuenta ya estaba activa.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorEnvelope'
+ *             examples:
+ *               enlace_invalido:
+ *                 summary: Usuario no encontrado
+ *                 value:
+ *                   ok: false
+ *                   status: 400
+ *                   code: null
+ *                   message: El enlace de reactivación no es válido o ha expirado.
+ *               ya_activa:
+ *                 summary: La cuenta ya está activa
+ *                 value:
+ *                   ok: false
+ *                   status: 400
+ *                   code: ALREADY_ACTIVE
+ *                   message: La cuenta ya se encuentra activa.
+ *       401:
+ *         description: El token de reactivación expiró o es inválido.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorEnvelope'
+ *       500:
+ *         $ref: '#/components/responses/ServerError500'
+ */
 export default authRouter;

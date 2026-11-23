@@ -194,6 +194,82 @@ class AuthService {
         return userUpdated.userName;
     }
 
+    async requestReactivateAccount(email) {
+        if (!email || !isValidEmail(email)) {
+            throw new ServerError(
+                "Debes ingresar un correo electrónico con formato válido.",
+                400,
+                "INVALID_EMAIL"
+            );
+        }
+
+        const user = await userRepository.getByEmail(email);
+        if (!user) {
+            throw new ServerError(
+                "No existe ningún usuario registrado con ese correo electrónico.",
+                404,
+                "USER_NOT_FOUND"
+            );
+        }
+
+        if (user.active) {
+            throw new ServerError(
+                "La cuenta ya se encuentra activa.",
+                400,
+                "ALREADY_ACTIVE"
+            );
+        }
+
+        const reactivate_token = tokenHelper.createVerifyEmailToken(
+            { email: user.email },
+            "1d"
+        );
+
+        const reactivateEmail = await emailFormater(
+            user.userName,
+            user.email,
+            reactivate_token,
+            "Reactivación de Cuenta en Slak",
+            "reactivateAccountEmail"
+        );
+
+        await mailer_transporter.sendMail(reactivateEmail);
+        return;
+    }
+
+    async reactivateAccount(email) {
+        if (!email) {
+            throw new ServerError(
+                "El enlace de reactivación no es válido o ha expirado.",
+                401,
+                "INVALID_TOKEN"
+            );
+        }
+
+        const userFound = await userRepository.getByEmail(email);
+        if (!userFound) {
+            throw new ServerError(
+                "El enlace de reactivación no es válido o ha expirado.",
+                400
+            );
+        }
+
+        if (userFound.active) {
+            throw new ServerError(
+                "La cuenta ya se encuentra activa.",
+                400,
+                "ALREADY_ACTIVE"
+            );
+        }
+
+        const userReactivated = await userRepository.updateById(
+            userFound._id,
+            { active: true }
+        );
+
+        return userReactivated.userName;
+    }
+
 }
 
 const authService = new AuthService();

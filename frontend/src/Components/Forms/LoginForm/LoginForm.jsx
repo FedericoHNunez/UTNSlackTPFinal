@@ -5,12 +5,14 @@ import useRequest from "../../../hooks/fetch/useRequest.js";
 import { login } from "../../../services/authService.js";
 import { UserContext } from "../../../Context/UserContext/UserContext.jsx";
 import { ResendVerificationModal } from "../../modal/ResendVerificationModal.jsx";
+import { ReactivateAccountModal } from "../../modal/ReactivateAccountModal.jsx";
 import "./LoginForm.css";
 
 export const LoginForm = () => {
     const navigate = useNavigate();
     const { setUserToken, setUserData } = useContext(UserContext);
     const [showResendModal, setShowResendModal] = useState(false);
+    const [showReactivateModal, setShowReactivateModal] = useState(false);
 
     const initial_state = { email: "", password: "" };
     const { formState, handleChangeInput } = useForm(initial_state);
@@ -63,13 +65,25 @@ export const LoginForm = () => {
                         <p>{error}</p>
                         {errorCode === "EMAIL_NOT_VERIFIED" && (
                             <div className="login-resend-box">
-                                <p>¿No lo encuantras? Envia uno nuevo</p>
+                                <p>¿No lo encuentras? Envía uno nuevo</p>
                                 <button
                                     type="button"
                                     className="login-link login-link-btn"
                                     onClick={() => setShowResendModal(true)}
                                 >
                                     Enviar mail de validación
+                                </button>
+                            </div>
+                        )}
+                        {errorCode === "ACCOUNT_INACTIVE" && (
+                            <div className="login-resend-box">
+                                <p>¿Deseas recuperar el acceso a tu cuenta?</p>
+                                <button
+                                    type="button"
+                                    className="login-link login-link-btn"
+                                    onClick={() => setShowReactivateModal(true)}
+                                >
+                                    Enviar mail de reactivación
                                 </button>
                             </div>
                         )}
@@ -96,9 +110,15 @@ export const LoginForm = () => {
                     onClose={() => setShowResendModal(false)}
                 />
             )}
+
+            {showReactivateModal && (
+                <ReactivateAccountModal
+                    initialEmail={formState.email}
+                    onClose={() => setShowReactivateModal(false)}
+                />
+            )}
         </>
     );
 };
 
 export default LoginForm;
-
