@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useForm from "../../hooks/useForm.js";
 import useRequest from "../../hooks/fetch/useRequest.js";
 import { requestReactivateAccount } from "../../services/authService.js";
@@ -9,8 +10,18 @@ export const ReactivateAccountModal = ({
     initialEmail = ""
 }) => {
     const initial_form = { email: initialEmail };
-    const { formState, handleChangeInput } = useForm(initial_form);
+    const { formState, handleChangeInput, resetForm } = useForm(initial_form);
     const { loading, error, response, sendRequest } = useRequest();
+
+    useEffect(() => {
+        if (isOpen && response && !loading && !error) {
+            const timer = setTimeout(() => {
+                resetForm();
+                if (onClose) onClose();
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen, response, loading, error]);
 
     const onSubmit = (e) => {
         e.preventDefault();

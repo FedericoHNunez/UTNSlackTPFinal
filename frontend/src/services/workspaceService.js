@@ -31,7 +31,7 @@ export async function createWorkspaceService(name, description, userToken) {
 }
 
 export async function inviteNewUserService(email, token) {
-    const response = await fetch(`${url_backend}/api/workspaces/invite-new-user`, {
+    const response_http = await fetch(`${url_backend}/api/workspaces/invite-new-user`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${token}`,
@@ -39,7 +39,13 @@ export async function inviteNewUserService(email, token) {
         },
         body: JSON.stringify({ email }),
     });
-    return response.json();
+
+    const response_body = await response_http.json();
+    if (!response_body.ok) {
+        throw new Error(response_body.message);
+    }
+
+    return response_body;
 }
 
 export async function deleteWorkspaceService(workspace_id, token) {

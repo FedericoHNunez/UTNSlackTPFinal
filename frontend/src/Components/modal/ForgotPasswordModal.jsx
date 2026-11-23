@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useForm from "../../hooks/useForm.js";
 import useRequest from "../../hooks/fetch/useRequest.js";
 import { resetPassword } from "../../services/authService.js";
@@ -5,8 +6,18 @@ import { Modal } from "./Modal.jsx";
 
 export const ForgotPasswordModal = ({ isOpen = true, onClose }) => {
     const initial_form = { email: "" };
-    const { formState, handleChangeInput } = useForm(initial_form);
+    const { formState, handleChangeInput, resetForm } = useForm(initial_form);
     const { loading, error, response, sendRequest } = useRequest();
+
+    useEffect(() => {
+        if (isOpen && response && !loading && !error) {
+            const timer = setTimeout(() => {
+                resetForm();
+                if (onClose) onClose();
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen, response, loading, error]);
 
     const onSubmit = (e) => {
         e.preventDefault();

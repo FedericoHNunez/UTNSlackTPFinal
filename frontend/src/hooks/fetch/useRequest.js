@@ -12,6 +12,9 @@ function useRequest() {
         try {
             if (showLoading) {
                 setLoading(true)
+                setResponse(null)
+                setError(null)
+                setErrorCode(null)
             }
             const response = await requestFn()
             setResponse(response)

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../Context/UserContext/UserContext.jsx";
 import { Modal } from "./Modal.jsx";
 
@@ -15,24 +15,53 @@ export const DeactivateAccountModal = ({
         handleDeleteUser
     } = useContext(UserContext);
 
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+
+    const handleClose = () => {
+        setHasSubmitted(false);
+        if (onClose) onClose();
+    };
+
     useEffect(() => {
-        if (isOpen && delete_user_response?.ok) {
-            if (onClose) onClose();
-            if (typeof onDeactivated === "function") {
-                onDeactivated();
-            }
+        if (!isOpen) {
+            setHasSubmitted(false);
         }
-    }, [delete_user_response]);
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (
+            isOpen &&
+            hasSubmitted &&
+            delete_user_response?.ok &&
+            !delete_user_loading &&
+            !delete_user_error
+        ) {
+            const timer = setTimeout(() => {
+                handleClose();
+                if (typeof onDeactivated === "function") {
+                    onDeactivated();
+                }
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [
+        isOpen,
+        hasSubmitted,
+        delete_user_response,
+        delete_user_loading,
+        delete_user_error
+    ]);
 
     const handleConfirmDeactivate = (e) => {
         e.preventDefault();
+        setHasSubmitted(true);
         handleDeleteUser();
     };
 
     return (
         <Modal
             isOpen={isOpen}
-            onClose={onClose}
+            onClose={handleClose}
             title="Desactivar cuenta"
         >
             <p className="modal-subtitle">
@@ -52,7 +81,7 @@ export const DeactivateAccountModal = ({
                 method="POST"
                 onSubmit={handleConfirmDeactivate}
             >
-                {delete_user_error && !delete_user_loading && (
+                {hasSubmitted && delete_user_error && !delete_user_loading && (
                     <div
                         className="login-alert login-alert-error"
                         role="status"
@@ -62,11 +91,25 @@ export const DeactivateAccountModal = ({
                     </div>
                 )}
 
+                {hasSubmitted &&
+                    delete_user_response?.ok &&
+                    !delete_user_loading &&
+                    !delete_user_error && (
+                        <div
+                            className="login-alert login-alert-success"
+                            role="status"
+                            aria-live="polite"
+                        >
+                            {delete_user_response.message ||
+                                "Cuenta desactivada correctamente."}
+                        </div>
+                    )}
+
                 <div className="modal-actions">
                     <button
                         type="button"
                         className="modal-cancel-btn"
-                        onClick={onClose}
+                        onClick={handleClose}
                         disabled={delete_user_loading}
                     >
                         Cancelar

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
 import { Modal } from "./Modal.jsx";
@@ -17,22 +17,51 @@ export const DeleteChannelModal = ({
         handleDeleteChannel
     } = useContext(ChannelContext);
 
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+
+    const handleClose = () => {
+        setHasSubmitted(false);
+        if (onClose) onClose();
+    };
+
     useEffect(() => {
-        if (isOpen && delete_channel_response?.ok) {
-            if (onClose) onClose();
-            navigate(`/workspaces/${workspace_id}/channels`);
+        if (!isOpen) {
+            setHasSubmitted(false);
         }
-    }, [delete_channel_response]);
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (
+            isOpen &&
+            hasSubmitted &&
+            delete_channel_response?.ok &&
+            !delete_channel_loading &&
+            !delete_channel_error
+        ) {
+            const timer = setTimeout(() => {
+                handleClose();
+                navigate(`/workspaces/${workspace_id}/channels`);
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [
+        isOpen,
+        hasSubmitted,
+        delete_channel_response,
+        delete_channel_loading,
+        delete_channel_error
+    ]);
 
     const handleConfirmDelete = (e) => {
         e.preventDefault();
+        setHasSubmitted(true);
         handleDeleteChannel(channel_id, workspace_id);
     };
 
     return (
         <Modal
             isOpen={isOpen}
-            onClose={onClose}
+            onClose={handleClose}
             title="Eliminar canal"
         >
             <p className="modal-subtitle">
@@ -46,7 +75,7 @@ export const DeleteChannelModal = ({
                 method="POST"
                 onSubmit={handleConfirmDelete}
             >
-                {delete_channel_error && !delete_channel_loading && (
+                {hasSubmitted && delete_channel_error && !delete_channel_loading && (
                     <div
                         className="login-alert login-alert-error"
                         role="status"
@@ -56,11 +85,25 @@ export const DeleteChannelModal = ({
                     </div>
                 )}
 
+                {hasSubmitted &&
+                    delete_channel_response?.ok &&
+                    !delete_channel_loading &&
+                    !delete_channel_error && (
+                        <div
+                            className="login-alert login-alert-success"
+                            role="status"
+                            aria-live="polite"
+                        >
+                            {delete_channel_response.message ||
+                                "Canal eliminado correctamente."}
+                        </div>
+                    )}
+
                 <div className="modal-actions">
                     <button
                         type="button"
                         className="modal-cancel-btn"
-                        onClick={onClose}
+                        onClick={handleClose}
                         disabled={delete_channel_loading}
                     >
                         Cancelar

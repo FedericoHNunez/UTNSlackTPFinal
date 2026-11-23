@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useForm from "../../hooks/useForm.js";
 import { MembersContext } from "../../Context/MembersContext/MembersContext.jsx";
@@ -17,17 +17,47 @@ export const InviteMemberModal = ({
         handleInviteMember
     } = useContext(MembersContext);
 
+    const [hasSubmitted, setHasSubmitted] = useState(false);
     const initial_form = { email: "", role: "user" };
     const { formState, handleChangeInput, resetForm } = useForm(initial_form);
 
     const handleClose = () => {
+        setHasSubmitted(false);
         resetForm();
         if (onClose) onClose();
     };
 
+    useEffect(() => {
+        if (!isOpen) {
+            setHasSubmitted(false);
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (
+            isOpen &&
+            hasSubmitted &&
+            invite_member_response &&
+            !invite_member_loading &&
+            !invite_member_error
+        ) {
+            const timer = setTimeout(() => {
+                handleClose();
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [
+        isOpen,
+        hasSubmitted,
+        invite_member_response,
+        invite_member_loading,
+        invite_member_error
+    ]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!formState.email.trim()) return;
+        setHasSubmitted(true);
         handleInviteMember(
             formState.email.trim(),
             formState.role,
@@ -81,7 +111,7 @@ export const InviteMemberModal = ({
                     </select>
                 </div>
 
-                {invite_member_error && !invite_member_loading && (
+                {hasSubmitted && invite_member_error && !invite_member_loading && (
                     <div
                         className="login-alert login-alert-error"
                         role="status"
@@ -91,7 +121,8 @@ export const InviteMemberModal = ({
                     </div>
                 )}
 
-                {invite_member_response &&
+                {hasSubmitted &&
+                    invite_member_response &&
                     !invite_member_loading &&
                     !invite_member_error && (
                         <div

@@ -12,20 +12,44 @@ export const CreateChannelModal = () => {
     } = useContext(ChannelContext);
 
     const [showCreateChannelModal, setShowCreateChannelModal] = useState(false);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
     const initial_form = { name: "", description: "" };
-    const { formState, handleChangeInput } = useForm(initial_form);
+    const { formState, handleChangeInput, resetForm } = useForm(initial_form);
 
-    const handleOpenModal = () => setShowCreateChannelModal(true);
-    const handleCloseModal = () => setShowCreateChannelModal(false);
+    const handleOpenModal = () => {
+        setHasSubmitted(false);
+        setShowCreateChannelModal(true);
+    };
+    const handleCloseModal = () => {
+        setHasSubmitted(false);
+        resetForm();
+        setShowCreateChannelModal(false);
+    };
 
     useEffect(() => {
-        if (create_channel_response?.data?.channel) {
-            handleCloseModal();
+        if (
+            showCreateChannelModal &&
+            hasSubmitted &&
+            create_channel_response?.data?.channel &&
+            !create_channel_loading &&
+            !create_channel_error
+        ) {
+            const timer = setTimeout(() => {
+                handleCloseModal();
+            }, 1500);
+            return () => clearTimeout(timer);
         }
-    }, [create_channel_response]);
+    }, [
+        showCreateChannelModal,
+        hasSubmitted,
+        create_channel_response,
+        create_channel_loading,
+        create_channel_error
+    ]);
 
     const onSubmit = (e) => {
         e.preventDefault();
+        setHasSubmitted(true);
         handleCreateChannel(formState.name, formState.description);
     };
 
@@ -81,11 +105,21 @@ export const CreateChannelModal = () => {
                         />
                     </div>
 
-                    {create_channel_error && !create_channel_loading && (
+                    {hasSubmitted && create_channel_error && !create_channel_loading && (
                         <div className="login-alert login-alert-error">
                             {create_channel_error}
                         </div>
                     )}
+
+                    {hasSubmitted &&
+                        create_channel_response?.data?.channel &&
+                        !create_channel_loading &&
+                        !create_channel_error && (
+                            <div className="login-alert login-alert-success">
+                                {create_channel_response.message ||
+                                    "Canal creado correctamente."}
+                            </div>
+                        )}
 
                     <div className="modal-actions">
                         <button

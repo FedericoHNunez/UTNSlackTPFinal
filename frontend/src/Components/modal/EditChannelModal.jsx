@@ -16,25 +16,49 @@ export const EditChannelModal = ({
         handleEditChannel
     } = useContext(ChannelContext);
 
+    const [hasSubmitted, setHasSubmitted] = useState(false);
     const [formState, setFormState] = useState({
         name: "",
         description: ""
     });
 
+    const handleClose = () => {
+        setHasSubmitted(false);
+        if (onClose) onClose();
+    };
+
     useEffect(() => {
         if (isOpen && currentChannel) {
+            setHasSubmitted(false);
             setFormState({
                 name: currentChannel.channel_name || "",
                 description: currentChannel.channel_description || ""
             });
+        } else if (!isOpen) {
+            setHasSubmitted(false);
         }
     }, [isOpen, currentChannel]);
 
     useEffect(() => {
-        if (isOpen && edit_channel_response?.data?.channel) {
-            if (onClose) onClose();
+        if (
+            isOpen &&
+            hasSubmitted &&
+            edit_channel_response?.data?.channel &&
+            !edit_channel_loading &&
+            !edit_channel_error
+        ) {
+            const timer = setTimeout(() => {
+                handleClose();
+            }, 1500);
+            return () => clearTimeout(timer);
         }
-    }, [edit_channel_response]);
+    }, [
+        isOpen,
+        hasSubmitted,
+        edit_channel_response,
+        edit_channel_loading,
+        edit_channel_error
+    ]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,6 +68,7 @@ export const EditChannelModal = ({
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!formState.name.trim() || !formState.description.trim()) return;
+        setHasSubmitted(true);
         handleEditChannel(
             formState.name.trim(),
             formState.description.trim(),
@@ -55,7 +80,7 @@ export const EditChannelModal = ({
     return (
         <Modal
             isOpen={isOpen}
-            onClose={onClose}
+            onClose={handleClose}
             title="Editar canal"
         >
             <p className="modal-subtitle">
@@ -94,7 +119,7 @@ export const EditChannelModal = ({
                     />
                 </div>
 
-                {edit_channel_error && !edit_channel_loading && (
+                {hasSubmitted && edit_channel_error && !edit_channel_loading && (
                     <div
                         className="login-alert login-alert-error"
                         role="status"
@@ -104,11 +129,25 @@ export const EditChannelModal = ({
                     </div>
                 )}
 
+                {hasSubmitted &&
+                    edit_channel_response?.data?.channel &&
+                    !edit_channel_loading &&
+                    !edit_channel_error && (
+                        <div
+                            className="login-alert login-alert-success"
+                            role="status"
+                            aria-live="polite"
+                        >
+                            {edit_channel_response.message ||
+                                "Canal actualizado correctamente."}
+                        </div>
+                    )}
+
                 <div className="modal-actions">
                     <button
                         type="button"
                         className="modal-cancel-btn"
-                        onClick={onClose}
+                        onClick={handleClose}
                         disabled={edit_channel_loading}
                     >
                         Cancelar

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import useForm from "../../hooks/useForm.js";
 import { useInviteNewUser } from "../../hooks/fetch/useWorkspace.js";
 import { UserContext } from "../../Context/UserContext/UserContext.jsx";
@@ -7,13 +7,33 @@ import { Modal } from "./Modal.jsx";
 export const InvitationModal = ({ isOpen = true, onClose }) => {
     const { userToken } = useContext(UserContext);
     const initial_form = { email: "" };
-    const { formState, handleChangeInput } = useForm(initial_form);
+    const { formState, handleChangeInput, resetForm } = useForm(initial_form);
     const {
         invite_new_user_loading,
         invite_new_user_error,
         invite_new_user_response,
         inviteNewUser
     } = useInviteNewUser();
+
+    useEffect(() => {
+        if (
+            isOpen &&
+            invite_new_user_response &&
+            !invite_new_user_loading &&
+            !invite_new_user_error
+        ) {
+            const timer = setTimeout(() => {
+                resetForm();
+                if (onClose) onClose();
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [
+        isOpen,
+        invite_new_user_response,
+        invite_new_user_loading,
+        invite_new_user_error
+    ]);
 
     const onSubmit = (e) => {
         e.preventDefault();

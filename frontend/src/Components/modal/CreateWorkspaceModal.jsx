@@ -12,20 +12,43 @@ export const CreateWorkspaceModal = ({ isOpen = false, onClose }) => {
     } = useContext(WorkspaceContext);
 
     const [step, setStep] = useState(1);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
     const initial_form = { name: "", description: "" };
     const { formState, handleChangeInput, resetForm } = useForm(initial_form);
 
     const handleClose = () => {
         setStep(1);
+        setHasSubmitted(false);
         resetForm();
         if (onClose) onClose();
     };
 
     useEffect(() => {
-        if (isOpen && create_workspace_response?.data?.workspace) {
-            handleClose();
+        if (!isOpen) {
+            setHasSubmitted(false);
         }
-    }, [create_workspace_response]);
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (
+            isOpen &&
+            hasSubmitted &&
+            create_workspace_response?.data?.workspace &&
+            !create_workspace_loading &&
+            !create_workspace_error
+        ) {
+            const timer = setTimeout(() => {
+                handleClose();
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [
+        isOpen,
+        hasSubmitted,
+        create_workspace_response,
+        create_workspace_loading,
+        create_workspace_error
+    ]);
 
     const handleNextStep = (e) => {
         e.preventDefault();
@@ -36,6 +59,7 @@ export const CreateWorkspaceModal = ({ isOpen = false, onClose }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!formState.name.trim() || !formState.description.trim()) return;
+        setHasSubmitted(true);
         handleCreateWorkspace(formState.name.trim(), formState.description.trim());
     };
 
@@ -112,11 +136,21 @@ export const CreateWorkspaceModal = ({ isOpen = false, onClose }) => {
                             />
                         </div>
 
-                        {create_workspace_error && !create_workspace_loading && (
+                        {hasSubmitted && create_workspace_error && !create_workspace_loading && (
                             <div className="login-alert login-alert-error">
                                 {create_workspace_error}
                             </div>
                         )}
+
+                        {hasSubmitted &&
+                            create_workspace_response?.data?.workspace &&
+                            !create_workspace_loading &&
+                            !create_workspace_error && (
+                                <div className="login-alert login-alert-success">
+                                    {create_workspace_response.message ||
+                                        "Espacio de trabajo creado correctamente."}
+                                </div>
+                            )}
 
                         <div className="modal-actions">
                             <button
