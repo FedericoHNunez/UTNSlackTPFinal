@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router";
+import { Link } from "react-router";
 import "./WorkspaceNavBarDesktop.css";
 import { useDropdown } from "../../../hooks/useDropdown";
 import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
@@ -6,15 +6,13 @@ import { UserProfileMenu } from "../../Dropdown/UserProfileMenu";
 import { WorkspaceInfoDropdown } from "../../Dropdown/WorkspaceInfoDropdown";
 
 export function WorkspaceNavbarDesktop() {
-    const location = useLocation();
     const {
         currentWorkspace_id,
         currentWorkspaceObj,
         currentWorkspaceInitials,
+        isDirectMessagesActive,
         handleBackToWorkspaces
     } = useWorkspaceNav();
-
-    const isDirectMessagesActive = location.pathname.includes("/MessagesPrivate");
 
     const {
         isOpen: isWorkspaceInfoOpen,

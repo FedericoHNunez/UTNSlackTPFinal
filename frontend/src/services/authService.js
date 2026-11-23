@@ -128,6 +128,21 @@ export async function getUserMe(userToken) {
     return response_body;
 }
 
+export async function deleteUserMe(userToken) {
+    const response_http = await fetch(`${url_backend}/api/users/me`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${userToken}`
+        }
+    });
+
+    const response_body = await response_http.json();
+    if (!response_body.ok) {
+        throw new Error(response_body.message);
+    }
+    return response_body;
+}
+
 /* 
 JSON.stringify sirve para transformar un Objeto de JS en un JSON
 */

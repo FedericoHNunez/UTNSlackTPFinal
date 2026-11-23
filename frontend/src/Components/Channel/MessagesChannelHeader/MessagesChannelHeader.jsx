@@ -10,13 +10,8 @@ import {
 import { EditChannelModal } from "../../modal/EditChannelModal.jsx";
 import { DeleteChannelModal } from "../../modal/DeleteChannelModal.jsx";
 import { useDropdown } from "../../../hooks/useDropdown.js";
+import { ROLE_LABELS } from "../../../constants/roleConstants.js";
 import "./MessagesChannelHeader.css";
-
-const ROLE_LABELS = {
-    owner: "Owner",
-    admin: "Admin",
-    user: "Miembro"
-};
 
 export const MessagesChannelHeader = () => {
     const { workspace_id, channel_id } = useParams();

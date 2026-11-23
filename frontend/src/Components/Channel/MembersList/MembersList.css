@@ -31,13 +31,31 @@
 .members-list-link {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    padding: 0.55rem 0.8rem 0.55rem 1.2rem;
+    gap: 0.9rem;
+    padding: 0.5rem 0.8rem 0.5rem 1rem;
     border-radius: 0.6rem;
-    color: rgba(255, 255, 255, 0.82);
+    color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.members-list-avatar {
+    position: relative;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.members-list-avatar svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    display: block;
 }
 
 .members-list-status-dot {
@@ -45,6 +63,30 @@
     height: 0.8rem;
     border-radius: 50%;
     background-color: var(--color-accent-green);
+    flex-shrink: 0;
+}
+
+.members-list-avatar .members-list-status-dot {
+    position: absolute;
+    right: -0.25rem;
+    bottom: -0.25rem;
+    width: 0.95rem;
+    height: 0.95rem;
+    border: 0.2rem solid var(--color-sidebar-bg);
+}
+
+.members-list-name {
+    font-size: var(--font-size-p);
+    color: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.members-list-you {
+    font-size: var(--font-size-p);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
     flex-shrink: 0;
 }
 
@@ -57,4 +99,12 @@
     background-color: rgb(249, 237, 255);
     color: var(--color-primary);
     font-weight: 700;
+}
+
+.members-list-link.is-active .members-list-status-dot {
+    border-color: rgb(249, 237, 255);
+}
+
+.members-list-link.is-active .members-list-you {
+    color: rgba(73, 26, 84, 0.65);
 }

@@ -10,17 +10,14 @@ export function UserProfileDropdown({
     position = "side-bottom",
     userData,
     userInitial,
-    onLogout
+    onLogout,
+    onDeactivate
 }) {
     return (
         <DropdownMenu isOpen={isOpen} position={position}>
             <div className="user-profile-dropdown-header">
                 <div className="user-profile-dropdown-avatar">
                     <span>{userInitial}</span>
-                    <span
-                        className="user-profile-dropdown-status-dot"
-                        aria-hidden="true"
-                    />
                 </div>
                 <div className="user-profile-dropdown-info">
                     <span className="user-profile-dropdown-name">
@@ -40,7 +37,7 @@ export function UserProfileDropdown({
 
             <DropdownDivider />
 
-            <DropdownItem variant="danger" onClick={onLogout}>
+            <DropdownItem onClick={onLogout}>
                 <svg
                     width="16"
                     height="16"
@@ -57,6 +54,28 @@ export function UserProfileDropdown({
                     <line x1="21" y1="12" x2="9" y2="12" />
                 </svg>
                 <span>Cerrar sesión</span>
+            </DropdownItem>
+
+            <DropdownDivider />
+
+            <DropdownItem variant="danger" onClick={onDeactivate}>
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                >
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="8.5" cy="7" r="4" />
+                    <line x1="18" y1="8" x2="23" y2="13" />
+                    <line x1="23" y1="8" x2="18" y2="13" />
+                </svg>
+                <span>Desactivar cuenta</span>
             </DropdownItem>
         </DropdownMenu>
     );

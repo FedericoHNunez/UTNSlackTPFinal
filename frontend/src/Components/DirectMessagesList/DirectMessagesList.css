@@ -1,0 +1,252 @@
+/* =========================================================
+   DirectMessagesList - Lista de Conversaciones en Sidebar
+   ========================================================= */
+
+.dm-list-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.dm-list-header {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.4rem;
+    border-bottom: 0.1rem solid rgba(255, 255, 255, 0.14);
+}
+
+.dm-list-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+}
+
+.dm-list-header-title {
+    font-size: var(--font-size-h4);
+    font-weight: 800;
+    color: var(--color-white);
+    padding: 0.4rem 0.6rem;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dm-list-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.2rem;
+    height: 2.2rem;
+    padding: 0 0.7rem;
+    border-radius: 999rem;
+    background-color: rgba(255, 255, 255, 0.16);
+    color: var(--color-white);
+    font-size: 1.2rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.dm-list-header .search-form {
+    margin: 1rem 0 0;
+}
+
+.dm-list-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.dm-list-subtitle {
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.58);
+    padding: 0 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.dm-list-error {
+    font-size: var(--font-size-small);
+    color: #ff9bb8;
+    background-color: rgba(224, 30, 90, 0.16);
+    border: 0.1rem solid rgba(224, 30, 90, 0.35);
+    border-radius: 0.6rem;
+    padding: 0.8rem 1rem;
+    margin: 0 0.4rem 1rem;
+}
+
+.dm-list-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    overflow-y: auto;
+    padding-right: 0.2rem;
+}
+
+.dm-list-item {
+    width: 100%;
+}
+
+.dm-list-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.8rem;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.dm-list-link:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: var(--color-white);
+}
+
+.dm-list-link.is-active {
+    background-color: rgb(249, 237, 255);
+    color: var(--color-primary);
+}
+
+/* =========================================================
+   Avatar de cada conversación
+   ========================================================= */
+
+.dm-list-avatar {
+    position: relative;
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.18);
+}
+
+.dm-list-avatar svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.8rem;
+    display: block;
+}
+
+.dm-list-status-dot {
+    position: absolute;
+    right: -0.25rem;
+    bottom: -0.25rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background-color: var(--color-accent-green);
+    border: 0.2rem solid var(--color-sidebar-bg);
+}
+
+.dm-list-link.is-active .dm-list-status-dot {
+    border-color: rgb(249, 237, 255);
+}
+
+/* =========================================================
+   Contenido y datos del último mensaje
+   ========================================================= */
+
+.dm-list-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.dm-list-top-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6rem;
+}
+
+.dm-list-username {
+    font-size: var(--font-size-p);
+    font-weight: 700;
+    color: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dm-list-link.is-active .dm-list-username {
+    font-weight: 800;
+}
+
+.dm-list-time {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.58);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.dm-list-link:hover .dm-list-time {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.dm-list-link.is-active .dm-list-time {
+    color: var(--color-primary-btn);
+    font-weight: 700;
+}
+
+.dm-list-last-message {
+    font-size: var(--font-size-small);
+    color: rgba(255, 255, 255, 0.68);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.3;
+}
+
+.dm-list-link:hover .dm-list-last-message {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.dm-list-link.is-active .dm-list-last-message {
+    color: var(--color-text-secondary);
+    font-weight: 600;
+}
+
+/* =========================================================
+   Estado vacío
+   ========================================================= */
+
+.dm-list-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.8rem;
+    padding: 2.4rem 1.4rem;
+    margin-top: 0.8rem;
+    border-radius: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 0.1rem dashed rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.dm-list-empty-title {
+    font-size: var(--font-size-p);
+    font-weight: 700;
+    color: var(--color-white);
+}
+
+.dm-list-empty-text {
+    font-size: var(--font-size-small);
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.4;
+}

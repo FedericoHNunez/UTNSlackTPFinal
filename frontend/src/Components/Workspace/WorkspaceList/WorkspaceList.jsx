@@ -2,19 +2,9 @@ import { useContext, useState } from "react";
 import { Link } from "react-router";
 import { WorkspaceContext } from "../../../Context/WorkspaceContext/WorkspaceContext.jsx";
 import { CreateWorkspaceModal } from "../../modal/CreateWorkspaceModal.jsx";
+import { AVATAR_THEMES } from "../../../constants/avatarConstants.js";
+import { ROLE_LABELS } from "../../../constants/roleConstants.js";
 import "./WorkspaceList.css";
-
-const AVATAR_THEMES = [
-    "workspace-avatar-theme-1",
-    "workspace-avatar-theme-2",
-    "workspace-avatar-theme-3",
-];
-
-const ROLE_LABELS = {
-    owner: "Owner",
-    admin: "Admin",
-    user: "Miembro",
-};
 
 export const WorkspaceList = () => {
     const { get_workspace_error, currentWorkspaceList } = useContext(WorkspaceContext);

@@ -1,31 +1,23 @@
-import { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router";
 import { ConversationList } from "../../Components/DirectMessagesList/DirectMessagesList.jsx";
+import { useMobileLayer } from "../../hooks/useMobileLayer.js";
 import "../ChannelLayout/ChannelLayout.css";
 
 export const MessagesPrivateLayout = () => {
     const { user_id } = useParams();
-    const [mobileLayer, setMobileLayer] = useState(user_id ? "chat" : "members");
-
-    useEffect(() => {
-        if (user_id) {
-            setMobileLayer("chat");
-        } else {
-            setMobileLayer("members");
-        }
-    }, [user_id]);
-
-    const handleSidebarClick = (e) => {
-        if (e.target.closest("a")) {
-            setMobileLayer("chat");
-        }
-    };
+    const {
+        isSidebarActive,
+        isChatActive,
+        handleSidebarClick,
+        showChatLayer,
+        showSidebarLayer
+    } = useMobileLayer(user_id, "members");
 
     return (
         <>
             <aside
                 className={`channel-layout-aside ${
-                    mobileLayer === "members" ? "is-mobile-active" : "is-mobile-hidden"
+                    isSidebarActive ? "is-mobile-active" : "is-mobile-hidden"
                 }`}
                 aria-label="Lista de mensajes directos"
                 onClick={handleSidebarClick}
@@ -36,20 +28,20 @@ export const MessagesPrivateLayout = () => {
                         <button
                             type="button"
                             className="channel-layout-layer-btn"
-                            onClick={() => setMobileLayer("chat")}
+                            onClick={showChatLayer}
                         >
                             <span>Ir al chat →</span>
                         </button>
                     </header>
                 )}
                 <div className="channel-layout-aside-content">
-          <ConversationList />
+                    <ConversationList />
                 </div>
             </aside>
 
             <section
                 className={`channel-layout-section ${
-                    mobileLayer === "chat" ? "is-mobile-active" : "is-mobile-hidden"
+                    isChatActive ? "is-mobile-active" : "is-mobile-hidden"
                 }`}
                 aria-label="Conversación privada"
             >
@@ -57,7 +49,7 @@ export const MessagesPrivateLayout = () => {
                     <button
                         type="button"
                         className="channel-layout-back-btn"
-                        onClick={() => setMobileLayer("members")}
+                        onClick={showSidebarLayer}
                     >
                         <span>← Mensajes directos</span>
                     </button>
@@ -71,4 +63,3 @@ export const MessagesPrivateLayout = () => {
 };
 
 export default MessagesPrivateLayout;
-

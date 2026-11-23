@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link } from "react-router";
 import "./WorkspaceNavBarMobile.css";
 import { useDropdown } from "../../../hooks/useDropdown";
 import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
@@ -7,17 +6,16 @@ import { UserProfileMenu } from "../../Dropdown/UserProfileMenu";
 import { WorkspaceInfoDropdown } from "../../Dropdown/WorkspaceInfoDropdown";
 
 export function WorkspaceNavbarMobile() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const location = useLocation();
-
     const {
         currentWorkspace_id,
         currentWorkspaceObj,
         currentWorkspaceInitials,
+        isDirectMessagesActive,
+        isMenuOpen,
+        toggleMobileMenu,
+        closeMobileMenu,
         handleBackToWorkspaces
     } = useWorkspaceNav();
-
-    const isDirectMessagesActive = location.pathname.includes("/MessagesPrivate");
 
     const {
         isOpen: isWorkspaceInfoOpen,
@@ -26,10 +24,7 @@ export function WorkspaceNavbarMobile() {
         dropdownRef: workspaceInfoRef
     } = useDropdown();
 
-    const handleCloseMenu = () => {
-        setIsMenuOpen(false);
-        closeWorkspaceInfo();
-    };
+    const handleCloseMenu = () => closeMobileMenu(closeWorkspaceInfo);
 
     return (
         <div className="workspace-nav-mobile">
@@ -38,7 +33,7 @@ export function WorkspaceNavbarMobile() {
                 className={`workspace-nav-mobile-toggle ${isMenuOpen ? "is-open" : ""}`}
                 aria-label={isMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
                 aria-expanded={isMenuOpen}
-                onClick={() => setIsMenuOpen((prev) => !prev)}
+                onClick={toggleMobileMenu}
             >
                 <span className="workspace-nav-mobile-burger-line" />
                 <span className="workspace-nav-mobile-burger-line" />

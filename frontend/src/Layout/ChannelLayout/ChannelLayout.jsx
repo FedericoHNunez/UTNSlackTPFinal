@@ -1,34 +1,23 @@
-import { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router";
 import { ChannelScreen } from "../../screens/ChannelScreen/ChannelScreen.jsx";
+import { useMobileLayer } from "../../hooks/useMobileLayer.js";
 import "./ChannelLayout.css";
-
-
 
 export const ChannelLayout = () => {
     const { channel_id } = useParams();
-    const [mobileLayer, setMobileLayer] = useState(channel_id ? "chat" : "channels");
-
-    // Cambia automáticamente a la capa de chat en móvil cuando se selecciona un canal
-    useEffect(() => {
-        if (channel_id) {
-            setMobileLayer("chat");
-        } else {
-            setMobileLayer("channels");
-        }
-    }, [channel_id]);
-
-    const handleSidebarClick = (e) => {
-        if (e.target.closest("a")) {
-            setMobileLayer("chat");
-        }
-    };
+    const {
+        isSidebarActive,
+        isChatActive,
+        handleSidebarClick,
+        showChatLayer,
+        showSidebarLayer
+    } = useMobileLayer(channel_id, "channels");
 
     return (
         <>
             <aside
                 className={`channel-layout-aside ${
-                    mobileLayer === "channels" ? "is-mobile-active" : "is-mobile-hidden"
+                    isSidebarActive ? "is-mobile-active" : "is-mobile-hidden"
                 }`}
                 aria-label="Lista de canales"
                 onClick={handleSidebarClick}
@@ -39,7 +28,7 @@ export const ChannelLayout = () => {
                         <button
                             type="button"
                             className="channel-layout-layer-btn"
-                            onClick={() => setMobileLayer("chat")}
+                            onClick={showChatLayer}
                         >
                             <span>Ir al chat →</span>
                         </button>
@@ -52,7 +41,7 @@ export const ChannelLayout = () => {
 
             <section
                 className={`channel-layout-section ${
-                    mobileLayer === "chat" ? "is-mobile-active" : "is-mobile-hidden"
+                    isChatActive ? "is-mobile-active" : "is-mobile-hidden"
                 }`}
                 aria-label="Mensajes del canal"
             >
@@ -60,7 +49,7 @@ export const ChannelLayout = () => {
                     <button
                         type="button"
                         className="channel-layout-back-btn"
-                        onClick={() => setMobileLayer("channels")}
+                        onClick={showSidebarLayer}
                     >
                         <span>← Canales</span>
                     </button>
@@ -72,4 +61,3 @@ export const ChannelLayout = () => {
         </>
     );
 };
-

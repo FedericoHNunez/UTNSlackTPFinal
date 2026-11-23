@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
 import { UserContext } from "./UserContext.jsx";
 import { getUserMe } from "../../services/authService.js";
+import { useDeleteUser } from "../../hooks/fetch/useUser.js";
 
 export const UserProvider = ({ children }) => {
     const [userToken, setUserToken] = useState(
         () => localStorage.getItem("auth_token") || null
     );
     const [userData, setUserData] = useState(null);
+
+    const {
+        delete_user_loading,
+        delete_user_error,
+        delete_user_response,
+        deleteUser
+    } = useDeleteUser();
 
     useEffect(() => {
         if (userToken) {
@@ -30,12 +38,21 @@ export const UserProvider = ({ children }) => {
         }
     };
 
+    const handleDeleteUser = () => {
+        if (!userToken) return;
+        deleteUser(userToken);
+    };
+
     const values = {
         userToken,
         setUserToken,
         userData,
         setUserData,
-        fetchUserData
+        fetchUserData,
+        delete_user_loading,
+        delete_user_error,
+        delete_user_response,
+        handleDeleteUser
     };
 
     return (

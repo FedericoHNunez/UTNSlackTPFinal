@@ -3,13 +3,8 @@ import {
     DropdownItem,
     DropdownDivider
 } from "./DropdownMenu";
+import { ROLE_LABELS } from "../../constants/roleConstants.js";
 import "./WorkspaceSettingsDropdown.css";
-
-const ROLE_LABELS = {
-    owner: "Owner",
-    admin: "Admin",
-    user: "Miembro"
-};
 
 export function WorkspaceSettingsDropdown({
     isOpen,
