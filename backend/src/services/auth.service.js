@@ -68,8 +68,15 @@ class AuthService {
             throw new ServerError("Credenciales inválidas. Verifica tus datos e inténtalo nuevamente.", 401, "INVALID_CREDENTIALS");
         }
         const userPasswordMatch = await compareHash(password, user.password);
-        if (!userPasswordMatch || !user.active) {
+        if (!userPasswordMatch) {
             throw new ServerError("Credenciales inválidas. Verifica tus datos e inténtalo nuevamente.", 401, "INVALID_CREDENTIALS");
+        }
+        if (!user.active) {
+            throw new ServerError(
+                "La cuenta no se encuentra activa. Por favor, vuelve a activarla.",
+                403,
+                "ACCOUNT_INACTIVE"
+            );
         }
         if (!user.emailVerified) {
             throw new ServerError(
