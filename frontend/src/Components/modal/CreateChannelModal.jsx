@@ -135,6 +135,7 @@ export const CreateChannelModal = ({
                             placeholder="¿De qué trata este canal?"
                             value={formState.description}
                             onChange={handleChangeInput}
+                            maxLength={1000}
                             required
                         />
                     </div>
