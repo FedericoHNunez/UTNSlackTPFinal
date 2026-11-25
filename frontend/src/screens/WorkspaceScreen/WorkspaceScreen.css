@@ -72,3 +72,14 @@
         margin-bottom: 4rem;
     }
 }
+
+@media (max-width: 360px) {
+    .workspace-screen-container {
+        padding: 0 1rem;
+    }
+
+    .workspace-main-grid {
+        gap: 2.4rem;
+        margin-bottom: 3.2rem;
+    }
+}

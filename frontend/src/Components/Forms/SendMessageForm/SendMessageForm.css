@@ -13,7 +13,7 @@
 
 .send-message-box {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     gap: 0.8rem;
     padding: 0.8rem 1rem;
     background-color: var(--color-white);
@@ -29,6 +29,8 @@
 
 .send-message-input {
     flex: 1;
+    min-width: 0;
+    width: 100%;
     border: none;
     outline: none;
     background: transparent;
@@ -45,7 +47,12 @@
 }
 
 .send-message-btn {
-    padding: 0.8rem 1.6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.6rem;
+    padding: 0 1.6rem;
+    flex-shrink: 0;
     background-color: var(--color-accent-green);
     color: var(--color-white);
     font-size: var(--font-size-small);
@@ -64,4 +71,22 @@
     background-color: var(--color-disabled-bg);
     color: var(--color-text-muted);
     cursor: not-allowed;
+}
+
+@media (max-width: 380px) {
+    .send-message-box {
+        gap: 0.6rem;
+        padding: 0.6rem 0.7rem;
+    }
+
+    .send-message-input {
+        padding: 0.3rem 0.4rem;
+        font-size: 1.4rem;
+    }
+
+    .send-message-btn {
+        height: 3.4rem;
+        padding: 0 1.1rem;
+        font-size: 1.25rem;
+    }
 }

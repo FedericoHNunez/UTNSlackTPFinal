@@ -30,13 +30,6 @@ export const MessagesChannelDefaultScreen = () => {
                         lateral para sumarte a la conversación o creá uno nuevo para organizar tu
                         próximo proyecto.
                     </p>
-
-                    <div className="channel-welcome-pills" aria-hidden="true">
-                        <span className="channel-welcome-pill"># general</span>
-                        <span className="channel-welcome-pill"># entregas-tp</span>
-                        <span className="channel-welcome-pill"># consultas</span>
-                        <span className="channel-welcome-pill">+ Crear canal</span>
-                    </div>
                 </div>
 
                 {/* Imagen SVG de referencia animada */}
@@ -161,6 +154,27 @@ export const MessagesChannelDefaultScreen = () => {
                 </div>
             </header>
 
+                      {/* Guía rápida de primeros pasos */}
+            <div className="channel-welcome-steps" aria-label="Pasos para comenzar">
+                <div className="channel-welcome-steps-title">
+                    <span>¿Cómo empezar ahora?</span>
+                </div>
+                <ol className="channel-welcome-steps-list">
+                    <li className="channel-welcome-step-item">
+                        <span className="channel-welcome-step-num">1</span>
+                        <span>Elegí un canal de la lista izquierda</span>
+                    </li>
+                    <li className="channel-welcome-step-item">
+                        <span className="channel-welcome-step-num">2</span>
+                        <span>O tocá &ldquo;+ Crear canal&rdquo; para uno nuevo</span>
+                    </li>
+                    <li className="channel-welcome-step-item">
+                        <span className="channel-welcome-step-num">3</span>
+                        <span>¡Enviá tu primer mensaje al equipo!</span>
+                    </li>
+                </ol>
+            </div>
+
             {/* Sección: Todo lo que se puede hacer con la app */}
             <div className="channel-welcome-features-section">
                 <div className="channel-welcome-section-header">
@@ -186,26 +200,7 @@ export const MessagesChannelDefaultScreen = () => {
                 </div>
             </div>
 
-            {/* Guía rápida de primeros pasos */}
-            <footer className="channel-welcome-steps" aria-label="Pasos para comenzar">
-                <div className="channel-welcome-steps-title">
-                    <span>¿Cómo empezar ahora?</span>
-                </div>
-                <ol className="channel-welcome-steps-list">
-                    <li className="channel-welcome-step-item">
-                        <span className="channel-welcome-step-num">1</span>
-                        <span>Elegí un canal de la lista izquierda</span>
-                    </li>
-                    <li className="channel-welcome-step-item">
-                        <span className="channel-welcome-step-num">2</span>
-                        <span>O tocá &ldquo;+ Crear canal&rdquo; para uno nuevo</span>
-                    </li>
-                    <li className="channel-welcome-step-item">
-                        <span className="channel-welcome-step-num">3</span>
-                        <span>¡Enviá tu primer mensaje al equipo!</span>
-                    </li>
-                </ol>
-            </footer>
+  
         </section>
     );
 };

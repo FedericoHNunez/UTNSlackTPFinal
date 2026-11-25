@@ -103,10 +103,20 @@ body {
   font-size: var(--font-size-p);
   color: var(--color-text-main);
   background-color: var(--color-white);
-  min-width: 32rem;
+  min-width: 28rem;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.c-slacklogo--white,
+.login-logo img,
+.register-logo img,
+.validation-logo img,
+.invitation-logo img,
+.workspace-logo-link img {
+  max-width: 100%;
+  height: auto;
 }
 
 button,
@@ -191,9 +201,9 @@ p {
 .register-field textarea {
   width: 100%;
   height: 4.4rem;
-  padding: 1rem 1.4rem;
+  padding: 0 1.4rem;
   font-size: var(--font-size-h4);
-  line-height: 1.33333333;
+  line-height: normal;
   color: var(--color-text-main);
   background-color: var(--color-white);
   border: var(--border-input-stylized);
@@ -207,6 +217,8 @@ p {
 .register-field textarea {
   height: auto;
   min-height: 8.8rem;
+  padding: 1.1rem 1.4rem;
+  line-height: 1.45;
 }
 
 .form-field input::placeholder,
@@ -247,6 +259,9 @@ p {
 .form-submit-btn,
 .login-submit-btn,
 .register-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 4.4rem;
   padding: 0 1.8rem;
@@ -343,19 +358,27 @@ p {
   margin-left: 0;
 }
 
-/* Responsive Global para Formularios (hasta 320px) */
+/* Responsive Global para Formularios (hasta 300px) */
 @media (max-width: 480px) {
   .form-field input,
   .form-field select,
-  .form-field textarea,
   .login-field input,
   .login-field select,
-  .login-field textarea,
   .register-field input,
-  .register-field select,
-  .register-field textarea {
+  .register-field select {
+    min-width: 0;
     height: 4.2rem;
-    padding: 0.8rem 1.2rem;
+    padding: 0 1.2rem;
+    font-size: var(--font-size-p);
+    line-height: normal;
+  }
+
+  .form-field textarea,
+  .login-field textarea,
+  .register-field textarea {
+    min-width: 0;
+    height: auto;
+    padding: 1rem 1.2rem;
     font-size: var(--font-size-p);
   }
 
@@ -372,5 +395,31 @@ p {
   .register-alert {
     padding: 1rem 1.2rem;
     word-break: break-word;
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --font-size-h1: 2.5rem;
+    --font-size-h2: 2.2rem;
+    --font-size-h3: 2rem;
+    --font-size-h4: 1.6rem;
+  }
+
+  .form-field input,
+  .form-field select,
+  .login-field input,
+  .login-field select,
+  .register-field input,
+  .register-field select {
+    height: 4rem;
+    padding: 0 1rem;
+  }
+
+  .form-submit-btn,
+  .login-submit-btn,
+  .register-submit-btn {
+    height: 4rem;
+    padding: 0 1.2rem;
   }
 }

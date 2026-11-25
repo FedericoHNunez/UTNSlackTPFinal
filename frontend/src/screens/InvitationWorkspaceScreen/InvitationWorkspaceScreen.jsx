@@ -27,11 +27,14 @@ export const InvitationWorkspaceScreen = () => {
 
     return (
         <div className="invitation-page">
-            <header className="invitation-header">
-                <Link to="/" className="invitation-logo">
-                    <SlackLogo color="black" />
-                </Link>
-            </header>
+            {!accept_invite_loading &&
+                (accept_invite_response || accept_invite_error) && (
+                    <header className="invitation-header">
+                        <Link to="/" className="invitation-logo">
+                            <SlackLogo color="black" />
+                        </Link>
+                    </header>
+                )}
 
             <main className="invitation-card">
                 {accept_invite_loading && (

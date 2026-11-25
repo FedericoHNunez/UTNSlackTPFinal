@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
 import { Modal } from "./Modal.jsx";
@@ -18,17 +18,30 @@ export const DeleteWorkspaceModal = ({
     } = useContext(WorkspaceContext);
 
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [isButtonLocked, setIsButtonLocked] = useState(false);
+    const submittingRef = useRef(false);
 
     const handleClose = () => {
+        submittingRef.current = false;
+        setIsButtonLocked(false);
         setHasSubmitted(false);
         if (onClose) onClose();
     };
 
     useEffect(() => {
         if (!isOpen) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
             setHasSubmitted(false);
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        if (hasSubmitted && delete_workspace_error && !delete_workspace_loading) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
+        }
+    }, [hasSubmitted, delete_workspace_error, delete_workspace_loading]);
 
     useEffect(() => {
         if (
@@ -54,6 +67,9 @@ export const DeleteWorkspaceModal = ({
 
     const handleConfirmDelete = (e) => {
         e.preventDefault();
+        if (submittingRef.current || isButtonLocked || delete_workspace_loading) return;
+        submittingRef.current = true;
+        setIsButtonLocked(true);
         setHasSubmitted(true);
         handleDeleteWorkspace(workspace_id);
     };
@@ -104,14 +120,14 @@ export const DeleteWorkspaceModal = ({
                         type="button"
                         className="modal-cancel-btn"
                         onClick={handleClose}
-                        disabled={delete_workspace_loading}
+                        disabled={isButtonLocked || delete_workspace_loading}
                     >
                         Cancelar
                     </button>
                     <button
                         type="submit"
                         className="login-submit-btn channel-header-delete-btn"
-                        disabled={delete_workspace_loading}
+                        disabled={isButtonLocked || delete_workspace_loading}
                     >
                         {delete_workspace_loading
                             ? "Eliminando..."

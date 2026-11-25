@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
 import { Modal } from "./Modal.jsx";
@@ -18,17 +18,30 @@ export const DeleteChannelModal = ({
     } = useContext(ChannelContext);
 
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [isButtonLocked, setIsButtonLocked] = useState(false);
+    const submittingRef = useRef(false);
 
     const handleClose = () => {
+        submittingRef.current = false;
+        setIsButtonLocked(false);
         setHasSubmitted(false);
         if (onClose) onClose();
     };
 
     useEffect(() => {
         if (!isOpen) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
             setHasSubmitted(false);
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        if (hasSubmitted && delete_channel_error && !delete_channel_loading) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
+        }
+    }, [hasSubmitted, delete_channel_error, delete_channel_loading]);
 
     useEffect(() => {
         if (
@@ -54,6 +67,9 @@ export const DeleteChannelModal = ({
 
     const handleConfirmDelete = (e) => {
         e.preventDefault();
+        if (submittingRef.current || isButtonLocked || delete_channel_loading) return;
+        submittingRef.current = true;
+        setIsButtonLocked(true);
         setHasSubmitted(true);
         handleDeleteChannel(channel_id, workspace_id);
     };
@@ -104,14 +120,14 @@ export const DeleteChannelModal = ({
                         type="button"
                         className="modal-cancel-btn"
                         onClick={handleClose}
-                        disabled={delete_channel_loading}
+                        disabled={isButtonLocked || delete_channel_loading}
                     >
                         Cancelar
                     </button>
                     <button
                         type="submit"
                         className="login-submit-btn channel-header-delete-btn"
-                        disabled={delete_channel_loading}
+                        disabled={isButtonLocked || delete_channel_loading}
                     >
                         {delete_channel_loading
                             ? "Eliminando..."

@@ -71,7 +71,7 @@ export function WorkspaceNavbarDesktop() {
                                     <path d="M12 3.2 3 10.4V20a1 1 0 0 0 1 1h5.5v-6h5v6H20a1 1 0 0 0 1-1v-9.6l-9-7.2Z" />
                                 </svg>
                             </span>
-                            <span className="workspace-nav-desktop-label">Inicio</span>
+                            <span className="workspace-nav-desktop-label">Canales</span>
                         </Link>
                     </li>
                     <li className="workspace-nav-desktop-item">

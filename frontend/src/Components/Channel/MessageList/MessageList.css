@@ -79,6 +79,7 @@
     font-weight: 900;
     color: var(--color-text-main);
     line-height: 1.2;
+    overflow-wrap: anywhere;
 }
 
 .message-bubble-time {
@@ -99,6 +100,7 @@
     color: var(--color-text-main);
     line-height: 1.46;
     word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 @media (max-width: 768px) {
@@ -110,5 +112,18 @@
     .message-bubble-avatar {
         width: 3.2rem;
         height: 3.2rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .message-bubble {
+        padding: 0.7rem 0.4rem;
+        gap: 0.8rem;
+    }
+
+    .message-bubble-avatar {
+        width: 2.8rem;
+        height: 2.8rem;
+        border-radius: 0.6rem;
     }
 }

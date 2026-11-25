@@ -255,3 +255,42 @@
         padding: 1.6rem 1.4rem 1.8rem;
     }
 }
+
+@media (max-width: 400px) {
+    .workspace-card-tabs {
+        padding: 1.2rem 1.2rem 0;
+    }
+
+    .workspace-card-body {
+        padding: 1.4rem 1.2rem 1rem;
+    }
+
+    .workspace-item-link {
+        gap: 1rem;
+        padding: 1rem 0.2rem;
+    }
+
+    .workspace-item-avatar {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 0.8rem;
+    }
+
+    .workspace-item-header {
+        flex-wrap: wrap;
+        gap: 0.3rem 0.6rem;
+    }
+
+    .workspace-item-info h2 {
+        max-width: 100%;
+    }
+
+    .workspace-item-arrow {
+        font-size: 1.8rem;
+        padding: 0 0.2rem;
+    }
+
+    .workspace-card-footer {
+        padding: 1.4rem 1.2rem 1.6rem;
+    }
+}

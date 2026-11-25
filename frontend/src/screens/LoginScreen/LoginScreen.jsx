@@ -17,7 +17,7 @@ export const LoginScreen = () => {
                 <Link to="/" className="login-logo">
                     <SlackLogo color="black" />
                 </Link>
-                <h1>Primero, escribe tu correo</h1>
+                <h1>Iniciar sesión</h1>
                 <p className="login-subtitle">
                     Te sugerimos que uses la{" "}
                     <strong>

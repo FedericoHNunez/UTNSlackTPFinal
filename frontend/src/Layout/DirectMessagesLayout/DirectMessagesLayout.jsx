@@ -22,9 +22,9 @@ export const MessagesPrivateLayout = () => {
                 aria-label="Lista de mensajes directos"
                 onClick={handleSidebarClick}
             >
-                {user_id && (
-                    <header className="channel-layout-mobile-bar channel-layout-mobile-bar--aside">
-                        <span className="channel-layout-mobile-title">Mensajes directos</span>
+                <header className="channel-layout-mobile-bar channel-layout-mobile-bar--aside">
+                    <span className="channel-layout-mobile-title">Mensajes directos</span>
+                    {user_id && (
                         <button
                             type="button"
                             className="channel-layout-layer-btn"
@@ -32,8 +32,8 @@ export const MessagesPrivateLayout = () => {
                         >
                             <span>Ir al chat →</span>
                         </button>
-                    </header>
-                )}
+                    )}
+                </header>
                 <div className="channel-layout-aside-content">
                     <ConversationList />
                 </div>

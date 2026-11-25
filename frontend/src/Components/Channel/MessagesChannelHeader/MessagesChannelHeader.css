@@ -30,8 +30,20 @@
     color: var(--color-text-main);
     letter-spacing: -0.02rem;
     margin: 0;
+    min-width: 0;
     flex-shrink: 0;
     max-width: 45%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.messages-channel-header-title:only-child {
+    max-width: 100%;
+}
+
+.messages-channel-header-title > span:not(.messages-channel-header-hash):not(.members-list-status-dot) {
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -111,5 +123,32 @@
 
     .messages-channel-header-title {
         max-width: 55%;
+    }
+}
+
+@media (max-width: 420px) {
+    .messages-channel-header {
+        gap: 0.8rem;
+        padding: 0.2rem 0 1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .messages-channel-header-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .messages-channel-header-divider {
+        display: none;
+    }
+
+    .messages-channel-header-title {
+        max-width: 100%;
+        font-size: 1.6rem;
+    }
+
+    .messages-channel-header-description {
+        max-width: 100%;
     }
 }

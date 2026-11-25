@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import useForm from "../../hooks/useForm.js";
 import { MembersContext } from "../../Context/MembersContext/MembersContext.jsx";
@@ -18,10 +18,14 @@ export const InviteMemberModal = ({
     } = useContext(MembersContext);
 
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [isButtonLocked, setIsButtonLocked] = useState(false);
+    const submittingRef = useRef(false);
     const initial_form = { email: "", role: "user" };
     const { formState, handleChangeInput, resetForm } = useForm(initial_form);
 
     const handleClose = () => {
+        submittingRef.current = false;
+        setIsButtonLocked(false);
         setHasSubmitted(false);
         resetForm();
         if (onClose) onClose();
@@ -29,9 +33,18 @@ export const InviteMemberModal = ({
 
     useEffect(() => {
         if (!isOpen) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
             setHasSubmitted(false);
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        if (hasSubmitted && invite_member_error && !invite_member_loading) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
+        }
+    }, [hasSubmitted, invite_member_error, invite_member_loading]);
 
     useEffect(() => {
         if (
@@ -56,7 +69,10 @@ export const InviteMemberModal = ({
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (submittingRef.current || isButtonLocked || invite_member_loading) return;
         if (!formState.email.trim()) return;
+        submittingRef.current = true;
+        setIsButtonLocked(true);
         setHasSubmitted(true);
         handleInviteMember(
             formState.email.trim(),
@@ -140,14 +156,14 @@ export const InviteMemberModal = ({
                         type="button"
                         className="modal-cancel-btn"
                         onClick={handleClose}
-                        disabled={invite_member_loading}
+                        disabled={isButtonLocked || invite_member_loading}
                     >
                         Cancelar
                     </button>
                     <button
                         type="submit"
                         className="login-submit-btn"
-                        disabled={invite_member_loading}
+                        disabled={isButtonLocked || invite_member_loading}
                     >
                         {invite_member_loading
                             ? "Enviando..."

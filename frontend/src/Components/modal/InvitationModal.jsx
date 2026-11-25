@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import useForm from "../../hooks/useForm.js";
 import { useInviteNewUser } from "../../hooks/fetch/useWorkspace.js";
 import { UserContext } from "../../Context/UserContext/UserContext.jsx";
@@ -8,12 +8,35 @@ export const InvitationModal = ({ isOpen = true, onClose }) => {
     const { userToken } = useContext(UserContext);
     const initial_form = { email: "" };
     const { formState, handleChangeInput, resetForm } = useForm(initial_form);
+    const [isButtonLocked, setIsButtonLocked] = useState(false);
+    const submittingRef = useRef(false);
     const {
         invite_new_user_loading,
         invite_new_user_error,
         invite_new_user_response,
         inviteNewUser
     } = useInviteNewUser();
+
+    const handleClose = () => {
+        submittingRef.current = false;
+        setIsButtonLocked(false);
+        resetForm();
+        if (onClose) onClose();
+    };
+
+    useEffect(() => {
+        if (!isOpen) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (invite_new_user_error && !invite_new_user_loading) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
+        }
+    }, [invite_new_user_error, invite_new_user_loading]);
 
     useEffect(() => {
         if (
@@ -23,8 +46,7 @@ export const InvitationModal = ({ isOpen = true, onClose }) => {
             !invite_new_user_error
         ) {
             const timer = setTimeout(() => {
-                resetForm();
-                if (onClose) onClose();
+                handleClose();
             }, 1500);
             return () => clearTimeout(timer);
         }
@@ -37,11 +59,14 @@ export const InvitationModal = ({ isOpen = true, onClose }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        if (submittingRef.current || isButtonLocked || invite_new_user_loading) return;
+        submittingRef.current = true;
+        setIsButtonLocked(true);
         inviteNewUser(formState.email, userToken);
     };
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} title="Invitar personas a unirse a Slack">
+        <Modal isOpen={isOpen} onClose={handleClose} title="Invitar personas a unirse a Slack">
             <p className="modal-subtitle">
                 Ingresa el correo electrónico de la persona que deseas invitar a unirse a nuestra plataforma.
             </p>
@@ -76,14 +101,15 @@ export const InvitationModal = ({ isOpen = true, onClose }) => {
                     <button
                         type="button"
                         className="modal-cancel-btn"
-                        onClick={onClose}
+                        onClick={handleClose}
+                        disabled={isButtonLocked || invite_new_user_loading}
                     >
                         Cancelar
                     </button>
                     <button
                         type="submit"
                         className="login-submit-btn"
-                        disabled={invite_new_user_loading}
+                        disabled={isButtonLocked || invite_new_user_loading}
                     >
                         {invite_new_user_loading ? "Enviando..." : "Enviar invitación"}
                     </button>

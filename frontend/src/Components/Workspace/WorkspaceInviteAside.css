@@ -25,6 +25,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.6rem;
+    min-width: 0;
 }
 
 .workspace-invite-content h3 {
@@ -83,6 +84,29 @@
     .workspace-invite-icon {
         width: 5.2rem;
         height: 5.2rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .workspace-invite-card {
+        padding: 1.4rem 1.2rem;
+        gap: 1rem;
+    }
+
+    .workspace-invite-icon {
+        width: 4.2rem;
+        height: 4.2rem;
+    }
+
+    .workspace-invite-icon svg {
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+
+    .workspace-invite-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.8rem 1rem;
     }
 }
 

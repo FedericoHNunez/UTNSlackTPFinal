@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import useForm from "../../hooks/useForm.js";
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
 import { Modal } from "./Modal.jsx";
@@ -13,10 +13,14 @@ export const CreateWorkspaceModal = ({ isOpen = false, onClose }) => {
 
     const [step, setStep] = useState(1);
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [isButtonLocked, setIsButtonLocked] = useState(false);
+    const submittingRef = useRef(false);
     const initial_form = { name: "", description: "" };
     const { formState, handleChangeInput, resetForm } = useForm(initial_form);
 
     const handleClose = () => {
+        submittingRef.current = false;
+        setIsButtonLocked(false);
         setStep(1);
         setHasSubmitted(false);
         resetForm();
@@ -25,9 +29,18 @@ export const CreateWorkspaceModal = ({ isOpen = false, onClose }) => {
 
     useEffect(() => {
         if (!isOpen) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
             setHasSubmitted(false);
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        if (hasSubmitted && create_workspace_error && !create_workspace_loading) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
+        }
+    }, [hasSubmitted, create_workspace_error, create_workspace_loading]);
 
     useEffect(() => {
         if (
@@ -58,7 +71,10 @@ export const CreateWorkspaceModal = ({ isOpen = false, onClose }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (submittingRef.current || isButtonLocked || create_workspace_loading) return;
         if (!formState.name.trim() || !formState.description.trim()) return;
+        submittingRef.current = true;
+        setIsButtonLocked(true);
         setHasSubmitted(true);
         handleCreateWorkspace(formState.name.trim(), formState.description.trim());
     };
@@ -157,7 +173,7 @@ export const CreateWorkspaceModal = ({ isOpen = false, onClose }) => {
                                 type="button"
                                 className="modal-cancel-btn"
                                 onClick={() => setStep(1)}
-                                disabled={create_workspace_loading}
+                                disabled={isButtonLocked || create_workspace_loading}
                             >
                                 Atrás
                             </button>
@@ -165,6 +181,7 @@ export const CreateWorkspaceModal = ({ isOpen = false, onClose }) => {
                                 type="submit"
                                 className="login-submit-btn"
                                 disabled={
+                                    isButtonLocked ||
                                     create_workspace_loading ||
                                     !formState.description.trim()
                                 }

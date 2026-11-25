@@ -1,10 +1,16 @@
+import { createPortal } from "react-dom";
 import "./Modal.css";
 
 export const Modal = ({ isOpen = true, onClose, title, children }) => {
     if (!isOpen) return null;
 
-    return (
-        <div className="modal-overlay" onClick={onClose}>
+    const handleOverlayClick = (e) => {
+        e.stopPropagation();
+        onClose?.();
+    };
+
+    return createPortal(
+        <div className="modal-overlay" onClick={handleOverlayClick}>
             <div
                 className="modal-card"
                 role="dialog"
@@ -27,7 +33,8 @@ export const Modal = ({ isOpen = true, onClose, title, children }) => {
                     {children}
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };
 

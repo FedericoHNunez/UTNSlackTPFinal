@@ -1,9 +1,10 @@
 .login-page {
-    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4rem 2rem 0;
+    justify-content: center;
+    padding: 3.2rem 2rem;
 }
 
 .login-header {
@@ -13,7 +14,17 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    margin-top: auto;
     margin-bottom: 3.2rem;
+}
+
+.login-page .login-card {
+    margin-bottom: auto;
+}
+
+.login-page .slack-footer {
+    margin-top: 0;
+    padding: 3.2rem 0 0;
 }
 
 .login-logo {
@@ -68,5 +79,15 @@
 
     .login-header {
         margin-bottom: 2.4rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .login-page {
+        padding: 2rem 1.2rem;
+    }
+
+    .login-footer p {
+        overflow-wrap: break-word;
     }
 }

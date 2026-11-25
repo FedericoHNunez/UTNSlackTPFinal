@@ -1,9 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useId, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import useForm from "../../hooks/useForm.js";
 import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
 import { Modal } from "./Modal.jsx";
 
-export const CreateChannelModal = () => {
+export const CreateChannelModal = ({
+    triggerClassName = "channel-list-create-btn",
+    iconClassName = "channel-list-create-icon",
+    label = "Crear canal"
+}) => {
     const {
         create_channel_loading,
         create_channel_error,
@@ -11,32 +16,56 @@ export const CreateChannelModal = () => {
         handleCreateChannel
     } = useContext(ChannelContext);
 
+    const { workspace_id } = useParams();
+    const navigate = useNavigate();
+    const fieldId = useId();
+    const nameInputId = `channel-name-${fieldId}`;
+    const descInputId = `channel-description-${fieldId}`;
+
     const [showCreateChannelModal, setShowCreateChannelModal] = useState(false);
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [isButtonLocked, setIsButtonLocked] = useState(false);
+    const submittingRef = useRef(false);
     const initial_form = { name: "", description: "" };
     const { formState, handleChangeInput, resetForm } = useForm(initial_form);
 
     const handleOpenModal = () => {
+        submittingRef.current = false;
+        setIsButtonLocked(false);
         setHasSubmitted(false);
         setShowCreateChannelModal(true);
     };
     const handleCloseModal = () => {
+        submittingRef.current = false;
+        setIsButtonLocked(false);
         setHasSubmitted(false);
         resetForm();
         setShowCreateChannelModal(false);
     };
 
     useEffect(() => {
+        if (hasSubmitted && create_channel_error && !create_channel_loading) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
+        }
+    }, [hasSubmitted, create_channel_error, create_channel_loading]);
+
+    useEffect(() => {
+        const createdChannel = create_channel_response?.data?.channel;
         if (
             showCreateChannelModal &&
             hasSubmitted &&
-            create_channel_response?.data?.channel &&
+            createdChannel &&
             !create_channel_loading &&
             !create_channel_error
         ) {
+            const newChannelId = createdChannel._id || createdChannel.channel_id;
             const timer = setTimeout(() => {
                 handleCloseModal();
-            }, 1500);
+                if (workspace_id && newChannelId) {
+                    navigate(`/workspaces/${workspace_id}/channels/${newChannelId}/messages`);
+                }
+            }, 1200);
             return () => clearTimeout(timer);
         }
     }, [
@@ -44,11 +73,16 @@ export const CreateChannelModal = () => {
         hasSubmitted,
         create_channel_response,
         create_channel_loading,
-        create_channel_error
+        create_channel_error,
+        workspace_id,
+        navigate
     ]);
 
     const onSubmit = (e) => {
         e.preventDefault();
+        if (submittingRef.current || isButtonLocked || create_channel_loading) return;
+        submittingRef.current = true;
+        setIsButtonLocked(true);
         setHasSubmitted(true);
         handleCreateChannel(formState.name, formState.description);
     };
@@ -57,13 +91,13 @@ export const CreateChannelModal = () => {
         <>
             <button
                 type="button"
-                className="channel-list-create-btn"
+                className={triggerClassName}
                 onClick={handleOpenModal}
             >
-                <span className="channel-list-create-icon" aria-hidden="true">
+                <span className={iconClassName} aria-hidden="true">
                     +
                 </span>
-                <span>Crear canal</span>
+                <span>{label}</span>
             </button>
 
             <Modal
@@ -79,10 +113,10 @@ export const CreateChannelModal = () => {
 
                 <form className="login-form" onSubmit={onSubmit}>
                     <div className="login-field">
-                        <label htmlFor="channel-name">Nombre</label>
+                        <label htmlFor={nameInputId}>Nombre</label>
                         <input
                             type="text"
-                            id="channel-name"
+                            id={nameInputId}
                             name="name"
                             placeholder="p. ej. plan-presupuesto"
                             value={formState.name}
@@ -93,10 +127,10 @@ export const CreateChannelModal = () => {
                     </div>
 
                     <div className="login-field">
-                        <label htmlFor="channel-description">Descripción</label>
+                        <label htmlFor={descInputId}>Descripción</label>
                         <input
                             type="text"
-                            id="channel-description"
+                            id={descInputId}
                             name="description"
                             placeholder="¿De qué trata este canal?"
                             value={formState.description}
@@ -126,13 +160,14 @@ export const CreateChannelModal = () => {
                             type="button"
                             className="modal-cancel-btn"
                             onClick={handleCloseModal}
+                            disabled={isButtonLocked || create_channel_loading}
                         >
                             Cancelar
                         </button>
                         <button
                             type="submit"
                             className="login-submit-btn"
-                            disabled={create_channel_loading}
+                            disabled={isButtonLocked || create_channel_loading}
                         >
                             {create_channel_loading ? "Creando..." : "Crear"}
                         </button>

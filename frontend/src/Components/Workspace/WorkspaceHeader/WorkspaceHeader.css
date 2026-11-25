@@ -52,12 +52,55 @@
 }
 
 /* =========================================================
-   Responsive Celular (<= 768px): Barra de Búsqueda + Perfil
+   Responsive Celular (<= 768px): Selector Workspace + Búsqueda
    ========================================================= */
 
+.workspace-header-mobile-ws {
+    display: none;
+}
+
 @media (max-width: 768px) {
+    .workspace-header {
+        gap: 0.8rem;
+    }
+
+    .workspace-header-mobile-ws {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .workspace-header-ws-avatar-btn {
+        width: 3.4rem;
+        height: 3.4rem;
+        border-radius: 0.85rem;
+        background-color: #a8a8ac;
+        color: #231f24;
+        font-family: var(--font-heading);
+        font-size: 1.4rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        border: none;
+        box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.22);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .workspace-header-ws-avatar-btn:hover {
+        filter: brightness(1.06);
+    }
+
+    .workspace-header-ws-avatar-btn:active {
+        transform: scale(0.95);
+    }
+
     .workspace-header-search-group > .workspace-header-btn,
-    .workspace-header-help-btn {
+    .workspace-header-help-btn,
+    .workspace-header-actions {
         display: none;
     }
 

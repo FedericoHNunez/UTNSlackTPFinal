@@ -22,9 +22,9 @@ export const ChannelLayout = () => {
                 aria-label="Lista de canales"
                 onClick={handleSidebarClick}
             >
-                {channel_id && (
-                    <header className="channel-layout-mobile-bar channel-layout-mobile-bar--aside">
-                        <span className="channel-layout-mobile-title">Canales</span>
+                <header className="channel-layout-mobile-bar channel-layout-mobile-bar--aside">
+                    <span className="channel-layout-mobile-title">Canales</span>
+                    {channel_id && (
                         <button
                             type="button"
                             className="channel-layout-layer-btn"
@@ -32,8 +32,8 @@ export const ChannelLayout = () => {
                         >
                             <span>Ir al chat →</span>
                         </button>
-                    </header>
-                )}
+                    )}
+                </header>
                 <div className="channel-layout-aside-content">
                     <ChannelScreen />
                 </div>

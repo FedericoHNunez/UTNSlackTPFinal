@@ -1,9 +1,10 @@
 .register-page {
-    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4rem 2rem 0;
+    justify-content: center;
+    padding: 3.2rem 2rem;
 }
 
 .register-header {
@@ -13,7 +14,17 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    margin-top: auto;
     margin-bottom: 3.2rem;
+}
+
+.register-page .register-card {
+    margin-bottom: auto;
+}
+
+.register-page .slack-footer {
+    margin-top: 0;
+    padding: 3.2rem 0 0;
 }
 
 .register-logo {
@@ -63,5 +74,15 @@
 
     .register-header {
         margin-bottom: 2.4rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .register-page {
+        padding: 2rem 1.2rem;
+    }
+
+    .register-footer p {
+        overflow-wrap: break-word;
     }
 }

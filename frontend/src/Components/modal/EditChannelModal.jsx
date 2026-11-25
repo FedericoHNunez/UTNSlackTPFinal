@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
 import { Modal } from "./Modal.jsx";
@@ -17,27 +17,42 @@ export const EditChannelModal = ({
     } = useContext(ChannelContext);
 
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [isButtonLocked, setIsButtonLocked] = useState(false);
+    const submittingRef = useRef(false);
     const [formState, setFormState] = useState({
         name: "",
         description: ""
     });
 
     const handleClose = () => {
+        submittingRef.current = false;
+        setIsButtonLocked(false);
         setHasSubmitted(false);
         if (onClose) onClose();
     };
 
     useEffect(() => {
         if (isOpen && currentChannel) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
             setHasSubmitted(false);
             setFormState({
                 name: currentChannel.channel_name || "",
                 description: currentChannel.channel_description || ""
             });
         } else if (!isOpen) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
             setHasSubmitted(false);
         }
     }, [isOpen, currentChannel]);
+
+    useEffect(() => {
+        if (hasSubmitted && edit_channel_error && !edit_channel_loading) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
+        }
+    }, [hasSubmitted, edit_channel_error, edit_channel_loading]);
 
     useEffect(() => {
         if (
@@ -67,7 +82,10 @@ export const EditChannelModal = ({
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (submittingRef.current || isButtonLocked || edit_channel_loading) return;
         if (!formState.name.trim() || !formState.description.trim()) return;
+        submittingRef.current = true;
+        setIsButtonLocked(true);
         setHasSubmitted(true);
         handleEditChannel(
             formState.name.trim(),
@@ -148,14 +166,14 @@ export const EditChannelModal = ({
                         type="button"
                         className="modal-cancel-btn"
                         onClick={handleClose}
-                        disabled={edit_channel_loading}
+                        disabled={isButtonLocked || edit_channel_loading}
                     >
                         Cancelar
                     </button>
                     <button
                         type="submit"
                         className="login-submit-btn"
-                        disabled={edit_channel_loading}
+                        disabled={isButtonLocked || edit_channel_loading}
                     >
                         {edit_channel_loading
                             ? "Guardando..."

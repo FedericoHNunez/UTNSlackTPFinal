@@ -26,3 +26,10 @@
     gap: 3.2rem;
   }
 }
+
+@media (max-width: 360px) {
+  .home-hero {
+    padding: 2rem 1rem 3.2rem;
+    gap: 2.4rem;
+  }
+}

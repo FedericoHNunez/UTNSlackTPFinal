@@ -1,18 +1,48 @@
-import { useContext } from "react";
 import { SearchForm } from "../../Forms/SearchForm/SearchForm";
-import { WorkspaceContext } from "../../../Context/WorkspaceContext/WorkspaceContext";
+import { useDropdown } from "../../../hooks/useDropdown";
+import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
+import { WorkspaceInfoDropdown } from "../../Dropdown/WorkspaceInfoDropdown";
 import "./WorkspaceHeader.css";
 
 export const WorkspaceHeader = () => {
-    const { currentWorkspaceList, currentWorkspace_id } = useContext(WorkspaceContext);
+    const {
+        currentWorkspaceObj,
+        currentWorkspaceInitials,
+        handleBackToWorkspaces
+    } = useWorkspaceNav();
 
-    const currentWorkspace= currentWorkspaceList?.find(
-        (workspace) => workspace.workspace_id === currentWorkspace_id
-    );
-    const workspaceName = currentWorkspace?.workspace_name || "el espacio de trabajo";
+    const {
+        isOpen: isWorkspaceInfoOpen,
+        toggle: toggleWorkspaceInfo,
+        close: closeWorkspaceInfo,
+        dropdownRef: workspaceInfoRef
+    } = useDropdown();
+
+    const workspaceName = currentWorkspaceObj?.workspace_name || "el espacio de trabajo";
 
     return (
         <div className="workspace-header">
+            <div className="workspace-header-mobile-ws" ref={workspaceInfoRef}>
+                <button
+                    type="button"
+                    className="workspace-header-ws-avatar-btn"
+                    title={currentWorkspaceObj?.workspace_name || "Espacio de trabajo"}
+                    aria-label="Información del espacio de trabajo"
+                    aria-expanded={isWorkspaceInfoOpen}
+                    onClick={toggleWorkspaceInfo}
+                >
+                    {currentWorkspaceInitials}
+                </button>
+
+                <WorkspaceInfoDropdown
+                    isOpen={isWorkspaceInfoOpen}
+                    position="bottom-left"
+                    workspaceObj={currentWorkspaceObj}
+                    workspaceInitials={currentWorkspaceInitials}
+                    onBackToWorkspaces={() => handleBackToWorkspaces(closeWorkspaceInfo)}
+                />
+            </div>
+
             <div className="workspace-header-search-group">
                 <button
                     type="button"

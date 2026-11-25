@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../../Context/UserContext/UserContext.jsx";
 import { Modal } from "./Modal.jsx";
 
@@ -16,17 +16,30 @@ export const DeactivateAccountModal = ({
     } = useContext(UserContext);
 
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [isButtonLocked, setIsButtonLocked] = useState(false);
+    const submittingRef = useRef(false);
 
     const handleClose = () => {
+        submittingRef.current = false;
+        setIsButtonLocked(false);
         setHasSubmitted(false);
         if (onClose) onClose();
     };
 
     useEffect(() => {
         if (!isOpen) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
             setHasSubmitted(false);
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        if (hasSubmitted && delete_user_error && !delete_user_loading) {
+            submittingRef.current = false;
+            setIsButtonLocked(false);
+        }
+    }, [hasSubmitted, delete_user_error, delete_user_loading]);
 
     useEffect(() => {
         if (
@@ -54,6 +67,9 @@ export const DeactivateAccountModal = ({
 
     const handleConfirmDeactivate = (e) => {
         e.preventDefault();
+        if (submittingRef.current || isButtonLocked || delete_user_loading) return;
+        submittingRef.current = true;
+        setIsButtonLocked(true);
         setHasSubmitted(true);
         handleDeleteUser();
     };
@@ -110,14 +126,14 @@ export const DeactivateAccountModal = ({
                         type="button"
                         className="modal-cancel-btn"
                         onClick={handleClose}
-                        disabled={delete_user_loading}
+                        disabled={isButtonLocked || delete_user_loading}
                     >
                         Cancelar
                     </button>
                     <button
                         type="submit"
                         className="login-submit-btn channel-header-delete-btn"
-                        disabled={delete_user_loading}
+                        disabled={isButtonLocked || delete_user_loading}
                     >
                         {delete_user_loading
                             ? "Desactivando..."

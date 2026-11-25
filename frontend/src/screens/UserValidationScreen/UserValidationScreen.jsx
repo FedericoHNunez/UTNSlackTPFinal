@@ -35,11 +35,13 @@ export const UserValidationScreen = () => {
 
     return (
         <div className="validation-page">
-            <header className="validation-header">
-                <Link to="/" className="validation-logo">
-                    <SlackLogo color="black" />
-                </Link>
-            </header>
+            {!loading && (response || error) && (
+                <header className="validation-header">
+                    <Link to="/" className="validation-logo">
+                        <SlackLogo color="black" />
+                    </Link>
+                </header>
+            )}
 
             <main className="validation-card">
                 {loading && (
