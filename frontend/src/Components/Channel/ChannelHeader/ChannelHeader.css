@@ -34,6 +34,13 @@
     white-space: nowrap;
 }
 
+.channel-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+}
+
 .channel-header-settings {
     position: relative;
     display: flex;

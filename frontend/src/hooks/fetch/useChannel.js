@@ -12,8 +12,9 @@ export const useGetChannelList = (workspace_id, userToken) => {
 
     const getChannelList = (showLoading = true) => {
         if (workspace_id && userToken) {
-            sendRequest(() => getChannelsByWorkspace(workspace_id, userToken), showLoading);
+            return sendRequest(() => getChannelsByWorkspace(workspace_id, userToken), showLoading);
         }
+        return Promise.resolve();
     };
 
     useEffect(() => {

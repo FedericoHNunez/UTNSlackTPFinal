@@ -83,10 +83,16 @@
 }
 
 .messages-channel-header-actions {
-    position: relative;
     display: flex;
     align-items: center;
+    gap: 0.8rem;
     flex-shrink: 0;
+}
+
+.messages-channel-header-menu {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
 }
 
 .messages-channel-header-menu-btn {

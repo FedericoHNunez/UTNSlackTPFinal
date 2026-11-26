@@ -84,9 +84,13 @@ export const WorkspaceProvider = () => {
         deleteWorkspace(workspace_id, userToken);
     };
 
+    const refreshWorkspaces = () => getWorkspaceList(false);
+
     const values = {
         get_workspace_loading,
         get_workspace_error,
+        getWorkspaceList,
+        refreshWorkspaces,
         currentWorkspaceList,
         currentWorkspace_id,
         setCurrentWorkspace_id,

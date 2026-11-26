@@ -9,18 +9,25 @@ import { useEffect } from 'react';
 export const useGetMembersList = (workspace_id, userToken) => {
     const { response, loading, error, sendRequest } = useRequest()
 
-    useEffect(() => {
+    const getMembersList = (showLoading = true) => {
         if (workspace_id && userToken) {
-            sendRequest(
-                () => getMembersByWorkspace(workspace_id, userToken)
+            return sendRequest(
+                () => getMembersByWorkspace(workspace_id, userToken),
+                showLoading
             )
         }
+        return Promise.resolve()
+    }
+
+    useEffect(() => {
+        getMembersList()
     }, [workspace_id, userToken])
 
     return {
         get_members_response: response,
         get_members_loading: loading,
         get_members_error: error,
+        getMembersList
     }
 
 }

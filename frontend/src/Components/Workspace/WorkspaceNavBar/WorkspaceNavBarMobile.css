@@ -26,7 +26,7 @@
     .workspace-nav-mobile-bar {
         position: relative;
         width: 100%;
-        height: 6.6rem;
+        height: 5.4rem;
         padding: 0 0.8rem;
         display: flex;
         align-items: stretch;
@@ -40,8 +40,8 @@
         height: 100%;
         overflow: visible;
         pointer-events: none;
-        filter: drop-shadow(0 -0.4rem 1.6rem rgba(22, 4, 24, 0.34))
-            drop-shadow(0 0.8rem 2rem rgba(18, 3, 20, 0.45));
+        filter: drop-shadow(0 -0.2rem 0.9rem rgba(22, 4, 24, 0.24))
+            drop-shadow(0 0.6rem 1.6rem rgba(18, 3, 20, 0.4));
     }
 
     /* Burbuja circular activa clara / violeta */
@@ -51,8 +51,8 @@
         background: linear-gradient(145deg, #ffffff 0%, #f6eeff 58%, #e9d5ff 100%);
         border: 0.15rem solid rgba(255, 255, 255, 0.95);
         box-shadow:
-            0 0.6rem 1.6rem rgba(32, 6, 36, 0.45),
-            0 0.2rem 0.8rem rgba(168, 85, 247, 0.35),
+            0 0.4rem 1.1rem rgba(32, 6, 36, 0.38),
+            0 0.15rem 0.6rem rgba(168, 85, 247, 0.28),
             inset 0 -0.2rem 0.5rem rgba(192, 132, 252, 0.25);
         pointer-events: none;
         z-index: 2;
@@ -81,7 +81,7 @@
     .workspace-nav-mobile-tab {
         width: 100%;
         height: 100%;
-        padding: 0.8rem 0.2rem 0.85rem;
+        padding: 0.5rem 0.2rem 0.5rem;
         background: transparent;
         border: none;
         text-decoration: none;
@@ -106,8 +106,8 @@
     }
 
     .workspace-nav-mobile-icon {
-        width: 2.8rem;
-        height: 2.8rem;
+        width: 2.3rem;
+        height: 2.3rem;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -115,8 +115,18 @@
         will-change: transform;
     }
 
+    .workspace-nav-mobile-icon svg {
+        width: 1.95rem;
+        height: 1.95rem;
+    }
+
+    .workspace-nav-mobile-tab.is-active .workspace-nav-mobile-icon svg {
+        width: 2.05rem;
+        height: 2.05rem;
+    }
+
     .workspace-nav-mobile-label {
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         font-weight: 600;
         line-height: 1.1;
         letter-spacing: 0.01em;
@@ -125,7 +135,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 100%;
-        transition: color 0.2s ease, font-weight 0.2s ease;
+        transition: color 0.2s ease;
     }
 
     .workspace-nav-mobile-tab.is-active .workspace-nav-mobile-label {
@@ -136,13 +146,13 @@
     /* Avatar de Perfil con el mismo estilo que en Desktop */
     .workspace-nav-mobile-profile-avatar {
         position: relative;
-        width: 2.7rem;
-        height: 2.7rem;
-        border-radius: 0.75rem;
+        width: 2.3rem;
+        height: 2.3rem;
+        border-radius: 0.65rem;
         background: linear-gradient(135deg, #e8dff0 0%, #cbb8dc 100%);
         color: var(--color-header-bg);
         font-weight: 800;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -152,9 +162,9 @@
     }
 
     .workspace-nav-mobile-profile-avatar.is-active {
-        width: 2.9rem;
-        height: 2.9rem;
-        border-radius: 0.8rem;
+        width: 2.45rem;
+        height: 2.45rem;
+        border-radius: 0.7rem;
         border: 0.15rem solid rgba(97, 31, 105, 0.35);
         box-shadow: 0 0.3rem 0.8rem rgba(73, 26, 84, 0.28);
     }
@@ -216,38 +226,43 @@
 
 @media (max-width: 380px) {
     .workspace-nav-mobile-label {
-        font-size: 1.05rem;
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 350px) {
     .workspace-nav-mobile-tab {
-        padding: 0.75rem 0.1rem 0.8rem;
+        padding: 0.55rem 0.1rem 0.45rem;
     }
 
     .workspace-nav-mobile-icon {
-        width: 2.4rem;
-        height: 2.4rem;
+        width: 2.2rem;
+        height: 2.2rem;
     }
 
     .workspace-nav-mobile-icon svg {
-        width: 2rem;
-        height: 2rem;
+        width: 1.85rem;
+        height: 1.85rem;
+    }
+
+    .workspace-nav-mobile-tab.is-active .workspace-nav-mobile-icon svg {
+        width: 1.95rem;
+        height: 1.95rem;
     }
 
     .workspace-nav-mobile-label {
-        font-size: 0.98rem;
+        font-size: 0.94rem;
         letter-spacing: 0;
     }
 
     .workspace-nav-mobile-profile-avatar {
-        width: 2.4rem;
-        height: 2.4rem;
-        font-size: 1.2rem;
+        width: 2.2rem;
+        height: 2.2rem;
+        font-size: 1.15rem;
     }
 
     .workspace-nav-mobile-profile-avatar.is-active {
-        width: 2.6rem;
-        height: 2.6rem;
+        width: 2.35rem;
+        height: 2.35rem;
     }
 }

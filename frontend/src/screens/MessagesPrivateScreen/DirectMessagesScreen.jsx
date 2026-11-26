@@ -3,8 +3,10 @@ import { useParams } from "react-router";
 import TextareaAutosize from "react-textarea-autosize";
 import { DirectMessagesContext } from "../../Context/DirectMessagesContext/DirectMessagesContext.jsx";
 import { MembersContext } from "../../Context/MembersContext/MembersContext.jsx";
+import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx";
 import { UserContext } from "../../Context/UserContext/UserContext.jsx";
 import { SpinnerLoading } from "../../Components/Ui/SpinnerLoading/SpinnerLoading.jsx";
+import { RefreshButton } from "../../Components/Ui/RefreshButton/RefreshButton.jsx";
 import { messageGrouper } from "../../hooks/useMessagesGrouper.js";
 import { capitalizeFirstLetter } from "../../hooks/useCapitalize.js";
 import useForm from "../../hooks/useForm.js";
@@ -22,9 +24,11 @@ export const DirectMessagesScreen = () => {
         create_direct_message_response,
         create_direct_message_error,
         create_direct_message_loading,
-        handleCreateDirectMessage
+        handleCreateDirectMessage,
+        refreshDirectMessages
     } = useContext(DirectMessagesContext);
-    const { currentWorkspaceMembers } = useContext(MembersContext);
+    const { currentWorkspaceMembers, refreshMembers } = useContext(MembersContext);
+    const { refreshChannels } = useContext(ChannelContext);
     const { userData } = useContext(UserContext);
     const listRef = useRef(null);
 
@@ -67,6 +71,13 @@ export const DirectMessagesScreen = () => {
 
     const groupedMessages = messageGrouper(currentDirectMessages);
 
+    const handleRefreshDirectChat = () =>
+        Promise.all([
+            refreshDirectMessages?.(),
+            refreshMembers?.(),
+            refreshChannels?.()
+        ]);
+
     return (
         <div className="mesages-channel-container">
             {get_direct_messages_loading ? (
@@ -99,6 +110,16 @@ export const DirectMessagesScreen = () => {
                                     </p>
                                 </>
                             )}
+                        </div>
+
+                        <div className="messages-channel-header-actions">
+                            <RefreshButton
+                                variant="light"
+                                label="Actualizar"
+                                onRefresh={handleRefreshDirectChat}
+                                title="Actualizar mensajes directos"
+                                ariaLabel="Actualizar mensajes directos"
+                            />
                         </div>
                     </header>
 

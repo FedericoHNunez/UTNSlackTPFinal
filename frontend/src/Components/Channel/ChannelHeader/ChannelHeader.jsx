@@ -2,18 +2,21 @@ import { useContext, useState } from "react";
 import { useParams } from "react-router";
 import { WorkspaceContext } from "../../../Context/WorkspaceContext/WorkspaceContext.jsx";
 import { ChannelContext } from "../../../Context/ChannelContext/ChannelContext.jsx";
+import { MembersContext } from "../../../Context/MembersContext/MembersContext.jsx";
 import { SearchForm } from "../../Forms/SearchForm/SearchForm.jsx";
 import { InviteMemberModal } from "../../modal/InviteMemberModal.jsx";
 import { EditWorkspaceModal } from "../../modal/EditWorkspaceModal.jsx";
 import { DeleteWorkspaceModal } from "../../modal/DeleteWorkspaceModal.jsx";
 import { WorkspaceSettingsDropdown } from "../../Dropdown/WorkspaceSettingsDropdown.jsx";
+import { RefreshButton } from "../../Ui/RefreshButton/RefreshButton.jsx";
 import { useDropdown } from "../../../hooks/useDropdown.js";
 import "./ChannelHeader.css";
 
 export const ChannelHeader = () => {
     const { workspace_id } = useParams();
-    const { currentWorkspaceList } = useContext(WorkspaceContext);
-    const { searchValue, setSearchValue } = useContext(ChannelContext);
+    const { currentWorkspaceList, refreshWorkspaces } = useContext(WorkspaceContext);
+    const { searchValue, setSearchValue, refreshChannels } = useContext(ChannelContext);
+    const { refreshMembers } = useContext(MembersContext);
 
     const {
         isOpen: isMenuOpen,
@@ -50,6 +53,13 @@ export const ChannelHeader = () => {
         setIsDeleteModalOpen(true);
     };
 
+    const handleRefreshSidebar = () =>
+        Promise.all([
+            refreshChannels?.(),
+            refreshMembers?.(),
+            refreshWorkspaces?.()
+        ]);
+
     return (
         <header className="channel-header">
             <div className="channel-header-top">
@@ -57,39 +67,48 @@ export const ChannelHeader = () => {
                     {currentWorkspace?.workspace_name || "Cargando..."}
                 </h4>
 
-                <div className="channel-header-settings" ref={menuRef}>
-                    <button
-                        type="button"
-                        className="channel-header-settings-btn"
-                        aria-label="Configuración del espacio de trabajo"
-                        aria-expanded={isMenuOpen}
-                        onClick={toggleMenu}
-                    >
-                        <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            aria-hidden="true"
-                        >
-                            <circle cx="12" cy="12" r="3" />
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                        </svg>
-                    </button>
-
-                    <WorkspaceSettingsDropdown
-                        isOpen={isMenuOpen}
-                        userRole={userRole}
-                        canManageWorkspace={canManageWorkspace}
-                        isOwner={isOwner}
-                        onOpenInvite={handleOpenInviteModal}
-                        onOpenEdit={handleOpenEditModal}
-                        onOpenDelete={handleOpenDeleteModal}
+                <div className="channel-header-actions">
+                    <RefreshButton
+                        variant="dark"
+                        onRefresh={handleRefreshSidebar}
+                        title="Actualizar canales y miembros"
+                        ariaLabel="Actualizar canales y miembros"
                     />
+
+                    <div className="channel-header-settings" ref={menuRef}>
+                        <button
+                            type="button"
+                            className="channel-header-settings-btn"
+                            aria-label="Configuración del espacio de trabajo"
+                            aria-expanded={isMenuOpen}
+                            onClick={toggleMenu}
+                        >
+                            <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden="true"
+                            >
+                                <circle cx="12" cy="12" r="3" />
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                            </svg>
+                        </button>
+
+                        <WorkspaceSettingsDropdown
+                            isOpen={isMenuOpen}
+                            userRole={userRole}
+                            canManageWorkspace={canManageWorkspace}
+                            isOwner={isOwner}
+                            onOpenInvite={handleOpenInviteModal}
+                            onOpenEdit={handleOpenEditModal}
+                            onOpenDelete={handleOpenDeleteModal}
+                        />
+                    </div>
                 </div>
             </div>
 

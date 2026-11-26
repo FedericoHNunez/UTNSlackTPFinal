@@ -73,6 +73,12 @@
     cursor: not-allowed;
 }
 
+@media (max-width: 768px) {
+    .send-message-form {
+        padding-top: 0.8rem;
+    }
+}
+
 @media (max-width: 380px) {
     .send-message-box {
         gap: 0.6rem;

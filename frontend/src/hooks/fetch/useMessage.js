@@ -10,11 +10,12 @@ export const useGetMessageList = (workspace_id, channel_id, userToken) => {
 
     const getMessageList = (showLoading = true) => {
         if (workspace_id && channel_id && userToken) {
-            sendRequest(
+            return sendRequest(
                 () => getMessagesByChannelID(workspace_id, channel_id, userToken),
                 showLoading
             );
         }
+        return Promise.resolve();
     };
 
     useEffect(() => {

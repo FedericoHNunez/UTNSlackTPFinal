@@ -57,6 +57,7 @@ export function WorkspaceNavbarDesktop() {
                                     ? `/workspaces/${currentWorkspace_id}/channels`
                                     : "/workspaces"
                             }
+                            title="Canales"
                             className={`workspace-nav-desktop-link ${
                                 !isDirectMessagesActive ? "is-active" : ""
                             }`}
@@ -81,6 +82,7 @@ export function WorkspaceNavbarDesktop() {
                                     ? `/workspaces/${currentWorkspace_id}/MessagesPrivate`
                                     : "/workspaces"
                             }
+                            title="Mensajes directos"
                             className={`workspace-nav-desktop-link ${
                                 isDirectMessagesActive ? "is-active" : ""
                             }`}
@@ -103,7 +105,11 @@ export function WorkspaceNavbarDesktop() {
                         </Link>
                     </li>
                     <li className="workspace-nav-desktop-item">
-                        <button type="button" className="workspace-nav-desktop-link">
+                        <button
+                            type="button"
+                            className="workspace-nav-desktop-link"
+                            title="Actividad"
+                        >
                             <span className="workspace-nav-desktop-icon-box" aria-hidden="true">
                                 <svg
                                     width="20"
@@ -123,7 +129,11 @@ export function WorkspaceNavbarDesktop() {
                         </button>
                     </li>
                     <li className="workspace-nav-desktop-item">
-                        <button type="button" className="workspace-nav-desktop-link">
+                        <button
+                            type="button"
+                            className="workspace-nav-desktop-link"
+                            title="Archivos"
+                        >
                             <span className="workspace-nav-desktop-icon-box" aria-hidden="true">
                                 <svg
                                     width="20"
@@ -143,7 +153,11 @@ export function WorkspaceNavbarDesktop() {
                         </button>
                     </li>
                     <li className="workspace-nav-desktop-item">
-                        <button type="button" className="workspace-nav-desktop-link">
+                        <button
+                            type="button"
+                            className="workspace-nav-desktop-link"
+                            title="Agentes y herramientas"
+                        >
                             <span className="workspace-nav-desktop-icon-box" aria-hidden="true">
                                 <svg
                                     width="20"
@@ -167,7 +181,11 @@ export function WorkspaceNavbarDesktop() {
                         </button>
                     </li>
                     <li className="workspace-nav-desktop-item">
-                        <button type="button" className="workspace-nav-desktop-link">
+                        <button
+                            type="button"
+                            className="workspace-nav-desktop-link"
+                            title="Administrador"
+                        >
                             <span className="workspace-nav-desktop-icon-box" aria-hidden="true">
                                 <svg
                                     width="20"

@@ -2,8 +2,10 @@ import { useContext, useState } from "react";
 import { Link, useParams } from "react-router";
 import { DirectMessagesContext } from "../../Context/DirectMessagesContext/DirectMessagesContext.jsx";
 import { WorkspaceContext } from "../../Context/WorkspaceContext/WorkspaceContext.jsx";
+import { MembersContext } from "../../Context/MembersContext/MembersContext.jsx";
 import { SearchForm } from "../Forms/SearchForm/SearchForm.jsx";
 import { SpinnerLoading } from "../Ui/SpinnerLoading/SpinnerLoading.jsx";
+import { RefreshButton } from "../Ui/RefreshButton/RefreshButton.jsx";
 import { getAvatarColor } from "../../constants/avatarConstants.js";
 import { formatConversationDate } from "../../constants/dateConstants.js";
 import { capitalizeFirstLetter } from "../../hooks/useCapitalize.js";
@@ -15,8 +17,10 @@ export const ConversationList = () => {
     const {
         currentDirectConversations,
         get_conversations_loading,
-        get_conversations_error
+        get_conversations_error,
+        refreshConversations
     } = useContext(DirectMessagesContext);
+    const { refreshMembers } = useContext(MembersContext);
 
     const [searchValue, setSearchValue] = useState("");
 
@@ -55,14 +59,19 @@ export const ConversationList = () => {
             <header className="dm-list-header">
                 <div className="dm-list-header-top">
                     <h4 className="dm-list-header-title">Mensajes directos</h4>
-                    {conversations.length > 0 && (
-                        <span
-                            className="dm-list-count-badge"
-                            title={`${conversations.length} conversaciones`}
-                        >
-                            {conversations.length}
-                        </span>
-                    )}
+                    <div className="dm-list-header-actions">
+                        <RefreshButton
+                            variant="dark"
+                            onRefresh={() =>
+                                Promise.all([
+                                    refreshConversations?.(),
+                                    refreshMembers?.()
+                                ])
+                            }
+                            title="Actualizar conversaciones"
+                            ariaLabel="Actualizar conversaciones"
+                        />
+                    </div>
                 </div>
 
                 <SearchForm

@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { useParams } from "react-router";
 import { ChannelContext } from "../../../Context/ChannelContext/ChannelContext.jsx";
 import { WorkspaceContext } from "../../../Context/WorkspaceContext/WorkspaceContext.jsx";
+import { MessagesContext } from "../../../Context/MessagesContext/MessagesContext.jsx";
+import { MembersContext } from "../../../Context/MembersContext/MembersContext.jsx";
 import {
     DropdownMenu,
     DropdownItem,
@@ -9,14 +11,17 @@ import {
 } from "../../Dropdown/DropdownMenu.jsx";
 import { EditChannelModal } from "../../modal/EditChannelModal.jsx";
 import { DeleteChannelModal } from "../../modal/DeleteChannelModal.jsx";
+import { RefreshButton } from "../../Ui/RefreshButton/RefreshButton.jsx";
 import { useDropdown } from "../../../hooks/useDropdown.js";
 import { ROLE_LABELS } from "../../../constants/roleConstants.js";
 import "./MessagesChannelHeader.css";
 
 export const MessagesChannelHeader = () => {
     const { workspace_id, channel_id } = useParams();
-    const { currentChannelList } = useContext(ChannelContext);
+    const { currentChannelList, refreshChannels } = useContext(ChannelContext);
     const { currentWorkspaceList } = useContext(WorkspaceContext);
+    const { refreshMessages } = useContext(MessagesContext);
+    const { refreshMembers } = useContext(MembersContext);
 
     const {
         isOpen: isMenuOpen,
@@ -51,6 +56,13 @@ export const MessagesChannelHeader = () => {
         setIsDeleteModalOpen(true);
     };
 
+    const handleRefreshChannelView = () =>
+        Promise.all([
+            refreshMessages?.(),
+            refreshChannels?.(),
+            refreshMembers?.()
+        ]);
+
     return (
         <header className="messages-channel-header">
             <div className="messages-channel-header-info">
@@ -76,62 +88,72 @@ export const MessagesChannelHeader = () => {
                 )}
             </div>
 
-            <div className="messages-channel-header-actions" ref={menuRef}>
-                <button
-                    type="button"
-                    className="messages-channel-header-menu-btn"
-                    aria-label="Opciones del canal"
-                    aria-expanded={isMenuOpen}
-                    onClick={toggleMenu}
-                >
-                    <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
+            <div className="messages-channel-header-actions">
+                <RefreshButton
+                    variant="light"
+                    label="Actualizar"
+                    onRefresh={handleRefreshChannelView}
+                    title="Actualizar mensajes y canales"
+                    ariaLabel="Actualizar mensajes y canales"
+                />
+
+                <div className="messages-channel-header-menu" ref={menuRef}>
+                    <button
+                        type="button"
+                        className="messages-channel-header-menu-btn"
+                        aria-label="Opciones del canal"
+                        aria-expanded={isMenuOpen}
+                        onClick={toggleMenu}
                     >
-                        <circle cx="12" cy="5" r="2" />
-                        <circle cx="12" cy="12" r="2" />
-                        <circle cx="12" cy="19" r="2" />
-                    </svg>
-                </button>
-
-                <DropdownMenu isOpen={isMenuOpen} position="bottom-right">
-                    <div className="workspace-settings-dropdown-role">
-                        <span className="workspace-settings-dropdown-role-label">
-                            Privilegio:
-                        </span>
-                        <span
-                            className={`workspace-settings-dropdown-role-badge workspace-settings-dropdown-role-badge--${
-                                userRole || "user"
-                            }`}
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            aria-hidden="true"
                         >
-                            {ROLE_LABELS[userRole] || userRole || "Miembro"}
-                        </span>
-                    </div>
+                            <circle cx="12" cy="5" r="2" />
+                            <circle cx="12" cy="12" r="2" />
+                            <circle cx="12" cy="19" r="2" />
+                        </svg>
+                    </button>
 
-                    {canEditChannel && (
-                        <>
-                            <DropdownDivider />
-                            <DropdownItem onClick={handleOpenEditModal}>
-                                Editar canal
-                            </DropdownItem>
-                        </>
-                    )}
-
-                    {isOwner && (
-                        <>
-                            <DropdownDivider />
-                            <DropdownItem
-                                variant="danger"
-                                onClick={handleOpenDeleteModal}
+                    <DropdownMenu isOpen={isMenuOpen} position="bottom-right">
+                        <div className="workspace-settings-dropdown-role">
+                            <span className="workspace-settings-dropdown-role-label">
+                                Privilegio:
+                            </span>
+                            <span
+                                className={`workspace-settings-dropdown-role-badge workspace-settings-dropdown-role-badge--${
+                                    userRole || "user"
+                                }`}
                             >
-                                Borrar canal
-                            </DropdownItem>
-                        </>
-                    )}
-                </DropdownMenu>
+                                {ROLE_LABELS[userRole] || userRole || "Miembro"}
+                            </span>
+                        </div>
+
+                        {canEditChannel && (
+                            <>
+                                <DropdownDivider />
+                                <DropdownItem onClick={handleOpenEditModal}>
+                                    Editar canal
+                                </DropdownItem>
+                            </>
+                        )}
+
+                        {isOwner && (
+                            <>
+                                <DropdownDivider />
+                                <DropdownItem
+                                    variant="danger"
+                                    onClick={handleOpenDeleteModal}
+                                >
+                                    Borrar canal
+                                </DropdownItem>
+                            </>
+                        )}
+                    </DropdownMenu>
+                </div>
             </div>
 
             <EditChannelModal

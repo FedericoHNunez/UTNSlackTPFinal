@@ -11,11 +11,12 @@ export const useGetDirectMessages = (user_id, userToken, workspace_id) => {
 
     const getDirectMessages = (showLoading = true) => {
         if (user_id && userToken && workspace_id) {
-            sendRequest(
+            return sendRequest(
                 () => getDirectMessagesByUserId(user_id, userToken, workspace_id),
                 showLoading
             );
         }
+        return Promise.resolve();
     };
 
     useEffect(() => {
@@ -52,8 +53,9 @@ export const useGetConversations = (userToken, workspace_id) => {
 
     const getConversations = (showLoading = true) => {
         if (userToken && workspace_id) {
-            sendRequest(() => getDirectConversations(userToken, workspace_id), showLoading);
+            return sendRequest(() => getDirectConversations(userToken, workspace_id), showLoading);
         }
+        return Promise.resolve();
     };
 
     useEffect(() => {

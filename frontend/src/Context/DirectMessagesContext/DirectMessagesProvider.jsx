@@ -70,6 +70,11 @@ export const DirectMessagesProvider = () => {
         createDirectMessage(currentReceiver_id, content, userToken, activeWorkspaceId);
     };
 
+    const refreshConversations = () => getConversations(false);
+
+    const refreshDirectMessages = () =>
+        Promise.all([getDirectMessages(false), getConversations(false)]);
+
     const values = {
         currentReceiver_id,
         setCurrentReceiver_id,
@@ -77,6 +82,8 @@ export const DirectMessagesProvider = () => {
         setCurrentDirectMessages,
         get_direct_messages_error,
         get_direct_messages_loading,
+        getDirectMessages,
+        refreshDirectMessages,
         create_direct_message_response,
         create_direct_message_error,
         create_direct_message_loading,
@@ -86,7 +93,8 @@ export const DirectMessagesProvider = () => {
         get_conversations_loading,
         currentDirectConversations,
         setCurrentDirectConversations,
-        getConversations
+        getConversations,
+        refreshConversations
     };
 
     return (

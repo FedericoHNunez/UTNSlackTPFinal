@@ -170,11 +170,11 @@
     }
 
     .channel-layout-aside-content {
-        padding: 1.4rem 1rem calc(9.8rem + env(safe-area-inset-bottom, 0px));
+        padding: 1.2rem 1rem calc(7.8rem + env(safe-area-inset-bottom, 0px));
     }
 
     .channel-layout-section-content {
-        padding: 1.4rem 1.2rem calc(9.8rem + env(safe-area-inset-bottom, 0px));
+        padding: 1.2rem 1.2rem calc(7.8rem + env(safe-area-inset-bottom, 0px));
     }
 }
 
@@ -191,11 +191,11 @@
     }
 
     .channel-layout-aside-content {
-        padding: 1.2rem 0.8rem calc(9.4rem + env(safe-area-inset-bottom, 0px));
+        padding: 1rem 0.8rem calc(7.5rem + env(safe-area-inset-bottom, 0px));
     }
 
     .channel-layout-section-content {
-        padding: 1.2rem 0.8rem calc(9.4rem + env(safe-area-inset-bottom, 0px));
+        padding: 1rem 0.8rem calc(7.5rem + env(safe-area-inset-bottom, 0px));
     }
 }
 

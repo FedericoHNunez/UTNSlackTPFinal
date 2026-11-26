@@ -1,0 +1,105 @@
+/* =========================================================
+   RefreshButton - Botón reutilizable de recarga manual
+   ========================================================= */
+
+.refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.refresh-btn:disabled {
+    cursor: wait;
+}
+
+.refresh-btn-icon {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.refresh-btn:hover:not(:disabled) .refresh-btn-icon {
+    transform: rotate(35deg);
+}
+
+.refresh-btn.is-refreshing .refresh-btn-icon {
+    animation: refresh-spin 0.7s linear infinite;
+}
+
+/* Variante Light (Encabezados de chat sobre fondo blanco) */
+.refresh-btn--light {
+    height: 3.4rem;
+    min-width: 3.4rem;
+    padding: 0 0.8rem;
+    border: 0.1rem solid var(--color-border-light);
+    border-radius: 0.8rem;
+    background-color: var(--color-white);
+    color: var(--color-text-secondary);
+}
+
+.refresh-btn--light.refresh-btn--with-label {
+    padding: 0 1.1rem;
+}
+
+.refresh-btn--light:hover:not(:disabled),
+.refresh-btn--light.is-refreshing {
+    background-color: var(--color-hover-light);
+    border-color: rgba(97, 31, 105, 0.28);
+    color: var(--color-primary-btn);
+    box-shadow: 0 0.2rem 0.6rem rgba(73, 26, 84, 0.08);
+}
+
+/* Variante Dark (Sidebars de canales y mensajes directos) */
+.refresh-btn--dark {
+    width: 3.2rem;
+    height: 3.2rem;
+    padding: 0;
+    border: none;
+    border-radius: 0.6rem;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.refresh-btn--dark.refresh-btn--with-label {
+    width: auto;
+    padding: 0 0.9rem;
+}
+
+.refresh-btn--dark:hover:not(:disabled),
+.refresh-btn--dark.is-refreshing {
+    background-color: rgba(255, 255, 255, 0.14);
+    color: var(--color-white);
+}
+
+@keyframes refresh-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 560px) {
+    .refresh-btn--light.refresh-btn--with-label {
+        padding: 0;
+        width: 3.4rem;
+    }
+
+    .refresh-btn-label {
+        display: none;
+    }
+}

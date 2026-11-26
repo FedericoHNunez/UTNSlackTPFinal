@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useParams } from "react-router";
 import { MessagesContext } from "./MessagesContext.jsx";
 import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext.jsx";
 import { ChannelContext } from "../ChannelContext/ChannelContext.jsx";
@@ -7,10 +7,14 @@ import { UserContext } from "../UserContext/UserContext.jsx";
 import { useGetMessageList, useCreateMessage } from "../../hooks/fetch/useMessage.js";
 
 export const MessagesProvider = () => {
+    const { workspace_id, channel_id } = useParams();
     const [currentMessagesList, setCurrentMessagesList] = useState([]);
     const { currentWorkspace_id } = useContext(WorkspaceContext);
     const { currentChannel_id } = useContext(ChannelContext);
     const { userToken } = useContext(UserContext);
+
+    const activeWorkspaceId = workspace_id || currentWorkspace_id;
+    const activeChannelId = channel_id || currentChannel_id;
 
     const {
         get_message_response,
@@ -18,7 +22,7 @@ export const MessagesProvider = () => {
         get_message_loading,
         get_message_sendRequest,
         getMessageList
-    } = useGetMessageList(currentWorkspace_id, currentChannel_id, userToken);
+    } = useGetMessageList(activeWorkspaceId, activeChannelId, userToken);
 
     const {
         create_message_response,
@@ -40,8 +44,10 @@ export const MessagesProvider = () => {
     }, [create_message_response]);
 
     const handleCreateMessage = (content) => {
-        createMessage(currentWorkspace_id, currentChannel_id, content, userToken);
+        createMessage(activeWorkspaceId, activeChannelId, content, userToken);
     };
+
+    const refreshMessages = () => getMessageList(false);
 
     const values = {
         currentMessagesList,
@@ -49,6 +55,8 @@ export const MessagesProvider = () => {
         get_message_error,
         get_message_loading,
         get_message_sendRequest,
+        getMessageList,
+        refreshMessages,
         create_message_response,
         create_message_error,
         create_message_loading,

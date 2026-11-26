@@ -11,40 +11,41 @@ import {
 import { UserProfileDropdown } from "../../Dropdown/UserProfileDropdown";
 import { DeactivateAccountModal } from "../../modal/DeactivateAccountModal";
 
-const BAR_HEIGHT = 66;
+const BAR_HEIGHT = 54;
 const PAD_X = 8;
 const ITEM_COUNT = 5;
+const INACTIVE_ICON_CENTER_Y = 16.5;
 
 function buildNotchedBarPath(width, height, cx) {
     const w = Math.max(width, 240);
     const h = height;
-    const r = 20;
+    const r = 16;
     const slotW = (w - PAD_X * 2) / ITEM_COUNT;
 
-    const scale = Math.min(1, Math.max(0.72, slotW / 64));
-    const hw = 46 * scale;
-    const c1 = 27 * scale;
-    const c2 = 33 * scale;
-    const dipY = 34 * scale;
+    const scale = Math.min(1, Math.max(0.76, slotW / 64));
+    const hw = 35 * scale;
+    const c1 = 20 * scale;
+    const c2 = 25 * scale;
+    const dipY = 33.5 * scale;
 
     const xL = cx - hw;
     const xR = cx + hw;
 
     // Transición continua cuando la muesca se acerca al borde izquierdo (ítem 1)
-    const leftBlend = Math.min(1, Math.max(0, (r - xL) / (r + 12)));
-    const leftCrestX = r * (1 - leftBlend) + Math.max(5, cx - 34 * scale) * leftBlend;
-    const leftCrestY = 5.5 * leftBlend;
-    const leftWallTopY = r * (1 - leftBlend) + (leftCrestY + 11) * leftBlend;
+    const leftBlend = Math.min(1, Math.max(0, (r - xL) / (r + 10)));
+    const leftCrestX = r * (1 - leftBlend) + Math.max(4.5, cx - 26 * scale) * leftBlend;
+    const leftCrestY = 4.5 * leftBlend;
+    const leftWallTopY = r * (1 - leftBlend) + (leftCrestY + 9.5) * leftBlend;
     const leftShoulderX = Math.max(leftCrestX, xL);
     const leftCtrl1X = Math.max(leftCrestX + 2, cx - c1);
 
     // Transición continua cuando la muesca se acerca al borde derecho (ítem 5)
     const rightDist = w - r - xR;
-    const rightBlend = Math.min(1, Math.max(0, -rightDist / (r + 12)));
+    const rightBlend = Math.min(1, Math.max(0, -rightDist / (r + 10)));
     const rightCrestX =
-        (w - r) * (1 - rightBlend) + Math.min(w - 5, cx + 34 * scale) * rightBlend;
-    const rightCrestY = 5.5 * rightBlend;
-    const rightWallTopY = r * (1 - rightBlend) + (rightCrestY + 11) * rightBlend;
+        (w - r) * (1 - rightBlend) + Math.min(w - 4.5, cx + 26 * scale) * rightBlend;
+    const rightCrestY = 4.5 * rightBlend;
+    const rightWallTopY = r * (1 - rightBlend) + (rightCrestY + 9.5) * rightBlend;
     const rightShoulderX = Math.min(rightCrestX, xR);
     const rightCtrl2X = Math.min(rightCrestX - 2, cx + c1);
 
@@ -217,19 +218,21 @@ export function WorkspaceNavbarMobile() {
         handleLogout
     } = useWorkspaceNav();
 
+    const barRef = useRef(null);
+
     const {
         isOpen: isMoreOpen,
         toggle: toggleMore,
         close: closeMore,
         dropdownRef: moreRef
-    } = useDropdown();
+    } = useDropdown(false, barRef);
 
     const {
         isOpen: isProfileOpen,
         toggle: toggleProfile,
         close: closeProfile,
         dropdownRef: profileRef
-    } = useDropdown();
+    } = useDropdown(false, barRef);
 
     const [isDeactivateModalOpen, setIsDeactivateModalOpen] = useState(false);
 
@@ -249,7 +252,6 @@ export function WorkspaceNavbarMobile() {
             ? customTabIndex
             : routeIndex;
 
-    const barRef = useRef(null);
     const [barWidth, setBarWidth] = useState(360);
     const [animatedIndex, setAnimatedIndex] = useState(activeIndex);
     const animValueRef = useRef(activeIndex);
@@ -296,12 +298,15 @@ export function WorkspaceNavbarMobile() {
             return;
         }
 
-        const duration = 290;
-        const startTime = performance.now();
+        const duration = 260;
+        let startTime = null;
         let rafId = null;
 
         const tick = (now) => {
-            const elapsed = now - startTime;
+            if (startTime === null) {
+                startTime = now;
+            }
+            const elapsed = Math.max(0, now - startTime);
             const progress = Math.min(1, elapsed / duration);
             const eased = 1 - Math.pow(1 - progress, 3);
             const current = startVal + (targetVal - startVal) * eased;
@@ -322,8 +327,9 @@ export function WorkspaceNavbarMobile() {
 
     const slotWidth = (barWidth - PAD_X * 2) / ITEM_COUNT;
     const indicatorCx = PAD_X + (animatedIndex + 0.5) * slotWidth;
-    const bubbleScale = Math.min(1, Math.max(0.74, slotWidth / 64));
-    const bubbleSize = 50 * bubbleScale;
+    const bubbleScale = Math.min(1, Math.max(0.76, slotWidth / 64));
+    const bubbleSize = 38 * bubbleScale;
+    const bubbleCenterY = 10.5 * bubbleScale;
     const barPath = buildNotchedBarPath(barWidth, BAR_HEIGHT, indicatorCx);
 
     const channelsHref = currentWorkspace_id
@@ -465,7 +471,7 @@ export function WorkspaceNavbarMobile() {
                             width: `${bubbleSize}px`,
                             height: `${bubbleSize}px`,
                             left: `${indicatorCx - bubbleSize / 2}px`,
-                            top: `${3 * bubbleScale - bubbleSize / 2}px`
+                            top: `${bubbleCenterY - bubbleSize / 2}px`
                         }}
                         aria-hidden="true"
                     />
@@ -474,7 +480,11 @@ export function WorkspaceNavbarMobile() {
                         {navItems.map((item, idx) => {
                             const isActive = activeIndex === idx;
                             const iconLiftStyle = isActive
-                                ? { transform: `translateY(${-19 * bubbleScale}px)` }
+                                ? {
+                                      transform: `translateY(${(
+                                          bubbleCenterY - INACTIVE_ICON_CENTER_Y
+                                      ).toFixed(2)}px)`
+                                  }
                                 : undefined;
 
                             if (item.type === "link") {

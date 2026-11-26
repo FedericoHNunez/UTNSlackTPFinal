@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useParams } from "react-router";
 import { ChannelContext } from "./ChannelContext.jsx";
 import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext.jsx";
 import { UserContext } from "../UserContext/UserContext.jsx";
@@ -12,18 +12,21 @@ import {
 import { capitalizeListFields } from "../../hooks/useCapitalize.js";
 
 export const ChannelProvider = () => {
+    const { workspace_id } = useParams();
     const [currentChannelList, setCurrentChannelList] = useState(null);
     const [currentChannel_id, setCurrentChannel_id] = useState(null);
     const [searchValue, setSearchValue] = useState("");
     const { currentWorkspace_id } = useContext(WorkspaceContext);
     const { userToken } = useContext(UserContext);
 
+    const activeWorkspaceId = workspace_id || currentWorkspace_id;
+
     const {
         get_channel_response,
         get_channel_error,
         get_channel_loading,
         getChannelList
-    } = useGetChannelList(currentWorkspace_id, userToken);
+    } = useGetChannelList(activeWorkspaceId, userToken);
 
     useEffect(() => {
         if (get_channel_response) {
@@ -76,22 +79,26 @@ export const ChannelProvider = () => {
     }, [delete_channel_response]);
 
     const handleCreateChannel = (name, description) => {
-        createChannel(currentWorkspace_id, name, description, userToken);
+        createChannel(activeWorkspaceId, name, description, userToken);
     };
 
-    const handleEditChannel = (name, description, channel_id = currentChannel_id, workspace_id = currentWorkspace_id) => {
-        editChannel(workspace_id, channel_id, name, description, userToken);
+    const handleEditChannel = (name, description, channel_id = currentChannel_id, ws_id = activeWorkspaceId) => {
+        editChannel(ws_id, channel_id, name, description, userToken);
     };
 
-    const handleDeleteChannel = (channel_id = currentChannel_id, workspace_id = currentWorkspace_id) => {
-        deleteChannel(workspace_id, channel_id, userToken);
+    const handleDeleteChannel = (channel_id = currentChannel_id, ws_id = activeWorkspaceId) => {
+        deleteChannel(ws_id, channel_id, userToken);
     };
+
+    const refreshChannels = () => getChannelList(false);
 
     const values = {
         currentChannelList,
         setCurrentChannelList,
         get_channel_error,
         get_channel_loading,
+        getChannelList,
+        refreshChannels,
         currentChannel_id,
         setCurrentChannel_id,
         create_channel_loading,

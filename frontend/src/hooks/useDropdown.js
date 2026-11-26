@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export function useDropdown(initialState = false) {
+export function useDropdown(initialState = false, ignoreRef = null) {
     const [isOpen, setIsOpen] = useState(initialState);
     const dropdownRef = useRef(null);
 
@@ -10,14 +10,18 @@ export function useDropdown(initialState = false) {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target) &&
+                !(ignoreRef?.current && ignoreRef.current.contains(event.target))
+            ) {
                 setIsOpen(false);
             }
         };
 
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+    }, [ignoreRef]);
 
     return {
         isOpen,

@@ -13,8 +13,9 @@ export const useGetWorkspaceList = (userToken) => {
 
     const getWorkspaceList = (showLoading = true) => {
         if (userToken) {
-            sendRequest(() => getWorkspaceByUserService(userToken), showLoading);
+            return sendRequest(() => getWorkspaceByUserService(userToken), showLoading);
         }
+        return Promise.resolve();
     };
 
     useEffect(() => {
