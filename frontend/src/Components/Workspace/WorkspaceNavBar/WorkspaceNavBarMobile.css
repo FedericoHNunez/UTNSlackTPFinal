@@ -266,3 +266,31 @@
         height: 2.35rem;
     }
 }
+
+html[data-theme="dark"] #mobileNavBarFill stop:first-child {
+    stop-color: #2d3139;
+}
+
+html[data-theme="dark"] #mobileNavBarFill stop:last-child {
+    stop-color: #202328;
+}
+
+html[data-theme="dark"] .workspace-nav-mobile-bg-svg path {
+    stroke: rgba(255, 255, 255, 0.16);
+}
+
+html[data-theme="dark"] .workspace-nav-mobile-more-icon {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #e6e8ec;
+}
+
+html[data-theme="dark"] .dropdown-menu-item:hover .workspace-nav-mobile-more-icon {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: var(--color-white);
+}
+
+.workspace-nav-mobile-more-icon.is-focus-active,
+html[data-theme="dark"] .workspace-nav-mobile-more-icon.is-focus-active {
+    background-color: rgba(236, 178, 46, 0.18);
+    color: var(--color-accent-yellow);
+}

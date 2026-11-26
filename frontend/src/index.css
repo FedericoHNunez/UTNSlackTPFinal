@@ -423,3 +423,125 @@ p {
     padding: 0 1.2rem;
   }
 }
+
+/* =========================================================
+   Modo Concentración (Paleta Gris Pizarra Suave + Transición)
+   ========================================================= */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.42s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms;
+  }
+}
+
+html.theme-transitioning,
+html.theme-transitioning body,
+html.theme-transitioning .nav-layout,
+html.theme-transitioning .nav-layout-header,
+html.theme-transitioning .nav-layout-nav,
+html.theme-transitioning .nav-layout-main,
+html.theme-transitioning .channel-layout-aside,
+html.theme-transitioning .channel-layout-section,
+html.theme-transitioning .channel-layout-mobile-bar,
+html.theme-transitioning .messages-channel-header,
+html.theme-transitioning .messages-channel-header-menu-btn,
+html.theme-transitioning .refresh-btn,
+html.theme-transitioning .send-message-box,
+html.theme-transitioning .channel-welcome-hero,
+html.theme-transitioning .channel-welcome-steps,
+html.theme-transitioning .channel-feature-card,
+html.theme-transitioning .dropdown-menu,
+html.theme-transitioning .modal-card {
+  transition:
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+html[data-theme="dark"] {
+  --color-header-bg: #202328;
+  --color-sidebar-bg: #272b31;
+  --color-dark-surface: #2f333a;
+  --color-surface-elevated: #383d46;
+  --color-disabled-bg: #404550;
+  --color-hover-light: #414752;
+  --color-hover-subtle: #363b44;
+  --color-overlay: rgba(15, 17, 21, 0.68);
+
+  --color-text-main: #e6e8ec;
+  --color-text-secondary: #c0c5ce;
+  --color-text-muted: #9da3ae;
+  --color-text-placeholder: #8e95a2;
+  --color-border-light: rgba(255, 255, 255, 0.12);
+  --color-border-input: #5c6370;
+  --border-input-hover: rgba(255, 255, 255, 0.45);
+  --color-focus-ring: rgba(54, 197, 240, 0.22);
+  --color-link: #36c5f0;
+
+  --color-error-bg: rgba(224, 30, 90, 0.16);
+  --color-error-border: rgba(224, 30, 90, 0.52);
+  --color-error-text: #ff8fa9;
+  --color-success-bg: rgba(46, 182, 125, 0.16);
+  --color-success-border: rgba(46, 182, 125, 0.52);
+  --color-success-text: #74ebb9;
+
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] * {
+  scrollbar-color: rgba(255, 255, 255, 0.24) transparent;
+}
+
+html[data-theme="dark"] *::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.24);
+}
+
+html[data-theme="dark"] *::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.38);
+}
+
+html[data-theme="dark"] body {
+  background-color: var(--color-dark-surface);
+  color: var(--color-text-main);
+}
+
+html[data-theme="dark"] .form-field label,
+html[data-theme="dark"] .login-field label,
+html[data-theme="dark"] .register-field label {
+  color: #f4f6f8;
+}
+
+html[data-theme="dark"] .form-field input,
+html[data-theme="dark"] .form-field select,
+html[data-theme="dark"] .form-field textarea,
+html[data-theme="dark"] .login-field input,
+html[data-theme="dark"] .login-field select,
+html[data-theme="dark"] .login-field textarea,
+html[data-theme="dark"] .register-field input,
+html[data-theme="dark"] .register-field select,
+html[data-theme="dark"] .register-field textarea {
+  background-color: var(--color-dark-surface);
+  color: #f4f6f8;
+  border-color: var(--color-border-input);
+}
+
+html[data-theme="dark"] .form-field input:focus,
+html[data-theme="dark"] .form-field select:focus,
+html[data-theme="dark"] .form-field textarea:focus,
+html[data-theme="dark"] .login-field input:focus,
+html[data-theme="dark"] .login-field select:focus,
+html[data-theme="dark"] .login-field textarea:focus,
+html[data-theme="dark"] .register-field input:focus,
+html[data-theme="dark"] .register-field select:focus,
+html[data-theme="dark"] .register-field textarea:focus {
+  border-color: var(--color-accent-blue);
+  box-shadow: var(--shadow-input-focus);
+}

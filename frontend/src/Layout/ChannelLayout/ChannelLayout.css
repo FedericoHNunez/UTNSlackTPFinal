@@ -199,3 +199,31 @@
     }
 }
 
+/* =========================================================
+   Modo Concentración (Paleta Gris Pizarra Suave)
+   ========================================================= */
+
+html[data-theme="dark"] .channel-layout-aside {
+    background: linear-gradient(180deg, #2b2f36 0%, var(--color-sidebar-bg) 100%);
+    border-right-color: rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme="dark"] .channel-layout-section {
+    background-color: var(--color-dark-surface);
+    color: var(--color-text-main);
+}
+
+html[data-theme="dark"] .channel-layout-mobile-bar--section {
+    background-color: var(--color-dark-surface);
+    border-bottom-color: var(--color-border-light);
+}
+
+html[data-theme="dark"] .channel-layout-back-btn {
+    background-color: rgba(54, 197, 240, 0.16);
+    color: var(--color-accent-blue);
+}
+
+html[data-theme="dark"] .channel-layout-back-btn:hover {
+    background-color: rgba(54, 197, 240, 0.24);
+}
+

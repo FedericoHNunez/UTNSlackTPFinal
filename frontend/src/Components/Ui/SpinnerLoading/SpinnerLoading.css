@@ -111,3 +111,19 @@
     opacity: 1;
   }
 }
+
+html[data-theme="dark"] .spinner-wrapper:not(.spinner-dark) {
+  background-color: var(--color-dark-surface);
+}
+
+html[data-theme="dark"] .spinner-wrapper:not(.spinner-dark) .spinner-ring {
+  border-color: rgba(255, 255, 255, 0.16);
+  border-top-color: #cbd5e1;
+  border-right-color: var(--color-accent-blue);
+  border-bottom-color: var(--color-accent-green);
+  border-left-color: var(--color-accent-red);
+}
+
+html[data-theme="dark"] .spinner-wrapper:not(.spinner-dark) .spinner-text {
+  color: var(--color-text-main);
+}

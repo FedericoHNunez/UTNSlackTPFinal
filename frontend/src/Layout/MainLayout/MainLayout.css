@@ -166,3 +166,15 @@
         max-height: calc(100dvh - 4.4rem);
     }
 }
+
+/* Modo Concentración: Borde sutil del contenedor principal estilo Slack Dark */
+html[data-theme="dark"] .nav-layout-main {
+    border: 0.1rem solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+    html[data-theme="dark"] .nav-layout-main {
+        border: none;
+        border-top: 0.1rem solid rgba(255, 255, 255, 0.08);
+    }
+}

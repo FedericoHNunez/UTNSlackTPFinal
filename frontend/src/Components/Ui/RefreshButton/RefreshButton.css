@@ -103,3 +103,17 @@
         display: none;
     }
 }
+
+html[data-theme="dark"] .refresh-btn--light {
+    background-color: var(--color-surface-elevated);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--color-text-main);
+}
+
+html[data-theme="dark"] .refresh-btn--light:hover:not(:disabled),
+html[data-theme="dark"] .refresh-btn--light.is-refreshing {
+    background-color: var(--color-hover-light);
+    border-color: rgba(255, 255, 255, 0.24);
+    color: var(--color-white);
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.35);
+}

@@ -245,3 +245,20 @@
     color: rgba(255, 255, 255, 0.65);
     line-height: 1.4;
 }
+
+html[data-theme="dark"] .dm-list-link.is-active {
+    background-color: var(--color-channel-active);
+    color: var(--color-white);
+}
+
+html[data-theme="dark"] .dm-list-link.is-active .dm-list-status-dot {
+    border-color: var(--color-channel-active);
+}
+
+html[data-theme="dark"] .dm-list-link.is-active .dm-list-time {
+    color: rgba(255, 255, 255, 0.86);
+}
+
+html[data-theme="dark"] .dm-list-link.is-active .dm-list-last-message {
+    color: rgba(255, 255, 255, 0.88);
+}

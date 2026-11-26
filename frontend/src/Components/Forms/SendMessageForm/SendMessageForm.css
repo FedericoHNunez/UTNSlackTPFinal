@@ -96,3 +96,17 @@
         font-size: 1.25rem;
     }
 }
+
+html[data-theme="dark"] .send-message-box {
+    background-color: var(--color-surface-elevated);
+    border-color: var(--color-border-input);
+}
+
+html[data-theme="dark"] .send-message-box:focus-within {
+    border-color: #868686;
+    box-shadow: 0 0 0 0.2rem rgba(54, 197, 240, 0.18);
+}
+
+html[data-theme="dark"] .send-message-input {
+    color: #f2f3f5;
+}

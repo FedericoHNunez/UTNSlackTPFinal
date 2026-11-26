@@ -230,3 +230,25 @@
         font-size: 1.45rem;
     }
 }
+
+html[data-theme="dark"] .modal-card {
+    background-color: var(--color-surface-elevated);
+    border: 0.1rem solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 2rem 5.4rem rgba(0, 0, 0, 0.68);
+}
+
+html[data-theme="dark"] .modal-header h2 {
+    color: #f8f8f8;
+}
+
+html[data-theme="dark"] .modal-cancel-btn {
+    background-color: var(--color-dark-surface);
+    color: var(--color-text-main);
+    border-color: var(--color-border-input);
+}
+
+html[data-theme="dark"] .modal-cancel-btn:hover {
+    background-color: var(--color-hover-light);
+    border-color: var(--border-input-hover);
+    color: #f8f8f8;
+}

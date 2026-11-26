@@ -1,8 +1,9 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 import "./WorkspaceNavBarMobile.css";
 import { useDropdown } from "../../../hooks/useDropdown";
 import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
+import { FocusModeContext } from "../../../Context/FocusModeContext/FocusModeContext";
 import {
     DropdownMenu,
     DropdownItem,
@@ -210,6 +211,7 @@ function renderTabIcon(id, isActive, userInitial) {
 
 export function WorkspaceNavbarMobile() {
     const location = useLocation();
+    const { isFocusMode, toggleFocusMode } = useContext(FocusModeContext);
     const {
         currentWorkspace_id,
         userData,
@@ -615,16 +617,23 @@ export function WorkspaceNavbarMobile() {
 
                                             <DropdownDivider />
 
-                                            <DropdownItem onClick={closeMore}>
+                                            <DropdownItem
+                                                onClick={() => {
+                                                    toggleFocusMode();
+                                                    closeMore();
+                                                }}
+                                            >
                                                 <span
-                                                    className="workspace-nav-mobile-more-icon"
+                                                    className={`workspace-nav-mobile-more-icon ${
+                                                        isFocusMode ? "is-focus-active" : ""
+                                                    }`}
                                                     aria-hidden="true"
                                                 >
                                                     <svg
                                                         width="17"
                                                         height="17"
                                                         viewBox="0 0 24 24"
-                                                        fill="none"
+                                                        fill={isFocusMode ? "currentColor" : "none"}
                                                         stroke="currentColor"
                                                         strokeWidth="1.9"
                                                         strokeLinecap="round"
@@ -633,7 +642,11 @@ export function WorkspaceNavbarMobile() {
                                                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                                                     </svg>
                                                 </span>
-                                                <span>Cambiar tema</span>
+                                                <span>
+                                                    {isFocusMode
+                                                        ? "Desactivar modo concentración"
+                                                        : "Modo concentración"}
+                                                </span>
                                             </DropdownItem>
                                         </DropdownMenu>
                                     </li>

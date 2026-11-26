@@ -127,3 +127,7 @@
         border-radius: 0.6rem;
     }
 }
+
+html[data-theme="dark"] .message-bubble-author {
+    color: #f8f8f8;
+}

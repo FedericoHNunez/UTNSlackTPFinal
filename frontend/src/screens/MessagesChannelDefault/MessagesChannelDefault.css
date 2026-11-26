@@ -522,3 +522,48 @@
         }
     }
 }
+
+/* =========================================================
+   Modo Concentración (Paleta Gris Pizarra Suave)
+   ========================================================= */
+
+html[data-theme="dark"] .channel-welcome-hero {
+    background: linear-gradient(135deg, #3a3f4a 0%, #333842 56%, #2b2f37 100%);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.28);
+}
+
+html[data-theme="dark"] .channel-welcome-badge {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #e6e8ec;
+}
+
+html[data-theme="dark"] .channel-welcome-title,
+html[data-theme="dark"] .channel-welcome-section-header h2,
+html[data-theme="dark"] .channel-feature-body h3 {
+    color: #f4f6f8;
+}
+
+html[data-theme="dark"] .channel-welcome-highlight {
+    color: var(--color-accent-blue);
+}
+
+html[data-theme="dark"] .channel-welcome-steps {
+    background-color: var(--color-surface-elevated);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme="dark"] .channel-welcome-steps-title {
+    color: #cbd5e1;
+}
+
+html[data-theme="dark"] .channel-feature-card {
+    background-color: var(--color-surface-elevated);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0.4rem 1.4rem rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme="dark"] .channel-feature-card:hover {
+    border-color: rgba(54, 197, 240, 0.38);
+    box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.32);
+}

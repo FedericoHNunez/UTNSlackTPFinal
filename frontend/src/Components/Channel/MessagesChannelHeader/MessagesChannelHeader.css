@@ -158,3 +158,26 @@
         max-width: 100%;
     }
 }
+
+html[data-theme="dark"] .messages-channel-header-title {
+    color: #f8f8f8;
+}
+
+html[data-theme="dark"] .messages-channel-header-hash {
+    background-color: rgba(54, 197, 240, 0.14);
+    color: var(--color-accent-blue);
+}
+
+html[data-theme="dark"] .messages-channel-header-menu-btn {
+    background-color: var(--color-surface-elevated);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--color-text-main);
+}
+
+html[data-theme="dark"] .messages-channel-header-menu-btn:hover,
+html[data-theme="dark"] .messages-channel-header-menu-btn[aria-expanded="true"] {
+    background-color: var(--color-hover-light);
+    border-color: rgba(255, 255, 255, 0.24);
+    color: var(--color-white);
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.35);
+}

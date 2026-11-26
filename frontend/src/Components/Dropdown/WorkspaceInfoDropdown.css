@@ -72,3 +72,15 @@
     margin: 0;
     word-break: break-word;
 }
+
+html[data-theme="dark"] .workspace-info-dropdown-name {
+    color: #f8f8f8;
+}
+
+html[data-theme="dark"] .workspace-info-dropdown-description-box {
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+html[data-theme="dark"] .workspace-info-dropdown-description-label {
+    color: #cbd5e1;
+}

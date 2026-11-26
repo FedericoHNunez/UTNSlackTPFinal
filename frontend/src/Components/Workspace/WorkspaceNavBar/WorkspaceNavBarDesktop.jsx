@@ -1,11 +1,14 @@
+import { useContext } from "react";
 import { Link } from "react-router";
 import "./WorkspaceNavBarDesktop.css";
 import { useDropdown } from "../../../hooks/useDropdown";
 import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
+import { FocusModeContext } from "../../../Context/FocusModeContext/FocusModeContext";
 import { UserProfileMenu } from "../../Dropdown/UserProfileMenu";
 import { WorkspaceInfoDropdown } from "../../Dropdown/WorkspaceInfoDropdown";
 
 export function WorkspaceNavbarDesktop() {
+    const { isFocusMode, toggleFocusMode } = useContext(FocusModeContext);
     const {
         currentWorkspace_id,
         currentWorkspaceObj,
@@ -212,15 +215,27 @@ export function WorkspaceNavbarDesktop() {
                     <li className="workspace-nav-desktop-item">
                         <button
                             type="button"
-                            className="workspace-nav-desktop-circle-btn"
-                            aria-label="Cambiar tema"
-                            title="Tema"
+                            className={`workspace-nav-desktop-circle-btn ${
+                                isFocusMode ? "is-active" : ""
+                            }`}
+                            aria-label={
+                                isFocusMode
+                                    ? "Desactivar modo concentración"
+                                    : "Activar modo concentración"
+                            }
+                            aria-pressed={isFocusMode}
+                            title={
+                                isFocusMode
+                                    ? "Modo concentración activo (clic para desactivar)"
+                                    : "Modo concentración"
+                            }
+                            onClick={toggleFocusMode}
                         >
                             <svg
                                 width="18"
                                 height="18"
                                 viewBox="0 0 24 24"
-                                fill="none"
+                                fill={isFocusMode ? "currentColor" : "none"}
                                 stroke="currentColor"
                                 strokeWidth="1.9"
                                 strokeLinecap="round"

@@ -123,23 +123,48 @@
     word-break: break-word;
 }
 
-/* Botón circular inferior (Tema / Luna) */
+/* Botón circular inferior (Modo concentración / Luna) */
 .workspace-nav-desktop-circle-btn {
     width: 3.4rem;
     height: 3.4rem;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.18);
     color: rgba(255, 255, 255, 0.92);
-    border: none;
+    border: 0.1rem solid transparent;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.15s ease;
+    transition:
+        background-color 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.15s ease;
+}
+
+.workspace-nav-desktop-circle-btn svg {
+    transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .workspace-nav-desktop-circle-btn:hover {
     background-color: rgba(255, 255, 255, 0.28);
+    transform: translateY(-0.1rem);
+}
+
+.workspace-nav-desktop-circle-btn.is-active {
+    background-color: rgba(236, 178, 46, 0.18);
+    border-color: rgba(236, 178, 46, 0.52);
+    color: var(--color-accent-yellow);
+    box-shadow: 0 0 1.2rem rgba(236, 178, 46, 0.22);
+}
+
+.workspace-nav-desktop-circle-btn.is-active svg {
+    transform: rotate(-14deg) scale(1.06);
+}
+
+.workspace-nav-desktop-circle-btn.is-active:hover {
+    background-color: rgba(236, 178, 46, 0.26);
 }
 
 /* Avatar inferior del usuario con indicador de estado verde */

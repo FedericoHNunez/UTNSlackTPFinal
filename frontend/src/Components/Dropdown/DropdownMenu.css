@@ -164,3 +164,23 @@
         left: 6.4rem;
     }
 }
+
+html[data-theme="dark"] .dropdown-menu {
+    background-color: var(--color-surface-elevated);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 1.2rem 3.4rem rgba(0, 0, 0, 0.62);
+}
+
+html[data-theme="dark"] .dropdown-menu-item:hover {
+    background-color: var(--color-channel-active);
+    color: var(--color-white);
+}
+
+html[data-theme="dark"] .dropdown-menu-item--danger {
+    color: #ff6b93;
+}
+
+html[data-theme="dark"] .dropdown-menu-item--danger:hover {
+    background-color: var(--color-accent-red);
+    color: var(--color-white);
+}
