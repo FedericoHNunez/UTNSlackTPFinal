@@ -357,6 +357,39 @@ workspaceRouter.put('/:workspace_id',
  *       500:
  *         $ref: '#/components/responses/ServerError500'
  */
+workspaceRouter.get('/:workspace_id/search',
+    authMiddleware,
+    workSpaceMiddleware(['owner', 'admin', 'user']),
+    workspaceController.searchInWorkspace);
+/**
+ * @openapi
+ * /workspaces/{workspace_id}/search:
+ *   get:
+ *     tags: [Workspaces]
+ *     summary: Buscar canales, miembros y mensajes dentro de un workspace
+ *     description: >
+ *       Busca coincidencias por texto en canales (nombre y descripción), miembros (nombre y email),
+ *       mensajes activos de los canales del workspace y mensajes directos del usuario autenticado.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - $ref: '#/components/parameters/WorkspaceId'
+ *       - in: query
+ *         name: q
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Texto a buscar dentro del espacio de trabajo.
+ *     responses:
+ *       200:
+ *         description: Búsqueda realizada correctamente.
+ *       401:
+ *         $ref: '#/components/responses/Unauthorized401'
+ *       403:
+ *         $ref: '#/components/responses/Forbidden403'
+ *       404:
+ *         description: El workspace no existe.
+ */
 workspaceRouter.get('/:workspace_id',
     authMiddleware,
     workSpaceMiddleware(['owner', 'admin', 'user']),

@@ -81,3 +81,26 @@ export async function editWorkspaceService(workspace_id, name, description, toke
 
     return response_body;
 }
+
+export async function searchInWorkspaceService(workspace_id, query, token, signal) {
+    const params = new URLSearchParams({ q: query });
+    const response_http = await fetch(
+        `${url_backend}/api/workspaces/${workspace_id}/search?${params.toString()}`,
+        {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            signal,
+        }
+    );
+
+    const response_body = await response_http.json();
+    if (!response_body.ok) {
+        throw new Error(
+            response_body.message || "Error al buscar en el espacio de trabajo."
+        );
+    }
+
+    return response_body;
+}

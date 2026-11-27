@@ -110,6 +110,25 @@ class DirectMessageRepository extends BaseRepository {
         );
     }
 
+    async searchDirectMessagesInWorkspace(userId, workspaceMemberIds, regex, limit = 15) {
+        if (!Array.isArray(workspaceMemberIds) || workspaceMemberIds.length === 0) {
+            return [];
+        }
+        return await this.model
+            .find({
+                active: { $ne: false },
+                content: { $regex: regex },
+                $or: [
+                    { id_sender: userId, id_receiver: { $in: workspaceMemberIds } },
+                    { id_receiver: userId, id_sender: { $in: workspaceMemberIds } }
+                ]
+            })
+            .populate('id_sender', 'userName email')
+            .populate('id_receiver', 'userName email')
+            .sort({ createdAt: -1 })
+            .limit(limit);
+    }
+
 }
 
 

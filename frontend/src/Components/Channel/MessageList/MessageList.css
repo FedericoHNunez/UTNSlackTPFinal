@@ -135,6 +135,17 @@
     background-color: rgba(97, 31, 105, 0.06);
 }
 
+.message-item.is-search-highlighted {
+    background-color: rgba(236, 178, 46, 0.28);
+    box-shadow: 0 0 0 0.15rem rgba(236, 178, 46, 0.55);
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+html[data-theme="dark"] .message-item.is-search-highlighted {
+    background-color: rgba(236, 178, 46, 0.22);
+    box-shadow: 0 0 0 0.15rem rgba(236, 178, 46, 0.48);
+}
+
 .message-item-main {
     flex: 1;
     min-width: 0;

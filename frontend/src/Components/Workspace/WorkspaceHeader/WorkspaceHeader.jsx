@@ -2,8 +2,10 @@ import { SearchForm } from "../../Forms/SearchForm/SearchForm";
 import { useDropdown } from "../../../hooks/useDropdown";
 import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
 import { useWorkspaceHistory } from "../../../hooks/useWorkspaceHistory";
+import { useWorkspaceSearch } from "../../../hooks/useWorkspaceSearch";
 import { WorkspaceInfoDropdown } from "../../Dropdown/WorkspaceInfoDropdown";
 import { WorkspaceHistoryDropdown } from "../../Dropdown/WorkspaceHistoryDropdown";
+import { WorkspaceSearchDropdown } from "../../Dropdown/WorkspaceSearchDropdown";
 import "./WorkspaceHeader.css";
 
 export const WorkspaceHeader = () => {
@@ -38,6 +40,37 @@ export const WorkspaceHeader = () => {
         close: closeHistory,
         dropdownRef: historyRef
     } = useDropdown();
+
+    const {
+        isOpen: isSearchOpen,
+        open: openSearch,
+        close: closeSearch,
+        dropdownRef: searchRef
+    } = useDropdown();
+
+    const {
+        query: searchQuery,
+        activeTab: searchTab,
+        setActiveTab: setSearchTab,
+        channels: searchedChannels,
+        members: searchedMembers,
+        messages: searchedMessages,
+        totalCount: searchTotalCount,
+        isSearchingMessages,
+        searchError,
+        inputRef: searchInputRef,
+        handleChangeQuery,
+        handleClearQuery,
+        handleSelectChannel,
+        handleSelectMember,
+        handleSelectMessage,
+        handleSubmitFirstResult,
+        handleInputKeyDown
+    } = useWorkspaceSearch({
+        isOpen: isSearchOpen,
+        openDropdown: openSearch,
+        closeDropdown: closeSearch
+    });
 
     const workspaceName = currentWorkspaceObj?.workspace_name || "el espacio de trabajo";
     const backTitle = previousItem
@@ -162,9 +195,34 @@ export const WorkspaceHeader = () => {
                         onClearHistory={handleClearHistory}
                     />
                 </div>
-                <SearchForm
-                    placeholder={`Buscar en ${workspaceName}`}
-                />
+                <div className="workspace-header-search-wrapper" ref={searchRef}>
+                    <SearchForm
+                        placeholder={`Buscar en ${workspaceName}`}
+                        value={searchQuery}
+                        onChange={handleChangeQuery}
+                        onFocus={openSearch}
+                        onKeyDown={handleInputKeyDown}
+                        onSubmit={handleSubmitFirstResult}
+                        onClear={handleClearQuery}
+                        inputRef={searchInputRef}
+                    />
+                    <WorkspaceSearchDropdown
+                        isOpen={isSearchOpen}
+                        workspaceName={workspaceName}
+                        query={searchQuery}
+                        activeTab={searchTab}
+                        onChangeTab={setSearchTab}
+                        channels={searchedChannels}
+                        members={searchedMembers}
+                        messages={searchedMessages}
+                        totalCount={searchTotalCount}
+                        isSearchingMessages={isSearchingMessages}
+                        searchError={searchError}
+                        onSelectChannel={handleSelectChannel}
+                        onSelectMember={handleSelectMember}
+                        onSelectMessage={handleSelectMessage}
+                    />
+                </div>
                 <button
                     type="button"
                     className="workspace-header-btn workspace-header-slack-btn"

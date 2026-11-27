@@ -43,6 +43,14 @@ class WorkspaceController {
         return successResponse(res, "Invitación enviada correctamente.");
     }
 
+    async searchInWorkspace(req, res) {
+        const workspace_id = req.workspace_selected._id;
+        const user_id = req.user.id;
+        const query = req.query.q || "";
+        const results = await workspaceService.searchInWorkspace(workspace_id, user_id, query);
+        return successResponse(res, "Búsqueda realizada correctamente.", results);
+    }
+
 
 }
 const workspaceController = new WorkspaceController();

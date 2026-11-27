@@ -29,6 +29,22 @@ class ChannelMessageRepository extends BaseRepository {
             { returnDocument: 'after' }
         );
     }
+
+    async searchMessagesByChannelIds(channelIds, regex, limit = 15) {
+        if (!Array.isArray(channelIds) || channelIds.length === 0) {
+            return [];
+        }
+        return await this.model
+            .find({
+                id_channel: { $in: channelIds },
+                active: { $ne: false },
+                content: { $regex: regex }
+            })
+            .populate('id_user', 'userName')
+            .populate('id_channel', 'name')
+            .sort({ createdAt: -1 })
+            .limit(limit);
+    }
 }
 
 const channelMessageRepository = new ChannelMessageRepository();

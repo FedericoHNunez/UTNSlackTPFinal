@@ -7,6 +7,7 @@ import { isValidEmail } from "../helpers/emailHelpers/emailvalidation.helper.js"
 import emailFormater from "../helpers/emailHelpers/emailFormater.helper.js";
 import mailer_transporter from "../config/mailer.config.js";
 import channelMessageRepository from "../repositories/channelMessage.repository.js";
+import directMessageRepository from "../repositories/directMessage.repository.js";
 
 class WorkspaceService {
     async getWorkspaces(filter = null) {
@@ -167,6 +168,103 @@ class WorkspaceService {
             })
         await mailer_transporter.sendMail(emailFormated);
         return true;
+    }
+
+    async searchInWorkspace(workspace_id, user_id, rawQuery = "") {
+        const trimmedQuery = String(rawQuery || "").trim().slice(0, 100);
+        if (!trimmedQuery) {
+            return {
+                channels: [],
+                members: [],
+                channelMessages: [],
+                directMessages: []
+            };
+        }
+
+        const escapedQuery = trimmedQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const searchRegex = new RegExp(escapedQuery, "i");
+
+        const [channelsInWorkspace, membersInWorkspace] = await Promise.all([
+            channelRepository.getChannelsByWorkspaceId(workspace_id),
+            memberRepository.getMenbersByWorkspaceId(workspace_id)
+        ]);
+
+        const channelIds = channelsInWorkspace.map((ch) => ch._id);
+        const validMembers = membersInWorkspace.filter((m) => Boolean(m.id_user?._id));
+        const memberUserIds = validMembers.map((m) => m.id_user._id);
+
+        const matchedChannels = channelsInWorkspace
+            .filter(
+                (ch) =>
+                    searchRegex.test(ch.name || "") ||
+                    searchRegex.test(ch.description || "")
+            )
+            .slice(0, 10)
+            .map((ch) => ({
+                channel_id: ch._id,
+                channel_name: ch.name,
+                channel_description: ch.description
+            }));
+
+        const matchedMembers = validMembers
+            .filter(
+                (m) =>
+                    searchRegex.test(m.id_user.userName || "") ||
+                    searchRegex.test(m.id_user.email || "")
+            )
+            .slice(0, 10)
+            .map((m) => ({
+                user_id: m.id_user._id,
+                userName: m.id_user.userName,
+                email: m.id_user.email,
+                role: m.role
+            }));
+
+        const [foundChannelMsgs, foundDirectMsgs] = await Promise.all([
+            channelMessageRepository.searchMessagesByChannelIds(
+                channelIds,
+                searchRegex,
+                15
+            ),
+            directMessageRepository.searchDirectMessagesInWorkspace(
+                user_id,
+                memberUserIds,
+                searchRegex,
+                15
+            )
+        ]);
+
+        const channelMessages = foundChannelMsgs.map((msg) => ({
+            message_id: msg._id,
+            content: msg.content,
+            createdAt: msg.createdAt,
+            channel_id: msg.id_channel?._id || msg.id_channel,
+            channel_name: msg.id_channel?.name || "canal",
+            author_id: msg.id_user?._id || msg.id_user,
+            author_name: msg.id_user?.userName || "Usuario"
+        }));
+
+        const directMessages = foundDirectMsgs.map((dm) => {
+            const isOwn = String(dm.id_sender?._id) === String(user_id);
+            const contactObj = isOwn ? dm.id_receiver : dm.id_sender;
+            return {
+                message_id: dm._id,
+                content: dm.content,
+                createdAt: dm.createdAt,
+                contact_id: contactObj?._id,
+                contact_name: contactObj?.userName || "Usuario",
+                author_id: dm.id_sender?._id,
+                author_name: dm.id_sender?.userName || "Usuario",
+                is_own: isOwn
+            };
+        });
+
+        return {
+            channels: matchedChannels,
+            members: matchedMembers,
+            channelMessages,
+            directMessages
+        };
     }
 }
 

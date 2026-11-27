@@ -61,6 +61,14 @@
     align-items: center;
 }
 
+.workspace-header-search-wrapper {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .workspace-header-slack-btn {
     border: 0.1rem solid rgba(255, 255, 255, 0.22);
     border-radius: 0.6rem;

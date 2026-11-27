@@ -60,6 +60,30 @@
     color: var(--color-white);
 }
 
+.search-form.has-custom-clear .search-form-input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.search-form-clear-btn {
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.78);
+    padding: 0.35rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.search-form-clear-btn:hover {
+    background-color: rgba(255, 255, 255, 0.16);
+    color: var(--color-white);
+}
+
 /* =========================================================
    Responsive Celular (<= 768px)
    ========================================================= */
