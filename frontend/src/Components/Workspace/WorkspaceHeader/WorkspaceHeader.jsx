@@ -1,7 +1,9 @@
 import { SearchForm } from "../../Forms/SearchForm/SearchForm";
 import { useDropdown } from "../../../hooks/useDropdown";
 import { useWorkspaceNav } from "../../../hooks/useWorkspaceNav";
+import { useWorkspaceHistory } from "../../../hooks/useWorkspaceHistory";
 import { WorkspaceInfoDropdown } from "../../Dropdown/WorkspaceInfoDropdown";
+import { WorkspaceHistoryDropdown } from "../../Dropdown/WorkspaceHistoryDropdown";
 import "./WorkspaceHeader.css";
 
 export const WorkspaceHeader = () => {
@@ -12,13 +14,48 @@ export const WorkspaceHeader = () => {
     } = useWorkspaceNav();
 
     const {
+        canGoBack,
+        canGoForward,
+        previousItem,
+        nextItem,
+        recentItems,
+        goBack,
+        goForward,
+        navigateToPath,
+        clearHistory
+    } = useWorkspaceHistory();
+
+    const {
         isOpen: isWorkspaceInfoOpen,
         toggle: toggleWorkspaceInfo,
         close: closeWorkspaceInfo,
         dropdownRef: workspaceInfoRef
     } = useDropdown();
 
+    const {
+        isOpen: isHistoryOpen,
+        toggle: toggleHistory,
+        close: closeHistory,
+        dropdownRef: historyRef
+    } = useDropdown();
+
     const workspaceName = currentWorkspaceObj?.workspace_name || "el espacio de trabajo";
+    const backTitle = previousItem
+        ? `Atrás a ${previousItem.displayTitle} (Alt+←)`
+        : "Sin historial anterior";
+    const forwardTitle = nextItem
+        ? `Adelante a ${nextItem.displayTitle} (Alt+→)`
+        : "Sin historial siguiente";
+
+    const handleSelectHistoryItem = (path) => {
+        navigateToPath(path);
+        closeHistory();
+    };
+
+    const handleClearHistory = () => {
+        clearHistory();
+        closeHistory();
+    };
 
     return (
         <div className="workspace-header">
@@ -47,8 +84,10 @@ export const WorkspaceHeader = () => {
                 <button
                     type="button"
                     className="workspace-header-btn"
-                    aria-label="Atrás"
-                    title="Atrás"
+                    aria-label={backTitle}
+                    title={backTitle}
+                    disabled={!canGoBack}
+                    onClick={goBack}
                 >
                     <svg
                         width="18"
@@ -68,8 +107,10 @@ export const WorkspaceHeader = () => {
                 <button
                     type="button"
                     className="workspace-header-btn"
-                    aria-label="Adelante"
-                    title="Adelante"
+                    aria-label={forwardTitle}
+                    title={forwardTitle}
+                    disabled={!canGoForward}
+                    onClick={goForward}
                 >
                     <svg
                         width="18"
@@ -86,27 +127,41 @@ export const WorkspaceHeader = () => {
                         <polyline points="12 5 19 12 12 19" />
                     </svg>
                 </button>
-                <button
-                    type="button"
-                    className="workspace-header-btn"
-                    aria-label="Historial"
-                    title="Historial"
-                >
-                    <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
+                <div className="workspace-header-history" ref={historyRef}>
+                    <button
+                        type="button"
+                        className={`workspace-header-btn ${
+                            isHistoryOpen ? "is-active" : ""
+                        }`.trim()}
+                        aria-label="Historial reciente"
+                        aria-expanded={isHistoryOpen}
+                        aria-haspopup="menu"
+                        title="Historial reciente"
+                        onClick={toggleHistory}
                     >
-                        <circle cx="12" cy="12" r="9" />
-                        <polyline points="12 7 12 12 15.5 12" />
-                    </svg>
-                </button>
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                        >
+                            <circle cx="12" cy="12" r="9" />
+                            <polyline points="12 7 12 12 15.5 12" />
+                        </svg>
+                    </button>
+
+                    <WorkspaceHistoryDropdown
+                        isOpen={isHistoryOpen}
+                        recentItems={recentItems}
+                        onSelectItem={handleSelectHistoryItem}
+                        onClearHistory={handleClearHistory}
+                    />
+                </div>
                 <SearchForm
                     placeholder={`Buscar en ${workspaceName}`}
                 />

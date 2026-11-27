@@ -38,9 +38,9 @@ const App = () => {
         <Route element={<AuthMiddleware />}>
           <Route element={<WorkspaceProvider />}>
             <Route path="/workspaces" element={<WorkspaceScreen />} />
-            <Route path="/workspaces/:workspace_id/" element={<NavLayout />}>
-              <Route element={<MembersProvider />}>
-                <Route element={<ChannelProvider />}>
+            <Route path="/workspaces/:workspace_id/" element={<MembersProvider />}>
+              <Route element={<ChannelProvider />}>
+                <Route element={<NavLayout />}>
                   <Route path="/workspaces/:workspace_id/channels" element={<ChannelLayout />}>
                     <Route index element={<MessagesChannelDefaultScreen />} />
                     <Route element={<MessagesProvider />}>

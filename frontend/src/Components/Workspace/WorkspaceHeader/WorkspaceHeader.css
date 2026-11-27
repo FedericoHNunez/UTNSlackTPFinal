@@ -40,9 +40,25 @@
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.workspace-header-btn:hover {
+.workspace-header-btn:hover:not(:disabled) {
     background-color: rgba(255, 255, 255, 0.14);
     color: var(--color-white);
+}
+
+.workspace-header-btn.is-active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--color-white);
+}
+
+.workspace-header-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.workspace-header-history {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
 }
 
 .workspace-header-slack-btn {
@@ -99,6 +115,7 @@
     }
 
     .workspace-header-search-group > .workspace-header-btn,
+    .workspace-header-history,
     .workspace-header-help-btn,
     .workspace-header-actions {
         display: none;
