@@ -1,4 +1,4 @@
-import { useContext, useEffect, useLayoutEffect, useRef } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router";
 import TextareaAutosize from "react-textarea-autosize";
 import { DirectMessagesContext } from "../../Context/DirectMessagesContext/DirectMessagesContext.jsx";
@@ -7,7 +7,10 @@ import { ChannelContext } from "../../Context/ChannelContext/ChannelContext.jsx"
 import { UserContext } from "../../Context/UserContext/UserContext.jsx";
 import { SpinnerLoading } from "../../Components/Ui/SpinnerLoading/SpinnerLoading.jsx";
 import { RefreshButton } from "../../Components/Ui/RefreshButton/RefreshButton.jsx";
+import { MessageItem } from "../../Components/Channel/MessageList/MessageItem.jsx";
 import { messageGrouper } from "../../hooks/useMessagesGrouper.js";
+import { useMessageEditor } from "../../hooks/useMessageEditor.js";
+import { useAutoScrollMessages } from "../../hooks/useAutoScrollMessages.js";
 import { capitalizeFirstLetter } from "../../hooks/useCapitalize.js";
 import useForm from "../../hooks/useForm.js";
 import "../MessagesChannelScreen/MessagesChannelScreen.css";
@@ -25,12 +28,32 @@ export const DirectMessagesScreen = () => {
         create_direct_message_error,
         create_direct_message_loading,
         handleCreateDirectMessage,
+        edit_direct_message_response,
+        edit_direct_message_error,
+        edit_direct_message_loading,
+        handleEditDirectMessage,
+        delete_direct_message_response,
+        delete_direct_message_error,
+        delete_direct_message_loading,
+        handleDeleteDirectMessage,
         refreshDirectMessages
     } = useContext(DirectMessagesContext);
     const { currentWorkspaceMembers, refreshMembers } = useContext(MembersContext);
     const { refreshChannels } = useContext(ChannelContext);
     const { userData } = useContext(UserContext);
-    const listRef = useRef(null);
+
+    const listRef = useAutoScrollMessages(currentDirectMessages, user_id);
+    const editor = useMessageEditor({
+        onSave: handleEditDirectMessage,
+        editResponse: edit_direct_message_response,
+        editLoading: edit_direct_message_loading,
+        editError: edit_direct_message_error,
+        onDelete: handleDeleteDirectMessage,
+        deleteResponse: delete_direct_message_response,
+        deleteLoading: delete_direct_message_loading,
+        deleteError: delete_direct_message_error,
+        resetKey: user_id
+    });
 
     const { formState, handleChangeInput, resetForm } = useForm({ content: "" });
 
@@ -47,12 +70,6 @@ export const DirectMessagesScreen = () => {
             resetForm();
         }
     }, [create_direct_message_response]);
-
-    useLayoutEffect(() => {
-        if (listRef.current) {
-            listRef.current.scrollTop = listRef.current.scrollHeight;
-        }
-    }, [currentDirectMessages, user_id]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -136,7 +153,9 @@ export const DirectMessagesScreen = () => {
 
                         <div className="message-list-bubbles">
                             {groupedMessages?.map((group) => {
-                                const isOwn = group.userName === userData?.userName;
+                                const isOwn = Boolean(
+                                    userData?.userName && group.userName === userData.userName
+                                );
                                 const firstMsgDate = group.messages[0]?.createdAt
                                     ? new Date(
                                           group.messages[0].createdAt
@@ -199,7 +218,12 @@ export const DirectMessagesScreen = () => {
 
                                             <div className="message-bubble-content">
                                                 {group.messages.map((msg) => (
-                                                    <p key={msg._id}>{msg.content}</p>
+                                                    <MessageItem
+                                                        key={msg._id}
+                                                        msg={msg}
+                                                        isOwn={isOwn}
+                                                        editor={editor}
+                                                    />
                                                 ))}
                                             </div>
                                         </div>

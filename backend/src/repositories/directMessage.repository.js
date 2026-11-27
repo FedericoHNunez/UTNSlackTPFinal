@@ -41,7 +41,15 @@ class DirectMessageRepository extends BaseRepository {
             {
                 $group: {
                     _id: '$contactId',
-                    lastMessage: { $first: '$content' },
+                    lastMessage: {
+                        $first: {
+                            $cond: [
+                                { $eq: ['$active', false] },
+                                'Este mensaje fue eliminado.',
+                                '$content'
+                            ]
+                        }
+                    },
                     lastMessageAt: { $first: '$createdAt' }
                 }
             },
@@ -89,6 +97,17 @@ class DirectMessageRepository extends BaseRepository {
             .sort({ createdAt: 1 })
             .populate('id_receiver', 'userName')
             .populate('id_sender', 'userName');
+    }
+
+    async softDeleteById(message_id) {
+        return await this.model.findByIdAndUpdate(
+            message_id,
+            {
+                active: false,
+                content: 'Este mensaje fue eliminado.'
+            },
+            { returnDocument: 'after' }
+        );
     }
 
 }

@@ -18,6 +18,10 @@ const directMessageSchema = new mongoose.Schema(
             required: true,
             ref: USER_COLLECTION_NAME
         },
+        active: {
+            type: Boolean,
+            default: true
+        }
     },
     {
         timestamps: true

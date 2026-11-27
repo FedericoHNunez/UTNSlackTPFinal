@@ -17,6 +17,10 @@ const channelMessagesSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: USER_COLLECTION_NAME
+    },
+    active: {
+        type: Boolean,
+        default: true
     }
 },
 {

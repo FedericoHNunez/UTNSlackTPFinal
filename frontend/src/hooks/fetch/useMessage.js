@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import useRequest from "./useRequest.js";
 import {
     getMessagesByChannelID,
-    createMessageChannel
+    createMessageChannel,
+    editMessageChannel,
+    deleteMessageChannel
 } from "../../services/messagesChannelService.js";
 
 export const useGetMessageList = (workspace_id, channel_id, userToken) => {
@@ -45,5 +47,39 @@ export const useCreateMessage = () => {
         create_message_error: error,
         create_message_loading: loading,
         createMessage
+    };
+};
+
+export const useEditMessage = () => {
+    const { response, error, loading, sendRequest } = useRequest();
+
+    const editMessage = (workspace_id, channel_id, message_id, content, userToken) => {
+        return sendRequest(() =>
+            editMessageChannel(workspace_id, channel_id, message_id, content, userToken)
+        );
+    };
+
+    return {
+        edit_message_response: response,
+        edit_message_error: error,
+        edit_message_loading: loading,
+        editMessage
+    };
+};
+
+export const useDeleteMessage = () => {
+    const { response, error, loading, sendRequest } = useRequest();
+
+    const deleteMessage = (workspace_id, channel_id, message_id, userToken) => {
+        return sendRequest(() =>
+            deleteMessageChannel(workspace_id, channel_id, message_id, userToken)
+        );
+    };
+
+    return {
+        delete_message_response: response,
+        delete_message_error: error,
+        delete_message_loading: loading,
+        deleteMessage
     };
 };

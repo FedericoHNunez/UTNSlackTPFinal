@@ -1,29 +1,50 @@
-import { useContext, useEffect, useLayoutEffect, useRef } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router";
 import { MessagesContext } from "../../../Context/MessagesContext/MessagesContext.jsx";
 import { ChannelContext } from "../../../Context/ChannelContext/ChannelContext.jsx";
 import { UserContext } from "../../../Context/UserContext/UserContext.jsx";
 import { messageGrouper } from "../../../hooks/useMessagesGrouper.js";
+import { useMessageEditor } from "../../../hooks/useMessageEditor.js";
+import { useAutoScrollMessages } from "../../../hooks/useAutoScrollMessages.js";
+import { MessageItem } from "./MessageItem.jsx";
 import "./MessageList.css";
 
 export const MessageList = () => {
     const { channel_id } = useParams();
-    const { currentMessagesList, get_message_error } = useContext(MessagesContext);
+    const {
+        currentMessagesList,
+        get_message_error,
+        edit_message_response,
+        edit_message_error,
+        edit_message_loading,
+        handleEditMessage,
+        delete_message_response,
+        delete_message_error,
+        delete_message_loading,
+        handleDeleteMessage
+    } = useContext(MessagesContext);
     const { setCurrentChannel_id } = useContext(ChannelContext);
     const { userData } = useContext(UserContext);
-    const listRef = useRef(null);
+
+    const listRef = useAutoScrollMessages(currentMessagesList, channel_id);
+
+    const editor = useMessageEditor({
+        onSave: handleEditMessage,
+        editResponse: edit_message_response,
+        editLoading: edit_message_loading,
+        editError: edit_message_error,
+        onDelete: handleDeleteMessage,
+        deleteResponse: delete_message_response,
+        deleteLoading: delete_message_loading,
+        deleteError: delete_message_error,
+        resetKey: channel_id
+    });
 
     useEffect(() => {
         if (channel_id) {
             setCurrentChannel_id(channel_id);
         }
     }, [channel_id]);
-
-    useLayoutEffect(() => {
-        if (listRef.current) {
-            listRef.current.scrollTop = listRef.current.scrollHeight;
-        }
-    }, [currentMessagesList, channel_id]);
 
     const messagesGroupe = messageGrouper(currentMessagesList);
 
@@ -37,7 +58,9 @@ export const MessageList = () => {
 
             <div className="message-list-bubbles">
                 {messagesGroupe?.map((group) => {
-                    const isOwn = group.userName === userData?.userName;
+                    const isOwn = Boolean(
+                        userData?.userName && group.userName === userData.userName
+                    );
                     const firstMsgDate = group.messages[0]?.createdAt
                         ? new Date(group.messages[0].createdAt).toLocaleTimeString([], {
                               hour: "2-digit",
@@ -75,7 +98,12 @@ export const MessageList = () => {
 
                                 <div className="message-bubble-content">
                                     {group.messages.map((msg) => (
-                                        <p key={msg._id}>{msg.content}</p>
+                                        <MessageItem
+                                            key={msg._id}
+                                            msg={msg}
+                                            isOwn={isOwn}
+                                            editor={editor}
+                                        />
                                     ))}
                                 </div>
                             </div>

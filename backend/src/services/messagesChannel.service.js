@@ -35,6 +35,10 @@ class MessagesChannelService {
             throw new ServerError("Mensaje no encontrado.", 404);
         }
 
+        if (messageFound.active === false) {
+            throw new ServerError("No se puede editar un mensaje eliminado.", 400);
+        }
+
         if (user_id && messageFound.id_user.toString() !== user_id.toString()) {
             throw new ServerError("No tienes permisos para editar este mensaje.", 403);
         }
@@ -57,7 +61,11 @@ class MessagesChannelService {
             throw new ServerError("No tienes permisos para eliminar este mensaje.", 403);
         }
 
-        const deletedMessage = await channelMessageRepository.deleteById(message_id);
+        if (messageFound.active === false) {
+            throw new ServerError("El mensaje ya fue eliminado.", 400);
+        }
+
+        const deletedMessage = await channelMessageRepository.softDeleteById(message_id);
         return deletedMessage;
     }
 }

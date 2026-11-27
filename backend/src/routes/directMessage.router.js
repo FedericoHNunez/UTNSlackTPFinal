@@ -276,6 +276,7 @@ directMessageRouter.patch('/:user_id', directMessageController.editMessageConten
  *         $ref: '#/components/responses/ServerError500'
  */
 directMessageRouter.get('/:user_id', directMessageController.getMessagesByReceiverId);
+directMessageRouter.delete('/:user_id/:message_id', directMessageController.deleteDirectMessage);
 /**
  * @openapi
  * /directMessages/{user_id}:

@@ -3,7 +3,9 @@ import useRequest from "./useRequest.js";
 import {
     getDirectConversations,
     getDirectMessagesByUserId,
-    createDirectMessage as createDirectMessageService
+    createDirectMessage as createDirectMessageService,
+    editDirectMessage as editDirectMessageService,
+    deleteDirectMessage as deleteDirectMessageService
 } from "../../services/directMessageService.js";
 
 export const useGetDirectMessages = (user_id, userToken, workspace_id) => {
@@ -67,5 +69,39 @@ export const useGetConversations = (userToken, workspace_id) => {
         get_conversations_error: error,
         get_conversations_loading: loading,
         getConversations
+    };
+};
+
+export const useEditDirectMessage = () => {
+    const { response, error, loading, sendRequest } = useRequest();
+
+    const editDirectMessage = (user_id, message_id, content, userToken, workspace_id) => {
+        return sendRequest(() =>
+            editDirectMessageService(user_id, message_id, content, userToken, workspace_id)
+        );
+    };
+
+    return {
+        edit_direct_message_response: response,
+        edit_direct_message_error: error,
+        edit_direct_message_loading: loading,
+        editDirectMessage
+    };
+};
+
+export const useDeleteDirectMessage = () => {
+    const { response, error, loading, sendRequest } = useRequest();
+
+    const deleteDirectMessage = (user_id, message_id, userToken, workspace_id) => {
+        return sendRequest(() =>
+            deleteDirectMessageService(user_id, message_id, userToken, workspace_id)
+        );
+    };
+
+    return {
+        delete_direct_message_response: response,
+        delete_direct_message_error: error,
+        delete_direct_message_loading: loading,
+        deleteDirectMessage
     };
 };

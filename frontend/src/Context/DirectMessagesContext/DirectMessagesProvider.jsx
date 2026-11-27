@@ -6,7 +6,9 @@ import { WorkspaceContext } from "../WorkspaceContext/WorkspaceContext.jsx";
 import {
     useGetDirectMessages,
     useCreateDirectMessage,
-    useGetConversations
+    useGetConversations,
+    useEditDirectMessage,
+    useDeleteDirectMessage
 } from "../../hooks/fetch/useDirectMessage.js";
 
 export const DirectMessagesProvider = () => {
@@ -38,6 +40,20 @@ export const DirectMessagesProvider = () => {
     } = useCreateDirectMessage();
 
     const {
+        edit_direct_message_response,
+        edit_direct_message_error,
+        edit_direct_message_loading,
+        editDirectMessage
+    } = useEditDirectMessage();
+
+    const {
+        delete_direct_message_response,
+        delete_direct_message_error,
+        delete_direct_message_loading,
+        deleteDirectMessage
+    } = useDeleteDirectMessage();
+
+    const {
         get_conversations_response,
         get_conversations_error,
         get_conversations_loading,
@@ -58,6 +74,44 @@ export const DirectMessagesProvider = () => {
     }, [create_direct_message_response]);
 
     useEffect(() => {
+        const updated = edit_direct_message_response?.data?.editedMessage;
+        if (updated?._id) {
+            setCurrentDirectMessages((prev) =>
+                prev.map((msg) =>
+                    msg._id === updated._id
+                        ? {
+                              ...msg,
+                              content: updated.content,
+                              updatedAt: updated.updatedAt || new Date().toISOString()
+                          }
+                        : msg
+                )
+            );
+            getDirectMessages(false);
+            getConversations(false);
+        }
+    }, [edit_direct_message_response]);
+
+    useEffect(() => {
+        const deleted = delete_direct_message_response?.data?.deletedMessage;
+        if (deleted?._id) {
+            setCurrentDirectMessages((prev) =>
+                prev.map((msg) =>
+                    msg._id === deleted._id
+                        ? {
+                              ...msg,
+                              active: false,
+                              content: deleted.content || "Este mensaje fue eliminado."
+                          }
+                        : msg
+                )
+            );
+            getDirectMessages(false);
+            getConversations(false);
+        }
+    }, [delete_direct_message_response]);
+
+    useEffect(() => {
         if (get_conversations_response?.data?.directConversations) {
             setCurrentDirectConversations(
                 get_conversations_response.data.directConversations
@@ -68,6 +122,27 @@ export const DirectMessagesProvider = () => {
     const handleCreateDirectMessage = (content) => {
         if (!currentReceiver_id || !activeWorkspaceId) return;
         createDirectMessage(currentReceiver_id, content, userToken, activeWorkspaceId);
+    };
+
+    const handleEditDirectMessage = (message_id, content) => {
+        if (!currentReceiver_id || !activeWorkspaceId || !message_id) return;
+        return editDirectMessage(
+            currentReceiver_id,
+            message_id,
+            content,
+            userToken,
+            activeWorkspaceId
+        );
+    };
+
+    const handleDeleteDirectMessage = (message_id) => {
+        if (!currentReceiver_id || !activeWorkspaceId || !message_id) return;
+        return deleteDirectMessage(
+            currentReceiver_id,
+            message_id,
+            userToken,
+            activeWorkspaceId
+        );
     };
 
     const refreshConversations = () => getConversations(false);
@@ -88,6 +163,14 @@ export const DirectMessagesProvider = () => {
         create_direct_message_error,
         create_direct_message_loading,
         handleCreateDirectMessage,
+        edit_direct_message_response,
+        edit_direct_message_error,
+        edit_direct_message_loading,
+        handleEditDirectMessage,
+        delete_direct_message_response,
+        delete_direct_message_error,
+        delete_direct_message_loading,
+        handleDeleteDirectMessage,
         get_conversations_response,
         get_conversations_error,
         get_conversations_loading,

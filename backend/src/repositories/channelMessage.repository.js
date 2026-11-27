@@ -18,6 +18,17 @@ class ChannelMessageRepository extends BaseRepository {
         return await this.model
             .deleteMany({ id_channel: channel_id });
     }
+
+    async softDeleteById(message_id) {
+        return await this.model.findByIdAndUpdate(
+            message_id,
+            {
+                active: false,
+                content: 'Este mensaje fue eliminado.'
+            },
+            { returnDocument: 'after' }
+        );
+    }
 }
 
 const channelMessageRepository = new ChannelMessageRepository();

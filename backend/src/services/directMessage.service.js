@@ -31,15 +31,39 @@ class DirectMessageService {
         return conversations;
     }
 
-    async editMessageContent(messageId, newMessageContent) {
+    async editMessageContent(messageId, newMessageContent, user_id) {
         if (!messageId || !newMessageContent) {
             throw new ServerError("El identificador del mensaje y el nuevo contenido son obligatorios.", 400);
         }
-        const directMessage = await directMessageRepository.updateById(messageId, { content: newMessageContent });
-        if (!directMessage) {
+        const messageFound = await directMessageRepository.getById(messageId);
+        if (!messageFound) {
             throw new ServerError("Mensaje no encontrado.", 404);
         }
+        if (messageFound.active === false) {
+            throw new ServerError("No se puede editar un mensaje eliminado.", 400);
+        }
+        if (user_id && messageFound.id_sender.toString() !== user_id.toString()) {
+            throw new ServerError("No tienes permisos para editar este mensaje.", 403);
+        }
+        const directMessage = await directMessageRepository.updateById(messageId, { content: newMessageContent });
         return directMessage;
+    }
+
+    async deleteDirectMessage(messageId, user_id) {
+        if (!messageId) {
+            throw new ServerError("El identificador del mensaje es obligatorio.", 400);
+        }
+        const messageFound = await directMessageRepository.getById(messageId);
+        if (!messageFound) {
+            throw new ServerError("Mensaje no encontrado.", 404);
+        }
+        if (user_id && messageFound.id_sender.toString() !== user_id.toString()) {
+            throw new ServerError("No tienes permisos para eliminar este mensaje.", 403);
+        }
+        if (messageFound.active === false) {
+            throw new ServerError("El mensaje ya fue eliminado.", 400);
+        }
+        return await directMessageRepository.softDeleteById(messageId);
     }
 
     async getMessagesByReceiverId(sender_id, receiver_id) {

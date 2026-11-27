@@ -17,8 +17,16 @@ class DirectMessageController {
     }
     async editMessageContent(req, res) {
         const { message_id, content } = req.body;
-        const editedMessage = await directMessageService.editMessageContent(message_id, content);
+        const user_id = req.user.id;
+        const editedMessage = await directMessageService.editMessageContent(message_id, content, user_id);
         return successResponse(res, "Mensaje editado correctamente.", { editedMessage });
+    }
+
+    async deleteDirectMessage(req, res) {
+        const message_id = req.params.message_id || req.body?.message_id;
+        const user_id = req.user.id;
+        const deletedMessage = await directMessageService.deleteDirectMessage(message_id, user_id);
+        return successResponse(res, "Mensaje eliminado correctamente.", { deletedMessage });
     }
 
     async getMessagesByReceiverId(req, res) {
